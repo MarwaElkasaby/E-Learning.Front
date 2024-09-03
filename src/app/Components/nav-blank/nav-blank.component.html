@@ -1,0 +1,75 @@
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <!-- Brand -->
+      <a class="navbar-brand" href="#" routerLink="home">EduGate
+        <!-- <img src="./assets/images/freshcart-logo.svg" alt="Brand Logo" height="40"> -->
+      </a>
+  
+      <!-- Toggler Button for Mobile -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+  
+      <!-- Collapsible Content -->
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <!-- Left Side Nav Links -->
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a  class="nav-link text-capitalize" routerLink="category" routerLinkActive="active" >Category</a>
+          </li>
+          
+          <!-- Uncomment and add more links if needed -->
+          <!-- <li class="nav-item">
+            <a class="nav-link text-capitalize" routerLink="products" routerLinkActive="active">Products</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-capitalize" routerLink="categories" routerLinkActive="active">Categories</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-capitalize" routerLink="brands" routerLinkActive="active">Brands</a>
+          </li> -->
+          <!-- <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Settings
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Update Password</a></li>
+              <li><a class="dropdown-item" href="#">Forgot Password</a></li>
+            </ul>
+          </li> -->
+        </ul>
+  
+        <!-- Search Bar -->
+        <form class="d-flex mx-auto my-2 my-lg-0" style="width: 50%;">
+            <input class="form-control me-2 flex-grow-1" type="search" placeholder="Search" aria-label="Search" style="border-radius: 20px;">
+            <button class="btn btn-outline-success" type="submit" style="border-radius: 20px;">Search</button>
+        </form>
+        
+        
+          
+        <!-- Right Side Icons and Profile -->
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 d-flex align-items-center">
+            <li class="nav-item">
+                <a class="nav-link text-capitalize" routerLink="createCourse" routerLinkActive="active">Instructor</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-capitalize" routerLink="userCourses" routerLinkActive="active">My Learning</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" routerLink="wishlist" routerLinkActive="active"><i class="fas fa-heart fa-lg"></i></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" routerLink="cart" routerLinkActive="active"><i class="fas fa-shopping-cart fa-lg"></i></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link d-flex align-items-center justify-content-center bg-dark text-white rounded-circle" routerLink="userProfile" routerLinkActive="active" style="width: 30px; height: 30px;">
+            <i class="fas fa-user"></i>
+                </a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  
+  
