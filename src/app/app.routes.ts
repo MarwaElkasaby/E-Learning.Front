@@ -4,14 +4,15 @@ import { CartComponent } from './Components/cart/cart.component';
 import { HomeComponent } from './Components/home/home.component';
 import { CourseContentComponent } from './Components/course-content/course-content.component';
 import { AuthLayoutComponent } from './Components/auth-layout/auth-layout.component';
-import { LoginComponent } from './Components/login/login.component';
-import { RegisterComponent } from './Components/register/register.component';
+
 import { NotFoundComponent } from './Components/not-found/not-found.component';
 import { CategoryComponent } from './Components/category/category.component';
 import { WishlistComponent } from './Components/wishlist/wishlist.component';
 import { EditUserProfileComponent } from './Components/edit-user-profile/edit-user-profile.component';
 import { UserCoursesComponent } from './Components/user-courses/user-courses.component';
 import { CourseLayoutComponent } from './Components/course-layout/course-layout.component';
+import { LoginComponent } from './pages/login/login.component';
+import { RegisterComponent } from './pages/register/register.component';
 
 export const routes: Routes = [
     {path:'',redirectTo:'login', pathMatch:'full'},
