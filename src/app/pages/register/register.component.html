@@ -1,1 +1,42 @@
-<p>register works!</p>
+<form class="row g-3" #singUpForm="ngForm" (ngSubmit)="onSubmit(singUpForm)">
+
+    <div class="mb-3">
+        <label for="email" class="form-label">enter your email</label>
+        <input type="email" class="form-control" id="email" placeholder="email" [(ngModel)] ="registerform.email" name="email">
+      </div>
+<p>{{emailerrormessage}}</p>
+      <div class="row">
+        <div class="col">
+          <input type="text" class="form-control" placeholder="First name" aria-label="First name" 
+           [(ngModel)]="registerform.fName" name="fName">
+        </div>
+        <div class="col">
+          <input type="text" class="form-control" placeholder="Last name" aria-label="Last name" 
+          [(ngModel)]="registerform.LName" name="LName">
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Enter your password</label>
+        <input type="password" class="form-control" id="password" placeholder="password" 
+        [(ngModel)] ="registerform.password" name="password">
+      </div>
+        <p>{{passworderrormessage}}</p>
+
+        <div class="mb-3">
+            <label for="confirmPassword" class="form-label">Confirm your password</label>
+            <input type="password" class="form-control" id="confirmPassword" placeholder="confirm password"
+             [(ngModel)] ="registerform.confirmPassword" name="confirmPassword">
+        </div>
+        <p>{{confirmPassworderrormessage}}</p>
+        <div class="col-12">
+            <label for="phone" class="form-label">pgone number</label>
+            <input type="text" class="form-control" id="phone" placeholder="enter your phone number" name="phone"
+             [(ngModel)]="registerform.phone"> 
+          </div>
+
+        <button type="submit" class="btn btn-success">
+ submit           
+        </button>
+
+      
+</form>
