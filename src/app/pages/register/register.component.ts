@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
-import { UserService } from '../../services/user.service';
+import { UserService } from '../../shared/services/user.service';
 
 @Component({
   selector: 'app-register',
@@ -39,7 +39,7 @@ ngOnInit(): void {
     confirmPassword: '',
     phone: 0,
     userRole: 0
-    
+
   }
 }
 
@@ -67,14 +67,14 @@ onSubmit(form: NgForm) {
   this.clearErrorMessages();
         this.confirmPassworderrormessage = error.error.errors.ConfirmPassword;
       console.log(error.error.errors.ConfirmPassword[0]);
-      
+
       }
         }
 
 
       if (error.error.detail) {
         console.log(error.error.detail);
-        
+
 
         if (error.error.detail.includes('Username')) {
           this.clearErrorMessages();
@@ -86,7 +86,7 @@ onSubmit(form: NgForm) {
           this.clearErrorMessages();
           this.passworderrormessage = error.error.detail;
         }
-        
+
       }
     }
   });

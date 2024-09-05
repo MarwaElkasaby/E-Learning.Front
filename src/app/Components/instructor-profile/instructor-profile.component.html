@@ -1,1 +1,119 @@
-<p>instructor-profile works!</p>
+<div class="container my-5">
+  <div class="row flex-row-reverse">
+    <!-- Instructor Info Section -->
+     <div class="col-md-3">
+  <div class="card text-center shadow-sm border-0 rounded-lg overflow-hidden">
+    <div class="position-relative">
+      <img
+        src="{{ instructorInfo.profilePicture }}"
+        alt="Instructor Profile Image"
+        class="card-img-top rounded-circle mx-auto mt-4 border border-light shadow"
+        style="width: 120px; height: 120px; object-fit: cover; z-index: 10; position: relative;"
+      />
+      <div class="bg-primary-gradient position-absolute w-100 h-50 top-0" style="z-index: 1;"></div>
+    </div>
+    <div class="card-body bg-light">
+      <h5 class="card-title mb-1">{{ instructorInfo.fName }} {{ instructorInfo.lName }}</h5>
+      <div class="d-flex justify-content-around my-3">
+        <div>
+          <span class="text-secondary">Total Students</span><br />
+          <strong>{{ instructorInfo.totalStudents }}</strong>
+        </div>
+        <div>
+          <span class="text-secondary">Reviews</span><br />
+          <strong>{{ instructorInfo.totalReviews }}</strong>
+        </div>
+      </div>
+      <button class="btn btn-primary btn-sm w-75 mx-auto shadow-sm">Send Message</button>
+    </div>
+    <div class="card-footer bg-white border-0 py-3">
+      <div class="d-grid gap-2">
+        <a href="{{ instructorInfo.twitter }}" target="_blank" class="btn btn-social btn-sm w-100 mb-2 twitter-btn">
+          <i class="fab fa-twitter me-2"></i>Twitter
+        </a>
+        <a href="{{ instructorInfo.facebook }}" target="_blank" class="btn btn-social btn-sm w-100 mb-2 facebook-btn">
+          <i class="fab fa-facebook-f me-2"></i>Facebook
+        </a>
+        <a href="{{ instructorInfo.linkedin }}" target="_blank" class="btn btn-social btn-sm w-100 mb-2 linkedin-btn">
+          <i class="fab fa-linkedin-in me-2"></i>LinkedIn
+        </a>
+        <a href="{{ instructorInfo.youtube }}" target="_blank" class="btn btn-social btn-sm w-100 youtube-btn">
+          <i class="fab fa-youtube me-2"></i>YouTube
+        </a>
+      </div>
+    </div>
+  </div>
+
+  </div>
+
+
+    <!-- Instructor Bio and Courses Section -->
+    <div class="col-md-9">
+      <!-- Instructor Bio Section -->
+      <h2 class="mb-4">{{ instructorInfo.fName }}'s Profile</h2>
+      <p>{{ instructorInfo.description }}</p>
+
+      <!-- Courses Section -->
+      <h4 class="my-4">Courses by {{ instructorInfo.fName }} ({{ instructorInfo?.ownedCourses?.length }})</h4>
+
+      <div class="row">
+        <div
+          class="col-md-4 mb-3"
+          *ngFor="let course of paginatedCourses"
+        >
+          <!-- Clickable card for each course -->
+          <a [routerLink]="['/coursecontent', course.id]" class="text-decoration-none hover">
+            <div class="card h-100">
+              <img
+                src="{{ course.coverPicture }}"
+                class="card-img-top"
+                alt="{{ course.title }}"
+                style="height: 200px; object-fit: cover;"
+              />
+              <div class="card-body">
+                <h5 class="card-title">{{ course.title }}</h5>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Pagination Section -->
+      <!-- Pagination Section -->
+<nav aria-label="Page navigation" class="d-flex justify-content-center my-4">
+  <ul class="pagination pagination-sm">
+    <li class="page-item" [class.disabled]="currentPage === 1">
+      <a
+        class="page-link bg-dark text-white rounded-pill mx-1 shadow-sm cursor-pointer"
+        (click)="changePage(currentPage - 1)"
+      >
+        <i class="bi bi-chevron-left"></i> Previous
+      </a>
+    </li>
+
+    <!-- Create dynamic pagination numbers -->
+    <li class="page-item" *ngFor="let page of pages" [class.active]="page === currentPage">
+      <a
+        class="page-link bg-light text-dark border-0 rounded-pill mx-1 shadow-sm cursor-pointer"
+        [class.active-page]="page === currentPage"
+        (click)="changePage(page)"
+      >
+        {{ page }}
+      </a>
+    </li>
+
+    <li class="page-item" [class.disabled]="currentPage === totalPages">
+      <a
+        class="page-link bg-dark text-white rounded-pill mx-1 shadow-sm cursor-pointer"
+        (click)="changePage(currentPage + 1)"
+      >
+        Next <i class="bi bi-chevron-right"></i>
+      </a>
+    </li>
+  </ul>
+</nav>
+
+
+    </div>
+  </div>
+</div>
