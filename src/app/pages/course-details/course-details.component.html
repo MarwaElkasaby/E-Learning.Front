@@ -1,0 +1,14 @@
+@if(course){
+
+<app-course-details-header [course]="course"></app-course-details-header>
+
+<div class="container">
+  @if (course.sections) {
+  <app-sections-list [sections]="course.sections"></app-sections-list>
+  }
+</div>
+}@else{
+<div class="spinner-border" role="status">
+  <span class="sr-only">Loading...</span>
+</div>
+}
