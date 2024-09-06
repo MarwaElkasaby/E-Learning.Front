@@ -1,0 +1,27 @@
+.accordion-button {
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.accordion-body {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.accordion-body h5 {
+  margin-top: 1rem;
+  font-weight: 600;
+}
+
+.accordion-body ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.accordion-body li {
+  padding: 0.5rem 0;
+}
+
+i{
+  padding-left: 20px;
+}
