@@ -16,6 +16,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { InstructorProfileComponent } from './Components/instructor-profile/instructor-profile.component';
 import { NgModule } from '@angular/core';
+import { CourseDetailsComponent } from './pages/course-details/course-details.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -24,28 +25,63 @@ export const routes: Routes = [
     component: BlankLayoutComponent,
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
-      { path: 'home', component: HomeComponent, title:"Taalam - Home" },
-      { path: 'cart', component: CartComponent, title:"Taalam - Cart" },
-      { path: 'category', component: CategoryComponent, title:"Taalam - Categories" },
-      { path: 'wishlist', component: WishlistComponent, title:"Taalam - Wishlist" },
-      { path: 'userProfile', component: EditUserProfileComponent, title:"Taalam - UserProfile" },
-      { path: 'userCourses', component: UserCoursesComponent , title:"Taalam - MyCourses" },
-      { path: 'createCourse', component: CreateCourseComponent , title:"Taalam - CreateCourse" },
-      { path: 'instructorProfile/:id', component: InstructorProfileComponent , title:"Taalam - InstructorProfile" },
+      { path: 'home', component: HomeComponent, title: 'Taalam - Home' },
+      { path: 'cart', component: CartComponent, title: 'Taalam - Cart' },
+      {
+        path: 'category',
+        component: CategoryComponent,
+        title: 'Taalam - Categories',
+      },
+      {
+        path: 'wishlist',
+        component: WishlistComponent,
+        title: 'Taalam - Wishlist',
+      },
+      {
+        path: 'userProfile',
+        component: EditUserProfileComponent,
+        title: 'Taalam - UserProfile',
+      },
+      {
+        path: 'userCourses',
+        component: UserCoursesComponent,
+        title: 'Taalam - MyCourses',
+      },
+      {
+        path: 'createCourse',
+        component: CreateCourseComponent,
+        title: 'Taalam - CreateCourse',
+      },
+      {
+        path: 'instructorProfile/:id',
+        component: InstructorProfileComponent,
+        title: 'Taalam - InstructorProfile',
+      },
+      { path: 'course/:id', component: CourseDetailsComponent },
     ],
   },
   {
     path: '',
     component: CourseLayoutComponent,
-    children: [{ path: 'coursecontent/:id', component: CourseContentComponent , title:"Taalam - Course" }],
+    children: [
+      {
+        path: 'coursecontent/:id',
+        component: CourseContentComponent,
+        title: 'Taalam - Course',
+      },
+    ],
   },
   {
     path: '',
     component: AuthLayoutComponent,
     children: [
-      { path: 'home', component: HomeComponent , title:"Taalam - Home" },
-      { path: 'login', component: LoginComponent , title:"Taalam - Login" },
-      { path: 'register', component: RegisterComponent  , title:"Taalam - Register"},
+      { path: 'home', component: HomeComponent, title: 'Taalam - Home' },
+      { path: 'login', component: LoginComponent, title: 'Taalam - Login' },
+      {
+        path: 'register',
+        component: RegisterComponent,
+        title: 'Taalam - Register',
+      },
     ],
   },
   { path: '**', component: NotFoundComponent },
