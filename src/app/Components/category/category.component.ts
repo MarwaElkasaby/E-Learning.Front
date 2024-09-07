@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoryService } from '../../shared/services/category.service';
 import { FormsModule } from '@angular/forms';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+import { CurrencyPipe } from '@angular/common';
 
 @Component({
   selector: 'app-category',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, RouterLink, CurrencyPipe],
   templateUrl: './category.component.html',
   styleUrl: './category.component.css'
 })
@@ -20,18 +22,30 @@ export class CategoryComponent implements OnInit {
   totalPages: number = 0;
   totalPagesArray: number[] = [];
 
-  constructor(private categoryService: CategoryService) {}
+  constructor(private categoryService: CategoryService, private activateRoute: ActivatedRoute) {}
 
   ngOnInit(): void {
+    this.activateRoute.paramMap.subscribe({
+      next: (params) => {
+        let id: any = params.get('id');
+        this.categoryService.getCoursesByCategory(id).subscribe({
+          next: (response) => {
+            this.selectedCategoryId = response.id;
+          },
+          error: (error) => {
+            console.error('Error fetching category courses:', error);
+          },
+        });
+      },
+    });
     this.fetchCategories();
+    this.fetchCourses();
   }
 
   fetchCategories(): void {
     this.categoryService.getCategories().subscribe((data: any[]) => {
       this.categories = data;
       if (this.categories.length > 0) {
-        this.selectedCategoryId = this.categories[0].id;
-        this.selectedCategoryName = this.categories[0].name;
         this.fetchCourses();
       }
     });
@@ -39,13 +53,15 @@ export class CategoryComponent implements OnInit {
 
   fetchCourses(): void {
     this.categoryService.getCoursesByCategory(this.selectedCategoryId).subscribe((data: any) => {
+      this.selectedCategoryName = data.name;
       this.courses = data.courses;
       this.calculatePagination();
     });
   }
 
-  onCategoryChange(): void {
-    this.selectedCategoryId = this.categories.find(category => category.id === this.selectedCategoryId).id;
+  onCategoryChange(categoryId: number, categoryName: string): void {
+    this.selectedCategoryId = categoryId;
+    this.selectedCategoryName = categoryName;
     this.currentPage = 1;
     this.fetchCourses();
   }
