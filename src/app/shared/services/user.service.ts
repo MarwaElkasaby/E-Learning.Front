@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError ,tap } from 'rxjs';
 
@@ -6,7 +6,8 @@ import { catchError, Observable, throwError ,tap } from 'rxjs';
   providedIn: 'root',
 })
 export class UserService {
-  constructor(private http: HttpClient) {}
+  private readonly apiUrl = 'http://localhost:5062/api/User';
+  constructor(private http: HttpClient) {} //service to make HTTP requests
   registerUser(user: any) {
     return this.http
       .post('http://localhost:5062/Api/Account/register', user)
@@ -54,6 +55,15 @@ export class UserService {
     );
   }
 
+
+
+  updateUserProfile(formData: FormData): Observable<any> {
+    return this.http.put(`${this.apiUrl}/Edit-User-Profile`, formData).pipe(
+      catchError((error) => {
+        console.error('Error updating user profile', error);
+        return throwError(() => error);
+      })
+    )}
   forgetpassword(form: { email: string }) {
     return this.http
       .post('http://localhost:5062/Api/Account/forget-password', form)
@@ -80,6 +90,14 @@ export class UserService {
       `http://localhost:5062/api/User/Get-Instructor-Info/${id}`
     );
   }
+
+
+getUserInfo(id:string): Observable<any> {
+  return this.http.get(`${this.apiUrl}/Get-Instructor-Info/${id}`).pipe(
+    catchError((error) => {
+      console.error('Error getting user profile', error);
+      return throwError(() => error);
+    })
+  );
 }
-
-
+}
