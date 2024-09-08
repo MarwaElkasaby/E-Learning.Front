@@ -26,7 +26,7 @@ ngOnInit(): void {
     }
   )
 
-  this._CategoryService.getAllCategories().subscribe({
+  this._CategoryService.getCategories().subscribe({
     next:(response)=>{
       this.categories=response;
     }

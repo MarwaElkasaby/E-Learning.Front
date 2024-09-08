@@ -77,7 +77,7 @@ export const routes: Routes = [
       { path: 'home', component: HomeComponent , title:"Taalam - Home" },
       { path: 'login', component: LoginComponent , title:"Taalam - Login" },
       { path: 'register', component: RegisterComponent  , title:"Taalam - Register"},
-      {path: 'serachResult', component:SearchResultComponent}
+      {path: 'serachResult', component:SearchResultComponent},
       {
         path:'forget-password',
         component:ForgetpasswordComponent,
