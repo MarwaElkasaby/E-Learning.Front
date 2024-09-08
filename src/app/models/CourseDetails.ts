@@ -3,6 +3,7 @@ export interface Lesson {
   title: string;
   duration?: string;
   content?: string;
+  lessonNumber?: number;
 }
 
 export interface Quiz {
