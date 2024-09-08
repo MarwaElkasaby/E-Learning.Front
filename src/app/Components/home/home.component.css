@@ -1,0 +1,117 @@
+
+  .container{
+    box-sizing: border-box;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /*become instructor*/
+  /* styles.css */
+  .ins-container{
+    padding-left: 20%;
+    padding-right: 15%;
+  }
+.instructor-section {
+  border-radius: 8px;
+}
+
+.instructor-section h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: #333;
+  font-weight: bold;
+  
+}
+
+.instructor-section p {
+  font-size: 1.125rem;
+  color: #555;
+  margin-bottom: 1.5rem;
+}
+
+.instructor-section .btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.instructor-section .btn-primary:hover {
+  background-color: #0056b3;
+  border-color: #004085;
+}
+
+
+/* hero slider */
+.slide-cont{
+  display: flex;
+  align-content: center;
+}
+.hero-banner {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  
+}
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 2rem;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.5);
+  border: none;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.arrow-left {
+  left: 10px;
+  z-index: 101;
+}
+
+.arrow-right {
+  right: 10px;
+  z-index: 101;
+
+}
+
+.banner-content {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100vh; /* Adjust as needed */
+}
+
+.content-box {
+  position: absolute;
+  left: 20px;
+  background: white;
+  color: black;
+  padding: 20px;
+  border-radius: 10px;
+  z-index: 100;
+  max-width:30%;
+}
+
+.slides-container {
+  flex: 1;
+  overflow: hidden;
+}
+
+.slides {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+  width: 100%;
+}
+
+.slide {
+  min-width: 100%;
+}
+
+.slide img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
