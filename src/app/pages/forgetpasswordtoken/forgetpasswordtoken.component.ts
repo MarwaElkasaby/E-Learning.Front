@@ -79,7 +79,7 @@ if (error.error.PasswordRequiresUpper) {
 this.passwordErrors.push(error.error.PasswordRequiresUpper[0]);
 }
 
-if (error.error.InvalidToken) {
+if (error.error.message) {
   alert('Invalid token');
   this.router.navigate(['/forget-password']);
 }
