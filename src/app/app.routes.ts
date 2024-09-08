@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { BlankLayoutComponent } from './Components/blank-layout/blank-layout.component';
 import { CartComponent } from './Components/cart/cart.component';
 import { HomeComponent } from './Components/home/home.component';
-import { CourseContentComponent } from './Components/course-content/course-content.component';
 import { AuthLayoutComponent } from './Components/auth-layout/auth-layout.component';
 
 import { NotFoundComponent } from './Components/not-found/not-found.component';
@@ -17,6 +16,7 @@ import { RegisterComponent } from './pages/register/register.component';
 import { InstructorProfileComponent } from './Components/instructor-profile/instructor-profile.component';
 import { NgModule } from '@angular/core';
 import { CourseDetailsComponent } from './pages/course-details/course-details.component';
+import { CourseContentComponent } from './pages/course-content/course-content.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -59,6 +59,13 @@ export const routes: Routes = [
         title: 'Taalam - InstructorProfile',
       },
       { path: 'course/:id', component: CourseDetailsComponent },
+
+      { path: 'course/content/:id', component: CourseContentComponent },
+
+      {
+        path: 'course/content/:courseId/:lessonId',
+        component: CourseContentComponent,
+      },
     ],
   },
   {
@@ -97,7 +104,6 @@ export const routes: Routes = [
       scrollOffset: [0, 64], // Optional: Adjust the scroll offset if you have a sticky header
     }),
   ],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-
 export class AppRoutingModule {}
