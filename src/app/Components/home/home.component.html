@@ -1,2 +1,131 @@
-<p>home works!</p>
+<div class="container">
 
+    <!-- slider section -->
+
+    <div>Some tags before</div>
+    <owl-carousel-o [options]="customOptions">
+        <ng-template carouselSlide>
+            <div><img
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRt8F_l8f-X1nlvqjqigOV_Lc6WgbaheD1ieDo6xfII9BPji-mxup-TZsOO-urVSaEntT0&usqp=CAU">
+            </div>
+        </ng-template>
+        <ng-template carouselSlide>
+            <div><img src="https://i.pinimg.com/236x/65/da/d1/65dad12f3d521bd547ea6b0ee24303d8.jpg"></div>
+
+        </ng-template>
+        <ng-template carouselSlide>
+            <div><img src="https://i.pinimg.com/736x/9e/68/76/9e687619650116619f0d6affdd31fa6b.jpg"></div>
+
+        </ng-template>
+        <ng-template carouselSlide>
+            <div><img src="https://i.pinimg.com/736x/9e/68/76/9e687619650116619f0d6affdd31fa6b.jpg"></div>
+
+        </ng-template>
+        <ng-template carouselSlide>
+            <div><img src="https://i.pinimg.com/736x/9e/68/76/9e687619650116619f0d6affdd31fa6b.jpg"></div>
+
+        </ng-template>
+    </owl-carousel-o>
+    <div>Some tags after</div>
+
+
+
+    <!--  hero-banner.component.html -->
+    <!-- hero-banner.component.html -->
+    <div class="slide-cont">
+        <div class="hero-banner position-relative">
+            <button class="arrow arrow-left" (click)="prevSlide()">
+                <i class="bi bi-chevron-left"></i>
+            </button>
+            <button class="arrow arrow-right" (click)="nextSlide()">
+                <i class="bi bi-chevron-right"></i>
+            </button>
+            <div class="banner-content d-flex align-items-center">
+                @if(currentSlide==0){
+                <div class="content-box">
+                    <h2>Subscribe to the best courses</h2>
+                    <p>With Personal Plan, you get access to 11,000+ of our top-rated courses in tech, business, and
+                        more.</p>
+                    <a href="#" class="btn btn-primary">Get Started</a>
+                </div>
+                }
+                @else {
+                <div class="content-box">
+                    <h2>Jump into learning for less</h2>
+                    <p>Choose from over 250,000 online video courses with new additions published every month</p>
+                    <a href="#" class="btn btn-primary">Get Started</a>
+                </div>
+                }
+                <div class="slides-container">
+                    <div class="slides" [ngStyle]="{'transform': 'translateX(-' + currentSlide * 100 + '%)'}">
+                        <div class="slide" *ngFor="let slide of slides">
+                            <img [src]="slide.img">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- courses slider -->
+
+    <!-- join for free section -->
+    <section class="instructor-section py-5">
+        <div class="ins-container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <img src="https://sherpa-online.com/storage/blog/articles/41/cover.jpg" alt="Instructor"
+                        class="img-fluid pe-2">
+                </div>
+                <div class="col-md-6">
+                    <h2>toward your personal and professional goals with Taalam</h2>
+                    <p>Join now to enroll to the full taalam courses catalog.</p>
+                    <a href="#" class="btn btn-main">Join for free</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- top categories boxes section -->
+
+    <div>Some tags before</div>
+    <owl-carousel-o [options]="CategoryOptions">
+  
+      <ng-container *ngFor="let slide of slidesStore">
+        <ng-template carouselSlide [id]="slide.id">
+          <img [src]="slide.src" [alt]="slide.alt" [title]="slide.title">
+        </ng-template>
+      </ng-container>
+  
+    </owl-carousel-o>
+    <div>Some tags after</div>
+
+    <!-- free courses slider -->
+
+    <!-- become instructor section -->
+
+    <section class="instructor-section py-5">
+        <div class="ins-container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <img src="https://productaplusonlinetutoring.com/wp-content/uploads/2021/03/instructor-1-1.jpg"
+                        alt="Instructor" class="img-fluid pe-2">
+                </div>
+                <div class="col-md-6">
+                    <h2>Become an instructor</h2>
+                    <p>Instructors from around the world teach millions of learners on Taalam. We provide the tools and
+                        skills to teach what you love.</p>
+                    <a href="#" class="btn btn-main">Start teaching today</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+
+
+
+
+</div>

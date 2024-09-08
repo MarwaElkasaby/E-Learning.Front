@@ -1,1 +1,71 @@
-<p>cart works!</p>
+<div class="container mt-5">
+    <!-- Cart Header -->
+    <h2 class="mb-4 fw-bold">Shopping Cart</h2>
+    <h5>{{courses.length}} Courses in Cart</h5>
+
+    @if(courses.length>0){
+    <!-- Cart Items List and Summary Section -->
+    <div class="row ">
+        <!-- Cart Items List -->
+        <div class="col-lg-8">
+            @for(item of courses ;track item.name)
+            {
+            <div class="cart-item bg-white p-3 mb-4 shadow-sm">
+                <div class="d-flex align-items-center">
+                    <img [src]="item.coverPicture" alt="Course Image" class="img-fluid me-3"
+                        style="width: 150px; height: 100px;">
+                    <div class="w-100">
+                        <h5 class="mb-2">{{item.title}}</h5>
+                        <p class="text-muted mb-1">{{item.instructorName}}</p>
+                        <p class="text-muted small mb-0">{{item.rate}} </p>
+                    </div>
+                    <div class="text-end ms-auto d-flex align-items-start">
+                        <!-- Buttons Column -->
+                        <div class="d-flex flex-column me-3">
+                            <button class="btn btn-link text-danger p-0 mb-2 btn-wide"
+                                (click)="removeItemFromCart(item.id)">Remove</button>
+                            <button class="btn btn-link text-danger p-0 mb-2 btn-wide">Move To Wishlist</button>
+                        </div>
+                        <!-- Price Column -->
+                        <span class="fw-bold text-success fs-5">{{ item.price | currency }}</span>
+                    </div>
+
+
+
+                </div>
+            </div>
+            }
+        </div>
+
+        <!-- Summary Section -->
+        <div class="col-lg-4">
+            <div class="bg-white p-3 shadow-sm">
+                <h5 class="mb-4">Total:</h5>
+                <div class="d-flex justify-content-between mb-3">
+
+                    <span class="h2">{{ total.totalPrice | currency }}</span>
+                </div>
+                <!-- <div class="d-flex justify-content-between mb-3">
+                <span>Discount:</span>
+                <span class="text-danger">zero</span>
+            </div> -->
+                <!-- <div class="d-flex justify-content-between mb-3">
+                <span>Total:</span>
+                <span class="fw-bold text-success fs-4">{{ total.totalPrice | currency }}</span>
+            </div> -->
+                <button class="btn btn-main btn-lg w-100">Checkout</button>
+            </div>
+        </div>
+    </div>
+    }
+@else{
+    <div class="container d-flex justify-content-center align-items-center mt-5 mb-5">
+        <div class="empty-cart-box text-center p-50">
+          <img src="https://s.udemycdn.com/browse_components/flyout/empty-shopping-cart-v2-2x.jpg" alt="Empty Cart" class="img-fluid mb-4">
+          <!-- <h3 class="fw-bold">Your cart is empty.</h3> -->
+          <p class="text-muted">Your cart is empty Keep shopping to find a course!</p>
+          <a href="/home" class="btn btn-primary mt-3">Keep Shopping</a>
+        </div>
+      </div>
+}
+</div>

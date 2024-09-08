@@ -16,6 +16,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { InstructorProfileComponent } from './Components/instructor-profile/instructor-profile.component';
 import { NgModule } from '@angular/core';
+import { SearchResultComponent } from './Components/search-result/search-result.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -32,6 +33,7 @@ export const routes: Routes = [
       { path: 'userCourses', component: UserCoursesComponent , title:"Taalam - MyCourses" },
       { path: 'createCourse', component: CreateCourseComponent , title:"Taalam - CreateCourse" },
       { path: 'instructorProfile/:id', component: InstructorProfileComponent , title:"Taalam - InstructorProfile" },
+      {path: 'searchResult/:SearchTerm', component:SearchResultComponent , title:"Taalam - SearchResult"}
     ],
   },
   {
@@ -46,6 +48,8 @@ export const routes: Routes = [
       { path: 'home', component: HomeComponent , title:"Taalam - Home" },
       { path: 'login', component: LoginComponent , title:"Taalam - Login" },
       { path: 'register', component: RegisterComponent  , title:"Taalam - Register"},
+      {path: 'serachResult', component:SearchResultComponent}
+
     ],
   },
   { path: '**', component: NotFoundComponent },
