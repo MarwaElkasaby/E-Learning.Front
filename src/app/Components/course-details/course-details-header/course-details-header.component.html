@@ -1,0 +1,29 @@
+<div class="container mt-4">
+  <div class="card">
+    <img
+      src="{{ course.coverPicture }}"
+      class="card-img-top"
+      alt="Cover Picture"
+      style="height: 200px; object-fit: cover"
+    />
+
+    <div class="card-body">
+      <div class="d-flex justify-content-between">
+        <h2 class="card-title">{{ course.title }}</h2>
+
+        <!-- <button type="button" class="btn btn-info">Go to content</button> -->
+        <button type="button" class="btn btn-primary">Add to Cart</button>
+      </div>
+      <p class="card-text">
+        {{ course.description || "No description available." }}
+      </p>
+
+      <div class="d-flex justify-content-between mb-3">
+        <span class="badge bg-info">{{ course.courseCategory.name }}</span>
+        <div class="hstack gap-3">
+          <span class="text-muted md">Price: {{ course.price }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
