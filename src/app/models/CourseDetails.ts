@@ -2,6 +2,8 @@ export interface Lesson {
   id: number;
   title: string;
   duration?: string;
+  content?: string;
+  lessonNumber?: number;
 }
 
 export interface Quiz {
