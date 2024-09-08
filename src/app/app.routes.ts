@@ -18,11 +18,16 @@ import { NgModule } from '@angular/core';
 import { CourseDetailsComponent } from './pages/course-details/course-details.component';
 import { CourseContentComponent } from './pages/course-content/course-content.component';
 
+import { ForgetpasswordComponent } from './pages/forgetpassword/forgetpassword.component';
+import { ForgetpasswordtokenComponent } from './pages/forgetpasswordtoken/forgetpasswordtoken.component';
+import { AuthguardService } from './guards/authguard.service';
+
 export const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  // { path: '', redirectTo: 'login', pathMatch: 'full' },
   {
     path: '',
     component: BlankLayoutComponent,
+    canActivate: [AuthguardService],
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
 
@@ -90,6 +95,16 @@ export const routes: Routes = [
         component: RegisterComponent,
         title: 'Taalam - Register',
       },
+      {
+        path:'forget-password',
+        component:ForgetpasswordComponent,
+        title:'Taalam - ForgetPassword'
+      }
+      ,{
+        path:'forget-passwordToken',
+        component:ForgetpasswordtokenComponent,
+        title:'Taalam - ForgetPasswordToken'
+      }
     ],
   },
   { path: '**', component: NotFoundComponent },
