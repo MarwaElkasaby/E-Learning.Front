@@ -10,7 +10,8 @@
         <div class="col-lg-8">
             @for(item of courses ;track item.name)
             {
-            <div class="cart-item bg-white p-3 mb-4 shadow-sm">
+                <hr>
+            <div class="cart-item bg-white p-3 mb-4">
                 <div class="d-flex align-items-center">
                     <img [src]="item.coverPicture" alt="Course Image" class="img-fluid me-3"
                         style="width: 150px; height: 100px;">
@@ -39,8 +40,8 @@
 
         <!-- Summary Section -->
         <div class="col-lg-4">
-            <div class="bg-white p-3 shadow-sm">
-                <h5 class="mb-4">Total:</h5>
+            <div class="bg-white p-3">
+                <h4 class="mb-4">Total:</h4>
                 <div class="d-flex justify-content-between mb-3">
 
                     <span class="h2">{{ total.totalPrice | currency }}</span>

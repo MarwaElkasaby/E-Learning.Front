@@ -1,22 +1,21 @@
 .cart-item {
     border-radius: 10px;
-    border: 1px solid #e7e7e7;
-    transition: box-shadow 0.3s;
+    /* transition: box-shadow 0.3s; */
   }
   
   .cart-item:hover {
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    /* box-shadow: 0 0 15px rgba(0, 0, 0, 0.1); */
   }
   
   .btn-main {
     background-color: var(--main-color);
     color: white;
-    border-radius: 5px;
     transition: background-color 0.3s;
   }
   
   .btn-main:hover {
     background-color: #0aad0a;
+    border:none;
   }
   .btn-wide {
     display: inline-block; /* Ensures the button can be sized */

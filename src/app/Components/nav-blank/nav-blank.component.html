@@ -24,7 +24,7 @@
           <ul class="dropdown-menu" aria-labelledby="categoryDropdown">
             @for (category of categories; track category.id)
             {
-            <li><a class="dropdown-item" href="#">{{category.name}} </a></li>
+            <li><a class="dropdown-item" [routerLink]="['/category', category.id]">{{category.name}} </a></li>
             
             }
             <!-- <li><a class="dropdown-item" href="#">Category 2</a></li>

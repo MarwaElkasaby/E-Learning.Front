@@ -36,10 +36,12 @@ export class CategoryComponent implements OnInit {
             console.error('Error fetching category courses:', error);
           },
         });
+      
+       this.fetchCategories();
+    this.fetchCourses();
       },
     });
-    this.fetchCategories();
-    this.fetchCourses();
+   
   }
 
   fetchCategories(): void {
