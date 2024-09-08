@@ -2,6 +2,7 @@ export interface Lesson {
   id: number;
   title: string;
   duration?: string;
+  content?: string;
 }
 
 export interface Quiz {
