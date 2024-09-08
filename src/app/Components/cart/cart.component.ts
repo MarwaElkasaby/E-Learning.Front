@@ -37,7 +37,6 @@ removeItemFromCart(itemId:any){
   console.log(itemId);
 this._CartService.removeCartItemById(this.userId, itemId).subscribe({
 next:(response)=>{
-  console.log("marwaaaaaaaaaaaaaaaaaaaa")
   console.log(response);
   this.courses=response
   this.getCartTotal();
