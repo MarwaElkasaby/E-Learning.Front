@@ -1,83 +1,17 @@
-import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
-import { MenubarModule } from 'primeng/menubar';
-import { BadgeModule } from 'primeng/badge';
-import { AvatarModule } from 'primeng/avatar';
-import { InputTextModule } from 'primeng/inputtext';
 import { CommonModule } from '@angular/common';
-import { RippleModule } from 'primeng/ripple';
+import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-nav-auth',
   standalone: true,
-  imports: [MenubarModule, BadgeModule, AvatarModule, InputTextModule, RippleModule, CommonModule],
+  imports: [CommonModule,RouterLink],
   templateUrl: './nav-auth.component.html',
   styleUrl: './nav-auth.component.css'
 })
-export class NavAuthComponent implements OnInit {
-  items: MenuItem[] | undefined;
+export class NavAuthComponent  {
 
-  ngOnInit() {
-      this.items = [
-          {
-              label: 'Home',
-              icon: 'pi pi-home'
-          },
-          {
-              label: 'Features',
-              icon: 'pi pi-star'
-          },
-          {
-              label: 'Projects',
-              icon: 'pi pi-search',
-              items: [
-                  {
-                      label: 'Core',
-                      icon: 'pi pi-bolt',
-                      shortcut: '⌘+S'
-                  },
-                  {
-                      label: 'Blocks',
-                      icon: 'pi pi-server',
-                      shortcut: '⌘+B'
-                  },
-                  {
-                      label: 'UI Kit',
-                      icon: 'pi pi-pencil',
-                      shortcut: '⌘+U'
-                  },
-                  {
-                      separator: true
-                  },
-                  {
-                      label: 'Templates',
-                      icon: 'pi pi-palette',
-                      items: [
-                          {
-                              label: 'Apollo',
-                              icon: 'pi pi-palette',
-                              badge: '2'
-                          },
-                          {
-                              label: 'Ultima',
-                              icon: 'pi pi-palette',
-                              badge: '3'
-                          }
-                      ]
-                  }
-              ]
-          },
-          {
-              label: 'Contact',
-              icon: 'pi pi-envelope',
-              badge: '3'
-          }
-      ];
-  }
 
-  isMenuOpen = false;
 
-  toggleMenu() {
-    this.isMenuOpen = !this.isMenuOpen;
-  }
+
 
 }
