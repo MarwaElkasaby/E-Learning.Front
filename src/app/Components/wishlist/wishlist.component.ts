@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { WishlistService } from '../../shared/services/wishlist.service';
 import { CommonModule } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-wishlist',
   standalone: true,
@@ -9,10 +10,10 @@ import { CommonModule } from '@angular/common';
   styleUrl: './wishlist.component.css'
 })
 export class WishlistComponent {
-  constructor(private _WishlistService: WishlistService) {
+  constructor(private _WishlistService: WishlistService, private _ActivatedRoute:ActivatedRoute) {
   }
   courses: any[] = [];
-  userId: number = 3;
+  userId: any;
 
 
   removeItemFromWishlist(itemId: any) {
@@ -31,6 +32,17 @@ export class WishlistComponent {
 
 
   ngOnInit(): void {
+    this._ActivatedRoute.paramMap.subscribe({
+      next:(params)=>{
+        //shayl kol eli fe el url
+        this.userId=params.get('userId')
+  
+        
+      }
+    })
+  
+
+    
     this._WishlistService.getWishListItemsById(this.userId).subscribe(
       {
         next: (response) => {

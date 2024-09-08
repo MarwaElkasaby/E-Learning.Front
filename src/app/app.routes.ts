@@ -38,7 +38,7 @@ export const routes: Routes = [
       { path: 'home', component: HomeComponent, title:"Taalam - Home" },
       { path: 'cart/:id', component: CartComponent, title:"Taalam - Cart" },
       { path: 'category/:id', component: CategoryComponent, title:"Taalam - Categories" },
-      { path: 'wishlist', component: WishlistComponent, title:"Taalam - Wishlist" },
+      { path: 'wishlist/:id', component: WishlistComponent, title:"Taalam - Wishlist" },
       { path: 'userProfile/:id', component: EditUserProfileComponent, title:"Taalam - UserProfile" },
       { path: 'userCourses', component: UserCoursesComponent , title:"Taalam - MyCourses" },
       { path: 'createCourse', component: CreateCourseComponent , title:"Taalam - CreateCourse" },

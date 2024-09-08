@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CartService } from '../../shared/services/cart.service';
 import { CommonModule } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-cart',
   standalone: true,
@@ -10,14 +11,15 @@ import { CommonModule } from '@angular/common';
 })
 
 export class CartComponent {
-constructor(private _CartService:CartService)
+constructor(private _CartService:CartService, private _ActivatedRoute:ActivatedRoute)
 {
 }
 courses:any[]=[];
 total:any;
-userId:number=3;
+userId:any;
 
 getCartTotal(){
+  
   this._CartService.getCartTotalById(this.userId).subscribe(
     {
       
@@ -50,6 +52,17 @@ console.log(this.courses);
 
 
 ngOnInit(): void {
+
+  this._ActivatedRoute.paramMap.subscribe({
+    next:(params)=>{
+      //shayl kol eli fe el url
+      this.userId=params.get('userId')
+
+      
+    }
+  })
+
+
   this._CartService.getCartItemsById(this.userId).subscribe(
     {
       next:(response)=>{
