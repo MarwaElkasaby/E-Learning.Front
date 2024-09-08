@@ -2,11 +2,13 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { UserService } from '../../shared/services/user.service';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [CommonModule,FormsModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
@@ -14,7 +16,8 @@ export class RegisterComponent implements OnInit {
   emailerrormessage: string ='';
   passworderrormessage: string ='';
   confirmPassworderrormessage: string ='';
-  passworderrormessagearray: string[] = [];
+
+  phonenumbererrormessage: string ='';
 
 registerform!:{
   fName: string,
@@ -26,7 +29,7 @@ registerform!:{
   userRole: number
 }
 
-constructor(private userservice:UserService) {
+constructor(private userservice:UserService,private toastr: ToastrService,private router:Router) {
 
  }
 
@@ -48,13 +51,26 @@ ngOnInit(): void {
     this.emailerrormessage = '';
     this.passworderrormessage = '';
     this.confirmPassworderrormessage = '';
-    this.passworderrormessagearray = [];
+  
   }
 
 onSubmit(form: NgForm) {
+
+if (this.registerform.password !== this.registerform.confirmPassword) {
+  this.confirmPassworderrormessage = 'Passwords do not match';
+  return;
+}
+
+if(form.valid){
   this.userservice.registerUser(form.value).subscribe({
-    next: (response) => {
+    next: (response:any) => {
       console.log('Registration successful', response);
+      this.toastr.success('Registration successful');
+    
+setTimeout(() => {
+  this.router.navigate(['/']);
+}, 5000);
+
     },
     error: (error) => {
       console.log('Error in registration', error);
@@ -67,7 +83,15 @@ onSubmit(form: NgForm) {
   this.clearErrorMessages();
         this.confirmPassworderrormessage = error.error.errors.ConfirmPassword;
       console.log(error.error.errors.ConfirmPassword[0]);
+      this.toastr.error('Password does not match');
 
+      }
+      if (error.error.errors.Phone) {
+        this.clearErrorMessages();
+        this.phonenumbererrormessage = error.error.errors.Phone;
+        console.log(error.error.errors.Phone[0]);
+        this.toastr.error('Phone number is required');
+        
       }
         }
 
@@ -79,17 +103,24 @@ onSubmit(form: NgForm) {
         if (error.error.detail.includes('Username')) {
           this.clearErrorMessages();
           this.emailerrormessage = error.error.detail;
+          this.toastr.error('Email already exists');
 
         }
 
         if (error.error.detail.includes('Passwords')) {
           this.clearErrorMessages();
           this.passworderrormessage = error.error.detail;
+
         }
 
       }
     }
   });
+}else{
+  this.toastr.error('Please fill the form correctly');
+}
+
+
 
 
 }

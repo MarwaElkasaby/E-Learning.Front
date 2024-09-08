@@ -1,17 +1,51 @@
-<form #singInForm="ngForm" (ngSubmit)="onSubmit(singInForm)" style="width: 70%;margin: auto;">
-    <div class="row mb-3">
-      <label for="email" class="col-sm-2 col-form-label">Email</label>
-      <div class="col-sm-10">
-        <input type="email" class="form-control" id="email"   [(ngModel)]="loginform.email" name="email">
-      </div>
+<form #signInForm="ngForm" (ngSubmit)="onSubmit(signInForm)" style="width: 70%; margin: auto;">
+  <div class="row mb-3">
+    <label for="email" class="col-sm-2 col-form-label">Email</label>
+    <div class="col-sm-10">
+      <input
+        type="email"
+        class="form-control"
+        id="email"
+        [(ngModel)]="loginform.email"
+        name="email"
+        required
+        [ngClass]="{ 'is-invalid': signInForm.submitted && !signInForm.controls['email'].valid }"
+      />
+      @if(emailerrormessage !=''){
+        <p  style="color: red;">{{emailerrormessage}}</p>
+      }
+      @if(signInForm.submitted && !signInForm.controls['email'].valid){
+        <div  class="invalid-feedback">
+          Email is required.
+        </div>
+      }
+   
     </div>
-    <div class="row mb-3">
-      <label for="password" class="col-sm-2 col-form-label">Password</label>
-      <div class="col-sm-10">
-        <input type="password" class="form-control" id="password "  [(ngModel)]="loginform.password" name="password" >
-      </div>
-    </div>
+  </div>
+  <div class="row mb-3">
+    <label for="password" class="col-sm-2 col-form-label">Password</label>
+    <div class="col-sm-10">
+      <input
+        type="password"
+        class="form-control"
+        id="password"
+        [(ngModel)]="loginform.password"
+        name="password"
+        required
+        [ngClass]="{ 'is-invalid': signInForm.submitted && !signInForm.controls['password'].valid }"
+      />
+      @if(signInForm.submitted && !signInForm.controls['password'].valid){
+        <div  class="invalid-feedback">
+          Password is required.
+        </div>
+      }
  
+    </div>
+  </div>
 
-    <button type="submit" class="btn btn-primary">Sign in</button>
-  </form>
+  <button type="submit" class="btn btn-primary">Sign in</button>
+</form>
+
+<div>
+  <a class="btn btn-warning" routerLink="/forget-password">Forget password?</a>
+</div>
