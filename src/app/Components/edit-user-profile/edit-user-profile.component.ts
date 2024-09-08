@@ -46,7 +46,9 @@ export class EditUserProfileComponent {
   }
 
   loadUserProfile(id: string) {
-    this.userservice.getInstructorInfo(id).subscribe((user) => {
+    this.userservice.getUserInfo(id).subscribe((user) => {
+      console.log(user);
+      
       this.user = user;
     });
   }

@@ -63,7 +63,7 @@ export class UserService {
         console.error('Error updating user profile', error);
         return throwError(() => error);
       })
-
+    )}
   forgetpassword(form: { email: string }) {
     return this.http
       .post('http://localhost:5062/Api/Account/forget-password', form)
@@ -88,9 +88,16 @@ export class UserService {
   getInstructorInfo(id: number): Observable<any> {
     return this.http.get(
       `http://localhost:5062/api/User/Get-Instructor-Info/${id}`
-
     );
   }
+
+
+getUserInfo(id:string): Observable<any> {
+  return this.http.get(`${this.apiUrl}/Get-Instructor-Info/${id}`).pipe(
+    catchError((error) => {
+      console.error('Error getting user profile', error);
+      return throwError(() => error);
+    })
+  );
 }
-
-
+}
