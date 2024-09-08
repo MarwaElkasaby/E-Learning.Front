@@ -39,24 +39,15 @@ export const routes: Routes = [
       { path: 'cart', component: CartComponent, title:"Taalam - Cart" },
       { path: 'category/:id', component: CategoryComponent, title:"Taalam - Categories" },
       { path: 'wishlist', component: WishlistComponent, title:"Taalam - Wishlist" },
-      { path: 'userProfile', component: EditUserProfileComponent, title:"Taalam - UserProfile" },
+      { path: 'userProfile/:id', component: EditUserProfileComponent, title:"Taalam - UserProfile" },
       { path: 'userCourses', component: UserCoursesComponent , title:"Taalam - MyCourses" },
       { path: 'createCourse', component: CreateCourseComponent , title:"Taalam - CreateCourse" },
       { path: 'instructorProfile/:id', component: InstructorProfileComponent , title:"Taalam - InstructorProfile" },
       {path: 'searchResult/:SearchTerm', component:SearchResultComponent , title:"Taalam - SearchResult"},
-  
-        { path: 'course/:id', component: CourseDetailsComponent },
-
+      { path: 'course/:id', component: CourseDetailsComponent },
       { path: 'course/content/:id', component: CourseContentComponent },
+      {path: 'course/content/:courseId/:lessonId', component: CourseContentComponent }
 
-      {
-        path: 'course/content/:courseId/:lessonId',
-        component: CourseContentComponent,
-      },
-
-
-
-      
     ],
   },
   {

@@ -1,1 +1,47 @@
-<p>user-courses works!</p>
+<div class="container my-3" style="max-width: 1240px;">
+
+    <div class="d-flex flex-wrap gap-5 p-2">
+        <div class="dropdown">
+            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                Sort
+            </a>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Action</a></li>
+                <li><a class="dropdown-item" href="#">Another action</a></li>
+                <li><a class="dropdown-item" href="#">Something else here</a></li>
+            </ul>
+        </div>
+
+        <div class="dropdown">
+            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                Filter
+            </a>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Action</a></li>
+                <li><a class="dropdown-item" href="#">Another action</a></li>
+                <li><a class="dropdown-item" href="#">Something else here</a></li>
+            </ul>
+        </div>
+
+        <!-- Responsive Search Bar -->
+        <div class="input-group ms-auto" style="max-width: 100%; width: 350px;">
+            <input id="search-focus" type="search" class="form-control" placeholder="Search" aria-label="Search">
+            <button class="btn btn-dark" type="button">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Responsive Course Cards Section -->
+    <div class="d-flex flex-wrap justify-content-start my-2">
+        <app-course-card></app-course-card>
+        <app-course-card></app-course-card>
+        <app-course-card></app-course-card>
+        <app-course-card></app-course-card>
+        <app-course-card></app-course-card>
+        <app-course-card></app-course-card>
+        <app-course-card></app-course-card>
+    </div>
+</div>
