@@ -2,15 +2,31 @@ export interface InstructorInfoWithCourses {
   fName: string;
   lName: string;
   description: string;
+  github: string;
   facebook: string;
   linkedin: string;
   youtube: string;
   twitter: string;
   profilePicture: string;
-  totalStudents: 0;
-  totalReviews: 0;
+  profilePictureFile?: File;
+  totalStudents: number;
+  totalReviews: number;
   ownedCourses: OwnedCourses[];
 }
+export interface IUserProfile{
+  id:number|string;
+  fName: string;
+  lName: string;
+  description: string;
+  github: string;
+  facebook: string;
+  linkedin: string;
+  youtube: string;
+  twitter: string;
+  profilePicture: string;
+  profilePictureFile?: File;
+}
+
 
 export interface OwnedCourses {
   id: number;

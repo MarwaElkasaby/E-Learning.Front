@@ -28,7 +28,7 @@ export const routes: Routes = [
       { path: 'cart', component: CartComponent, title:"Taalam - Cart" },
       { path: 'category', component: CategoryComponent, title:"Taalam - Categories" },
       { path: 'wishlist', component: WishlistComponent, title:"Taalam - Wishlist" },
-      { path: 'userProfile', component: EditUserProfileComponent, title:"Taalam - UserProfile" },
+      { path: 'userProfile/:id', component: EditUserProfileComponent, title:"Taalam - UserProfile" },
       { path: 'userCourses', component: UserCoursesComponent , title:"Taalam - MyCourses" },
       { path: 'createCourse', component: CreateCourseComponent , title:"Taalam - CreateCourse" },
       { path: 'instructorProfile/:id', component: InstructorProfileComponent , title:"Taalam - InstructorProfile" },
