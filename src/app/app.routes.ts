@@ -36,7 +36,7 @@ export const routes: Routes = [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
 
       { path: 'home', component: HomeComponent, title:"Taalam - Home" },
-      { path: 'cart', component: CartComponent, title:"Taalam - Cart" },
+      { path: 'cart/:id', component: CartComponent, title:"Taalam - Cart" },
       { path: 'category/:id', component: CategoryComponent, title:"Taalam - Categories" },
       { path: 'wishlist', component: WishlistComponent, title:"Taalam - Wishlist" },
       { path: 'userProfile', component: EditUserProfileComponent, title:"Taalam - UserProfile" },

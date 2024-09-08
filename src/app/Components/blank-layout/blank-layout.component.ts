@@ -10,5 +10,5 @@ import { RouterLink, RouterOutlet } from '@angular/router';
   styleUrl: './blank-layout.component.css'
 })
 export class BlankLayoutComponent {
-
+ 
 }
