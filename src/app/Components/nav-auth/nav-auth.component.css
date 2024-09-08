@@ -1,0 +1,31 @@
+/* Custom styles for the dropdown menu */
+.nav-item.dropdown .dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    min-width: 250px;
+    padding: 0.5rem 1rem;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    background-color: white;
+    box-shadow: var(--shadow);
+  }
+  
+  /* Show the dropdown menu on hover */
+  .nav-item.dropdown:hover .dropdown-menu {
+    display: block;
+  }
+  
+  /* Style dropdown items */
+  .dropdown-item {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #333;
+    transition: background-color 0.2s;
+  }
+  
+  .dropdown-item:hover {
+    background-color: var(--light-color);
+  }
+  
