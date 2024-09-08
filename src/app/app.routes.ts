@@ -29,10 +29,11 @@ export const routes: Routes = [
     canActivate: [AuthguardService],
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
+
       { path: 'home', component: HomeComponent, title: 'Taalam - Home' },
       { path: 'cart', component: CartComponent, title: 'Taalam - Cart' },
       {
-        path: 'category',
+        path: 'category/:id',
         component: CategoryComponent,
         title: 'Taalam - Categories',
       },
