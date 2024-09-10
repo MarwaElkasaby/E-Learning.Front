@@ -56,6 +56,8 @@ if(form.valid){
   
 }
 }
-
+googleLogin(){
+  window.location.href = 'http://localhost:5062/api/account/signin-google';
+}
 
 }

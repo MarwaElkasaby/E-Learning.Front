@@ -24,6 +24,7 @@ import { CourseContentComponent } from './pages/course-content/course-content.co
 import { ForgetpasswordComponent } from './pages/forgetpassword/forgetpassword.component';
 import { ForgetpasswordtokenComponent } from './pages/forgetpasswordtoken/forgetpasswordtoken.component';
 import { AuthguardService } from './guards/authguard.service';
+import { AuthCallbackComponentComponent } from './Components/auth-callback-component/auth-callback-component.component';
 
 
 export const routes: Routes = [
@@ -31,7 +32,7 @@ export const routes: Routes = [
   {
     path: '',
     component: BlankLayoutComponent,
-    // canActivate: [AuthguardService],
+    canActivate: [AuthguardService],
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
 
@@ -78,7 +79,8 @@ export const routes: Routes = [
         path:'forget-passwordToken',
         component:ForgetpasswordtokenComponent,
         title:'Taalam - ForgetPasswordToken'
-      }
+      },
+      { path: 'auth-callback', component: AuthCallbackComponentComponent },
 
     ],
   },
