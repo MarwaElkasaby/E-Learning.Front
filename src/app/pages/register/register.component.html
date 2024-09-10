@@ -1,66 +1,111 @@
-<form class="row g-3" #singUpForm="ngForm" (ngSubmit)="onSubmit(singUpForm)" style="margin: auto;width: 70%;">
+<section class="vh-100">
+  <div class="container-fluid h-custom">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+    
+      <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+        <form #signUpForm="ngForm" (ngSubmit)="onSubmit(signUpForm)" class="sign-up-form">
+          <div class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
+            <p class="lead fw-normal mb-0 me-3">Sign up with</p>
+            <!-- <button type="button" class="btn btn-primary btn-floating mx-1">
+              <i class="fab fa-facebook-f"></i>
+            </button>
+            <button type="button" class="btn btn-primary btn-floating mx-1">
+              <i class="fab fa-twitter"></i>
+            </button> -->
+            <button type="button" class="btn btn-danger btn-floating mx-1" (click)="googleLogin()">
+              <i class="fab fa-google"></i>
+            </button>
+          </div>
 
-  <div class="mb-3">
-    <label for="email" class="form-label">Enter your email</label>
-    <input type="email" class="form-control" id="email" placeholder="email" [(ngModel)]="registerform.email"
-      name="email" required [ngClass]="{'is-invalid': singUpForm.submitted && !singUpForm.controls['email'].valid}">
-      @if(emailerrormessage !=''){
-        <p  style="color: red;">{{emailerrormessage}}</p>
-      }
-  </div>
+          <div class="divider d-flex align-items-center my-4">
+            <p class="text-center fw-bold mx-3 mb-0">Or</p>
+          </div>
 
-  <div class="row">
-    <div class="col">
-      <input type="text" class="form-control" placeholder="First name" aria-label="First name"
-        [(ngModel)]="registerform.fName" minlength="4" maxlength="15" name="fName" required
-        [ngClass]="{'is-invalid': singUpForm.submitted && !singUpForm.controls['fName'].valid}">
+          <!-- Email input -->
+          <div data-mdb-input-init class="form-outline mb-4">
+            <input type="email" id="email" class="form-control form-control-lg" placeholder="Enter a valid email address"
+              [(ngModel)]="registerform.email" name="email" required
+              [ngClass]="{ 'is-invalid': signUpForm.submitted && !signUpForm.controls['email'].valid }" />
+            <label class="form-label" for="email">Email address</label>
+            <div *ngIf="signUpForm.submitted && !signUpForm.controls['email'].valid" class="invalid-feedback">Email is required.</div>
+          </div>
+
+          <!-- First name and Last name -->
+          <div class="row mb-3">
+            <div class="col">
+              <input type="text" class="form-control form-control-lg" placeholder="First name" aria-label="First name"
+                [(ngModel)]="registerform.fName" name="fName" minlength="4" maxlength="15" required
+                [ngClass]="{ 'is-invalid': signUpForm.submitted && !signUpForm.controls['fName'].valid }" />
+              <div *ngIf="signUpForm.submitted && !signUpForm.controls['fName'].valid" class="invalid-feedback">
+                First name is required.
+              </div>
+            </div>
+            <div class="col">
+              <input type="text" class="form-control form-control-lg" placeholder="Last name" aria-label="Last name"
+                [(ngModel)]="registerform.LName" name="LName" minlength="4" maxlength="15" required
+                [ngClass]="{ 'is-invalid': signUpForm.submitted && !signUpForm.controls['LName'].valid }" />
+              <div *ngIf="signUpForm.submitted && !signUpForm.controls['LName'].valid" class="invalid-feedback">
+                Last name is required.
+              </div>
+            </div>
+          </div>
+
+          <!-- Password input -->
+          <div data-mdb-input-init class="form-outline mb-3">
+            <input type="password" id="password" class="form-control form-control-lg" placeholder="Enter password"
+              [(ngModel)]="registerform.password" name="password" required
+              [ngClass]="{ 'is-invalid': signUpForm.submitted && !signUpForm.controls['password'].valid }" />
+            <label class="form-label" for="password">Password</label>
+            <div *ngIf="signUpForm.submitted && !signUpForm.controls['password'].valid" class="invalid-feedback">
+              Password is required.
+            </div>
+          </div>
+
+          <!-- Confirm Password input -->
+          <div data-mdb-input-init class="form-outline mb-3">
+            <input type="password" id="confirmPassword" class="form-control form-control-lg" placeholder="Confirm password"
+              [(ngModel)]="registerform.confirmPassword" name="confirmPassword" required
+              [ngClass]="{ 'is-invalid': signUpForm.submitted && !signUpForm.controls['confirmPassword'].valid }" />
+            <label class="form-label" for="confirmPassword">Confirm Password</label>
+            <div *ngIf="signUpForm.submitted && !signUpForm.controls['confirmPassword'].valid" class="invalid-feedback">
+              Confirm password is required.
+            </div>
+          </div>
+
+          <!-- Phone number input -->
+          <div data-mdb-input-init class="form-outline mb-3">
+            <input type="tel" id="phone" class="form-control form-control-lg" placeholder="Enter your phone number"
+              [(ngModel)]="registerform.phone" name="phone" required pattern="^(010|011|012|015)[0-9]{8}$"
+              [ngClass]="{ 'is-invalid': signUpForm.submitted && !signUpForm.controls['phone'].valid }" />
+            <label class="form-label" for="phone">Phone Number</label>
+            <div *ngIf="signUpForm.submitted && !signUpForm.controls['phone'].valid" class="invalid-feedback">
+              Invalid phone number. The number must start with 010, 011, 012, or 015 followed by 8 digits.
+            </div>
+          </div>
+
+          <!-- Submit button -->
+          <div class="text-center text-lg-start mt-4 pt-2">
+            <button type="submit" class="btn btn-primary btn-lg" style="padding-left: 2.5rem; padding-right: 2.5rem;">
+              Register
+            </button>
+            <p class="small fw-bold mt-2 pt-1 mb-0">
+              Already have an account? <a routerLink="/login" class="link-danger">Login</a>
+            </p>
+          </div>
+
+        </form>
+      </div>
+      <div class="col-md-9 col-lg-6 col-xl-5">
+        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp" class="img-fluid" alt="Sample image">
+      </div>
     </div>
-    <div class="col">
-      <input type="text" class="form-control" placeholder="Last name" aria-label="Last name"
-        [(ngModel)]="registerform.LName" minlength="4" maxlength="15" name="LName" required
-        [ngClass]="{'is-invalid': singUpForm.submitted && !singUpForm.controls['LName'].valid}">
+  </div>
+
+  <!-- <div class="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5 bg-primary">
+    <div class="text-white mb-3 mb-md-0">Copyright © 2020. All rights reserved.</div>
+    <div>
+      <a href="#!" class="text-white me-4"><i class="fab fa-facebook-f"></i></a>
+      <a href="#!" class="text-white me-4"><i class="fab fa-twitter"></i></a>
     </div>
-  </div>
-
-  <div class="mb-3">
-    <label for="password" class="form-label">Enter your password</label>
-    <input type="password" class="form-control" id="password" placeholder="password" [(ngModel)]="registerform.password"
-      name="password" required
-      [ngClass]="{'is-invalid': singUpForm.submitted && !singUpForm.controls['password'].valid}">
-      @if(passworderrormessage !=''){
-        <p  style="color: red;">{{passworderrormessage}}</p>
-
-      }
-  </div>
-
-  <div class="mb-3">
-    <label for="confirmPassword" class="form-label">Confirm your password</label>
-    <input type="password" class="form-control" id="confirmPassword" placeholder="confirm password"
-      [(ngModel)]="registerform.confirmPassword" name="confirmPassword" required
-      [ngClass]="{'is-invalid': singUpForm.submitted && !singUpForm.controls['confirmPassword'].valid}">
-      @if(confirmPassworderrormessage !=''){
-        <p  style="color: red;">{{confirmPassworderrormessage}}</p>
-      }
-
-  </div>
-
-  <div class="col-12">
-    <label for="phone" class="form-label">Phone number</label>
-    <input type="tel" class="form-control" id="phone" placeholder="enter your phone number" name="phone"
-      [(ngModel)]="registerform.phone" required pattern="^(010|011|012|015)[0-9]{8}$" #phone="ngModel"
-      [ngClass]="{'is-invalid': singUpForm.submitted && !singUpForm.controls['phone'].valid}">
-      @if(phonenumbererrormessage !=''){
-        <p  style="color: red;">{{phonenumbererrormessage}}</p>
-      }
-
-      @if(phone.errors && phone.touched){
-        <div class="error-message">
-          Invalid phone number. The number must start with 010, 011, 012, or 015 followed by 8 digits.
-        </div>
-      }
-
-  
-  </div>
-
-  <button type="submit" class="btn btn-success">Submit</button>
-</form>
+  </div> -->
+</section>
