@@ -18,71 +18,53 @@ import { SectionsSidebarComponent } from '../../Components/course-content/sectio
   styleUrl: './course-content.component.css',
 })
 export class CourseContentComponent {
-  courseId: number | undefined;
-  lessonId: number | undefined;
-  selectedLesson: Lesson | undefined; // Update to 'Lesson' type to match the actual data type.
+  courseId!: number;
+  lessonId!: number;
+  selectedLesson: Lesson | undefined;
   course: Course | null = null;
 
   // Inject services
-  courseDetailsSrv = inject(CourseDetailsService);
-  activatedRoute = inject(ActivatedRoute);
-  router = inject(Router);
+  private courseDetailsSrv = inject(CourseDetailsService);
+  private activatedRoute = inject(ActivatedRoute);
+  private router = inject(Router);
+  private cdr = inject(ChangeDetectorRef);
+
+  ngOnInit(): void {
+    // Listen to route parameters and fetch course/lesson details
+    this.activatedRoute.params.subscribe((params) => {
+      this.courseId = +params['courseId'];
+      this.lessonId = +params['lessonId'];
+      this.getCourseDetails(this.courseId);
+    });
+  }
 
   // Fetch course details by ID
   getCourseDetails(id: number) {
-    this.courseDetailsSrv.getCourseContent(1).subscribe({
+    this.courseDetailsSrv.getCourseContent(id).subscribe({
       next: (res) => {
         this.course = res;
-        console.log(res);
         this.loadLesson(); // Call to load the selected lesson
       },
-      error: (err) => {
-        console.log(err);
+      error: () => {
         this.router.navigate(['not-found']);
       },
     });
   }
 
-  // Fetch the selected lesson by lessonId
+  // Load the lesson based on lessonId
   loadLesson() {
     if (this.lessonId && this.course?.sections) {
-      for (const section of this.course.sections) {
-        for (const lesson of section.lessons) {
-          if (lesson.id === this.lessonId) {
-            this.selectedLesson = lesson;
-            return;
-          }
-        }
-      }
+      this.selectedLesson = this.course.sections
+        .flatMap(section => section.lessons)
+        .find(lesson => lesson.id === this.lessonId);
     }
   }
 
-  ngOnInit(): void {
-    // Retrieve courseId and lessonId from the URL
-    const courseId = this.activatedRoute.snapshot.paramMap.get('courseId');
-    const lessonId = this.activatedRoute.snapshot.paramMap.get('lessonId');
-
-    if (courseId && lessonId) {
-      // Ensure the parameters exist
-      this.courseId = +courseId;
-      this.lessonId = +lessonId;
-      this.getCourseDetails(this.courseId);
-    } else {
-      this.router.navigate(['not-found']); // Handle missing parameters
-    }
-  }
-  cdr = inject(ChangeDetectorRef);
   // Handle lesson selection from the sidebar
   onLessonSelected(lesson: Lesson) {
     this.selectedLesson = lesson;
-    console.log('Selected Lesson:', this.selectedLesson); // Should log the updated lesson
-    // Update the URL when a new lesson is selected and reload the lesson details
-
-    this.router
-      .navigate([`/course/content/${this.courseId}/${lesson.id}`])
-      .then(() => {
-        this.loadLesson(); // Reload lesson after URL update
-      });
+    this.router.navigate([`/course/content/${this.courseId}/${lesson.id}`])
+      .then(() => this.loadLesson());
     this.cdr.detectChanges();
   }
 }

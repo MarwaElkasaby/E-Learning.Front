@@ -13,13 +13,9 @@ import {
   templateUrl: './course-description.component.html',
   styleUrl: './course-description.component.css',
 })
-export class CourseDescriptionComponent implements OnChanges {
+export class CourseDescriptionComponent  {
   @Input({ required: true }) description!: string | undefined;
 
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes['description']) {
-      this.description = changes['description'].previousValue;
-      console.log(this.description);
-    }
-  }
+  
+  
 }
