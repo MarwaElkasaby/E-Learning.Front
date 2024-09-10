@@ -31,14 +31,12 @@ export class CategoryComponent implements OnInit {
         this.categoryService.getCoursesByCategory(id).subscribe({
           next: (response) => {
             this.selectedCategoryId = response.id;
+            this.fetchCategories();
           },
           error: (error) => {
             console.error('Error fetching category courses:', error);
           },
         });
-      
-       this.fetchCategories();
-    this.fetchCourses();
       },
     });
    
