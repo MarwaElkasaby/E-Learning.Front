@@ -15,7 +15,7 @@ import { Router } from '@angular/router';
 export class NavBlankComponent implements OnInit {
   token: any;
   tokendata: any;
-  userId !: string;
+  userId !: number;
   username !: string;
   role !: string;
   constructor (private _CategoryService:CategoryService, private _Router:Router){
