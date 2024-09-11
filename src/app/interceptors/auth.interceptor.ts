@@ -11,21 +11,21 @@ export class AuthInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
 
-    let token = typeof window !== 'undefined' && localStorage.getItem('token');
-    if (token) {
-      req = req.clone({
-        setHeaders: {
-          Authorization: `Bearer ${token}`
-        }
-      });
-    }
+    // let token = typeof window !== 'undefined' && localStorage.getItem('token');
+    // if (token) {
+    //   req = req.clone({
+    //     setHeaders: {
+    //       Authorization: `Bearer ${token}`
+    //     }
+    //   });
+    // }
 
     return next.handle(req).pipe(
       catchError((error: HttpErrorResponse) => {
         if (error.status === 401) {
           // Unauthorized response, clear the token
           typeof window !== 'undefined' && localStorage.removeItem('token');
-          
+
           // Redirect to login or notify the user
           this.router.navigate(['/login']);
         }
