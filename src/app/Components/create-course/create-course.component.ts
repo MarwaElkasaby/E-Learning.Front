@@ -333,14 +333,14 @@ export class CreateCourseComponent {
             response.message || 'Course Uploaded Successfully'
           );
         },
-        error: (err) => {
-          this.isLoading = false;
-          this.isSubmitting = false; // Reset the flag on error
-          console.error('Error Response:', err);
-          this._ToastrService.error(
-            err.message || 'An error occurred while uploading the course.'
-          );
-        },
+        // error: (err) => {
+        //   this.isLoading = false;
+        //   this.isSubmitting = false; // Reset the flag on error
+        //   console.error('Error Response:', err);
+        //   this._ToastrService.error(
+        //     err.message || 'An error occurred while uploading the course.'
+        //   );
+        // },
       });
     }
   }
