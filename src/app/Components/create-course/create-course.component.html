@@ -1,1 +1,285 @@
-<p>create-course works!</p>
+<div class="container mt-5">
+  <h1>Upload Course</h1>
+  <form [formGroup]="CourseForm" (ngSubmit)="onsubmit()">
+    <!-- Course Inputs (Title, Description, Cover Picture, Price) -->
+
+    <!-- Title Input -->
+    <div class="mb-2">
+      <label for="title">Title: </label>
+      <input
+        #inputTitle
+        formControlName="title"
+        type="text"
+        id="title"
+        class="form-control"
+      />
+      <div
+        class="alert alert-danger"
+        *ngIf="
+          CourseForm.get('title')?.errors &&
+          (CourseForm.get('title')?.touched || inputTitle.value.length > 0)
+        "
+      >
+        <p *ngIf="CourseForm.get('title')?.getError('required')">
+          Title is Required
+        </p>
+        <p *ngIf="CourseForm.get('title')?.getError('minlength')">
+          Title Min Length 5
+        </p>
+        <p *ngIf="CourseForm.get('title')?.getError('maxlength')">
+          Title Max Length 30
+        </p>
+      </div>
+    </div>
+
+    <!-- Description Input -->
+    <div class="mb-2">
+      <label for="description">Description: </label>
+      <input
+        #inputDescription
+        formControlName="description"
+        type="text"
+        id="description"
+        class="form-control"
+      />
+      <div
+        class="alert alert-danger"
+        *ngIf="
+          CourseForm.get('description')?.errors &&
+          (CourseForm.get('description')?.touched ||
+            inputDescription.value.length > 0)
+        "
+      >
+        <p *ngIf="CourseForm.get('description')?.getError('required')">
+          Description is Required
+        </p>
+        <p *ngIf="CourseForm.get('description')?.getError('minlength')">
+          Description Min Length 50
+        </p>
+      </div>
+    </div>
+
+    <!-- Category Input -->
+    <div class="mb-2">
+      <label for="category">Category: </label>
+      <input
+        #inputCategory
+        formControlName="category"
+        type="text"
+        id="category"
+        class="form-control"
+      />
+      <div
+        class="alert alert-danger"
+        *ngIf="
+          CourseForm.get('category')?.errors &&
+          (CourseForm.get('category')?.touched ||
+            inputCategory.value.length > 0)
+        "
+      >
+        <p *ngIf="CourseForm.get('category')?.getError('required')">
+          Category is Required
+        </p>
+        <p *ngIf="CourseForm.get('category')?.getError('minlength')">
+          Category Min Length 50
+        </p>
+      </div>
+    </div>
+
+ <!-- Duration Input -->
+    <div class="mb-2">
+      <label for="duration">Duration: </label>
+      <input
+        #inputDuration
+        formControlName="duration"
+        type="text"
+        id="duration"
+        class="form-control"
+      />
+      <div
+        class="alert alert-danger"
+        *ngIf="
+          CourseForm.get('duration')?.errors &&
+          (CourseForm.get('duration')?.touched || inputDuration.value.length > 0)
+        "
+      >
+        <p *ngIf="CourseForm.get('duration')?.getError('required')">
+          Duration is Required
+        </p>
+        <p *ngIf="CourseForm.get('duration')?.getError('pattern')">
+          Duration Must be a Number
+        </p>
+      </div>
+    </div>
+
+    <ngx-dropzone (change)="onSelect($event)" [accept]="'image/*'">
+      <ngx-dropzone-label>Drag and Drop an Image File for Cover Picture</ngx-dropzone-label>
+
+      <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
+        <ngx-dropzone-label>
+          {{f.name}} ({{f.type}})
+        </ngx-dropzone-label>
+      </ngx-dropzone-preview>
+    </ngx-dropzone>
+
+    <!-- Error message for cover picture -->
+    <div class="alert alert-danger" *ngIf="CourseForm.get('coverPicture')?.invalid && CourseForm.get('coverPicture')?.touched">
+      Cover picture is required.
+    </div>
+
+    <!-- Upload Button -->
+    <!-- <input type="button" (click)="uploadFiles()"  value="Upload File"/> -->
+
+    <!-- Price Input -->
+    <div class="mb-2">
+      <label for="price">Price: </label>
+      <input
+        #inputprice
+        formControlName="price"
+        type="text"
+        id="price"
+        class="form-control"
+      />
+      <div
+        class="alert alert-danger"
+        *ngIf="
+          CourseForm.get('price')?.errors &&
+          (CourseForm.get('price')?.touched || inputprice.value.length > 0)
+        "
+      >
+        <p *ngIf="CourseForm.get('price')?.getError('required')">
+          Price is Required
+        </p>
+        <p *ngIf="CourseForm.get('price')?.getError('pattern')">
+          Price Must be a Number
+        </p>
+      </div>
+    </div>
+
+    <!-- Section Management -->
+    <h4>
+      Section:
+      <button type="button" class="btn btn-sm btn-success" (click)="addSection()">
+        <i class="bx bx-plus-circle bx-sm"></i>
+      </button>
+    </h4>
+
+    <div class="mb-3" formArrayName="sections">
+      <div *ngFor="let section of sections.controls; let sectionIndex = index" [formGroupName]="sectionIndex" class="border p-3 mb-3">
+        <!-- Section Title Input -->
+        <div class="row mb-2">
+          <div class="col-lg-6">
+            <input type="text" class="form-control" placeholder="Section Title" formControlName="sectionTitle" />
+          </div>
+          <div class="col-lg-1">
+            <button type="button" class="btn btn-sm btn-danger" (click)="removeSection(sectionIndex)">
+              <i class="bx bx-minus bx-sm"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Lesson Management -->
+        <h4>
+          Lesson:
+          <button type="button" class="btn btn-sm btn-success" (click)="addLesson(sectionIndex)">
+            <i class="bx bx-plus-circle bx-sm"></i>
+          </button>
+        </h4>
+
+        <div class="mb-3" formArrayName="lessons">
+          <div *ngFor="let lesson of getLessons(sectionIndex).controls; let lessonIndex = index" [formGroupName]="lessonIndex" class="row mb-2">
+            <!-- Lesson Title Input -->
+            <div class="col-lg-6">
+              <input type="text" class="form-control" placeholder="Lesson Title" formControlName="lessonTitle" />
+            </div>
+
+            <!-- Drag-and-Drop Video Upload -->
+            <div class="col-lg-6">
+              <ngx-dropzone (change)="onSelectLessonFile($event, sectionIndex, lessonIndex)" [accept]="'video/*'">
+                <ngx-dropzone-label>Drag and Drop Your Video</ngx-dropzone-label>
+
+                <ngx-dropzone-preview
+                  *ngFor="let f of lessonsFiles[sectionIndex][lessonIndex]"
+                  [removable]="true"
+                  (removed)="onRemoveLessonFile(f, sectionIndex, lessonIndex)"
+                >
+                  <ngx-dropzone-label>
+                    {{f.name}} ({{f.type}})
+                  </ngx-dropzone-label>
+                </ngx-dropzone-preview>
+              </ngx-dropzone>
+            </div>
+
+            <!-- Remove Lesson Button -->
+            <div class="col-lg-1">
+              <button type="button" class="btn btn-sm btn-danger" (click)="removeLesson(sectionIndex, lessonIndex)">
+                <i class="bx bx-minus bx-sm"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quiz Management -->
+        <!-- <h4>
+          Quiz:
+          <button type="button" class="btn btn-sm btn-success" (click)="addQuiz(sectionIndex)">
+            <i class="bx bx-plus-circle bx-sm"></i>
+          </button>
+        </h4>
+
+        <div class="mb-3" formArrayName="quizzes">
+          <div *ngFor="let quiz of getQuizzes(sectionIndex).controls; let quizIndex = index" [formGroupName]="quizIndex" class="border p-3 mb-3">
+            Quiz Name Input
+            <div class="row mb-2">
+              <div class="col-lg-10">
+                <input type="text" class="form-control" placeholder="Quiz Name" formControlName="quizName" />
+              </div>
+              <div class="col-lg-2">
+                <button type="button" class="btn btn-sm btn-danger" (click)="removeQuiz(sectionIndex, quizIndex)">
+                  <i class="bx bx-minus bx-sm"></i> Remove Quiz
+                </button>
+              </div>
+            </div>
+
+            Question Management
+            <h5>
+              Questions:
+              <button type="button" class="btn btn-sm btn-success" (click)="addQuestion(sectionIndex, quizIndex)">
+                <i class="bx bx-plus-circle bx-sm"></i>
+              </button>
+            </h5>
+
+            <div class="mb-3" formArrayName="questions">
+              <div *ngFor="let question of getQuestions(sectionIndex, quizIndex).controls; let questionIndex = index" [formGroupName]="questionIndex" class="row mb-2">
+                Question Title Input
+                <div class="col-lg-12 mb-2">
+                  <input type="text" class="form-control" placeholder="Question Title" formControlName="questionTitle" />
+                  <input type="text" class="form-control" placeholder="Question Answer" formControlName="questionAnswer" />
+                </div>
+
+                Answer Inputs
+                <div class="col-lg-3" *ngFor="let answer of getAnswers(sectionIndex, quizIndex, questionIndex).controls; let answerIndex = index">
+                  <input type="text" class="form-control" placeholder="Answer {{answerIndex + 1}}" [formControlName]="answerIndex" />
+                </div>
+
+                Remove Question Button
+                <div class="col-lg-12 mt-2">
+                  <button type="button" class="btn btn-sm btn-danger" (click)="removeQuestion(sectionIndex, quizIndex, questionIndex)">
+                    <i class="bx bx-minus bx-sm"></i> Remove Question
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> -->
+
+        <hr />
+      </div>
+    </div>
+
+    <!-- Submit Button -->
+    <button type="submit" class="btn btn-primary">
+      <i *ngIf="isLoading" class="fas fa-spinner fa-spin"></i>
+      Submit</button>
+  </form>
+</div>
