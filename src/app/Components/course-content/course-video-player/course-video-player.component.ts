@@ -1,12 +1,10 @@
 import {
   Component,
-  Inject,
-  inject,
+  ElementRef,
   Input,
-  OnChanges,
   SimpleChanges,
+  ViewChild,
 } from '@angular/core';
-import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-course-video-player',
@@ -15,8 +13,13 @@ import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
   templateUrl: './course-video-player.component.html',
   styleUrl: './course-video-player.component.css',
 })
-export class CourseVideoPlayerComponent  {
+export class CourseVideoPlayerComponent {
   @Input({ required: true }) content!: string;
-
-  
+  @ViewChild('videoPlayer', { static: false }) videoPlayer!: ElementRef;
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['content'] && !changes['content'].firstChange) {
+      const video = this.videoPlayer.nativeElement;
+      video.load();
+    }
+  }
 }
