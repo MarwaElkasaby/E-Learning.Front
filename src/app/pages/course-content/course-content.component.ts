@@ -5,6 +5,8 @@ import { CourseDetailsService } from '../../shared/services/course/course-detail
 import { CourseVideoPlayerComponent } from '../../Components/course-content/course-video-player/course-video-player.component';
 import { CourseDescriptionComponent } from '../../Components/course-content/course-description/course-description.component';
 import { SectionsSidebarComponent } from '../../Components/course-content/sections-sidebar/sections-sidebar.component';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-course-content',
@@ -13,6 +15,8 @@ import { SectionsSidebarComponent } from '../../Components/course-content/sectio
     CourseVideoPlayerComponent,
     CourseDescriptionComponent,
     SectionsSidebarComponent,
+    FormsModule,
+    CommonModule,
   ],
   templateUrl: './course-content.component.html',
   styleUrl: './course-content.component.css',
@@ -22,15 +26,14 @@ export class CourseContentComponent {
   lessonId!: number;
   selectedLesson: Lesson | undefined;
   course: Course | null = null;
+  progressPercentage!: number;
 
-  // Inject services
-  private courseDetailsSrv = inject(CourseDetailsService);
-  private activatedRoute = inject(ActivatedRoute);
-  private router = inject(Router);
-  private cdr = inject(ChangeDetectorRef);
+  courseDetailsSrv = inject(CourseDetailsService);
+  activatedRoute = inject(ActivatedRoute);
+  router = inject(Router);
+  cdr = inject(ChangeDetectorRef);
 
   ngOnInit(): void {
-    // Listen to route parameters and fetch course/lesson details
     this.activatedRoute.params.subscribe((params) => {
       this.courseId = +params['courseId'];
       this.lessonId = +params['lessonId'];
@@ -38,12 +41,14 @@ export class CourseContentComponent {
     });
   }
 
-  // Fetch course details by ID
   getCourseDetails(id: number) {
     this.courseDetailsSrv.getCourseContent(id).subscribe({
       next: (res) => {
         this.course = res;
-        this.loadLesson(); // Call to load the selected lesson
+        this.progressPercentage =
+          this.course?.studentEnrollment?.progressPercentage || 0;
+        this.selectedLesson = this.course?.sections[0].lessons[0];
+        this.loadLesson();
       },
       error: () => {
         this.router.navigate(['not-found']);
@@ -51,20 +56,41 @@ export class CourseContentComponent {
     });
   }
 
-  // Load the lesson based on lessonId
   loadLesson() {
     if (this.lessonId && this.course?.sections) {
       this.selectedLesson = this.course.sections
-        .flatMap(section => section.lessons)
-        .find(lesson => lesson.id === this.lessonId);
+        .flatMap((section) => section.lessons)
+        .find((lesson) => lesson.id === this.lessonId);
     }
   }
 
-  // Handle lesson selection from the sidebar
   onLessonSelected(lesson: Lesson) {
     this.selectedLesson = lesson;
-    this.router.navigate([`/course/content/${this.courseId}/${lesson.id}`])
+    this.router
+      .navigate([`/course/content/${this.courseId}/${lesson.id}`])
       .then(() => this.loadLesson());
     this.cdr.detectChanges();
+  }
+
+  onProgressUpdated() {
+    // Get total lessons across all sections
+    const totalLessons =
+      this.course?.sections.flatMap((section) => section.lessons).length || 0;
+
+    // Get completed lessons from student enrollment
+    const completedLessons =
+      this.course?.studentEnrollment.completedLessons || 0;
+
+    // Ensure totalLessons is greater than 0 to avoid division by zero
+    if (totalLessons > 0) {
+      // Calculate progress percentage
+      this.progressPercentage = (completedLessons / totalLessons) * 100;
+    } else {
+      this.progressPercentage = 0; // Handle case when there are no lessons
+    }
+
+    console.log('Total Lessons:', totalLessons);
+    console.log('Completed Lessons:', completedLessons);
+    console.log('Progress Percentage:', this.progressPercentage);
   }
 }

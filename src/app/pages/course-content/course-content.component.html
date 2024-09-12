@@ -24,9 +24,14 @@
       }
 
       <!-- Lesson Description -->
+      @if (selectedLesson) {
       <app-course-description
-        [description]="selectedLesson?.title"
+        [courseId]="courseId"
+        [selectedLesson]="selectedLesson"
+        [progressPercentage]="progressPercentage"
+        (progressUpdated)="onProgressUpdated()"
       ></app-course-description>
+      }
     </div>
   </div>
 </div>

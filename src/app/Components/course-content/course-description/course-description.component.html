@@ -1,5 +1,25 @@
-<div class="card">
-  <div class="card-body">
-    <p>{{ description ? description : "not desc avaliable" }}</p>
-  </div>
-</div>
+<p>{{ selectedLesson.title || "No description available" }}</p>
+
+<!-- Progress Bar -->
+<ngb-progressbar
+  class="mb-3"
+  [showValue]="true"
+  type="success"
+  [value]="progressPercentage"
+></ngb-progressbar>
+
+<!-- Mark as Completed Button -->
+<button
+  class="btn btn-success mt-3"
+  (click)="markAsCompleted()"
+  [disabled]="(loading$ | async) || selectedLesson.isCompleted"
+>
+  <i class="bi-check-circle me-2"></i>
+  Mark as Completed
+  <span
+    *ngIf="loading$ | async"
+    class="spinner-border spinner-border-sm ms-2"
+    role="status"
+    aria-hidden="true"
+  ></span>
+</button>
