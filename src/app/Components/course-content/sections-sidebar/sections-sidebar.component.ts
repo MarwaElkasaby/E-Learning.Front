@@ -12,7 +12,7 @@ import { NgbAccordionModule, NgbNavPane } from '@ng-bootstrap/ng-bootstrap';
 })
 export class SectionsSidebarComponent {
   @Input() sections: Section[] = [];
-  @Output() lessonSelected = new EventEmitter<any>();
+  @Output() lessonSelected = new EventEmitter<Lesson>();
 
   onLessonClick(lesson: Lesson) {
     this.lessonSelected.emit(lesson); // Send the selected lesson to the parent

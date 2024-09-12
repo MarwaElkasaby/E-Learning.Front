@@ -3,6 +3,7 @@ export interface Lesson {
   title: string;
   duration?: string;
   content?: string;
+  isCompleted: boolean;
   lessonNumber?: number;
 }
 
@@ -32,6 +33,12 @@ export interface Instructor {
   description?: string;
 }
 
+export interface StudentEnrollment {
+  progressPercentage: number;
+  completedLessons: number;
+  enrollmentDate: string;
+}
+
 export interface Course {
   id: number;
   title: string;
@@ -45,4 +52,5 @@ export interface Course {
   courseCategory: CourseCategory;
   sections: Section[];
   instructor: Instructor;
+  studentEnrollment: StudentEnrollment; // Include the student enrollment details
 }

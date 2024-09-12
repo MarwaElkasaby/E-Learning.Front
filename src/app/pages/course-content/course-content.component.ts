@@ -5,6 +5,8 @@ import { CourseDetailsService } from '../../shared/services/course/course-detail
 import { CourseVideoPlayerComponent } from '../../Components/course-content/course-video-player/course-video-player.component';
 import { CourseDescriptionComponent } from '../../Components/course-content/course-description/course-description.component';
 import { SectionsSidebarComponent } from '../../Components/course-content/sections-sidebar/sections-sidebar.component';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-course-content',
@@ -13,76 +15,82 @@ import { SectionsSidebarComponent } from '../../Components/course-content/sectio
     CourseVideoPlayerComponent,
     CourseDescriptionComponent,
     SectionsSidebarComponent,
+    FormsModule,
+    CommonModule,
   ],
   templateUrl: './course-content.component.html',
   styleUrl: './course-content.component.css',
 })
 export class CourseContentComponent {
-  courseId: number | undefined;
-  lessonId: number | undefined;
-  selectedLesson: Lesson | undefined; // Update to 'Lesson' type to match the actual data type.
+  courseId!: number;
+  lessonId!: number;
+  selectedLesson: Lesson | undefined;
   course: Course | null = null;
+  progressPercentage!: number;
 
-  // Inject services
   courseDetailsSrv = inject(CourseDetailsService);
   activatedRoute = inject(ActivatedRoute);
   router = inject(Router);
+  cdr = inject(ChangeDetectorRef);
 
-  // Fetch course details by ID
+  ngOnInit(): void {
+    this.activatedRoute.params.subscribe((params) => {
+      this.courseId = +params['courseId'];
+      this.lessonId = +params['lessonId'];
+      this.getCourseDetails(this.courseId);
+    });
+  }
+
   getCourseDetails(id: number) {
-    this.courseDetailsSrv.getCourseContent(1).subscribe({
+    this.courseDetailsSrv.getCourseContent(id).subscribe({
       next: (res) => {
         this.course = res;
-        console.log(res);
-        this.loadLesson(); // Call to load the selected lesson
+        this.progressPercentage =
+          this.course?.studentEnrollment?.progressPercentage || 0;
+        this.selectedLesson = this.course?.sections[0].lessons[0];
+        this.loadLesson();
       },
-      error: (err) => {
-        console.log(err);
+      error: () => {
         this.router.navigate(['not-found']);
       },
     });
   }
 
-  // Fetch the selected lesson by lessonId
   loadLesson() {
     if (this.lessonId && this.course?.sections) {
-      for (const section of this.course.sections) {
-        for (const lesson of section.lessons) {
-          if (lesson.id === this.lessonId) {
-            this.selectedLesson = lesson;
-            return;
-          }
-        }
-      }
+      this.selectedLesson = this.course.sections
+        .flatMap((section) => section.lessons)
+        .find((lesson) => lesson.id === this.lessonId);
     }
   }
 
-  ngOnInit(): void {
-    // Retrieve courseId and lessonId from the URL
-    const courseId = this.activatedRoute.snapshot.paramMap.get('courseId');
-    const lessonId = this.activatedRoute.snapshot.paramMap.get('lessonId');
-
-    if (courseId && lessonId) {
-      // Ensure the parameters exist
-      this.courseId = +courseId;
-      this.lessonId = +lessonId;
-      this.getCourseDetails(this.courseId);
-    } else {
-      this.router.navigate(['not-found']); // Handle missing parameters
-    }
-  }
-  cdr = inject(ChangeDetectorRef);
-  // Handle lesson selection from the sidebar
   onLessonSelected(lesson: Lesson) {
     this.selectedLesson = lesson;
-    console.log('Selected Lesson:', this.selectedLesson); // Should log the updated lesson
-    // Update the URL when a new lesson is selected and reload the lesson details
-
     this.router
       .navigate([`/course/content/${this.courseId}/${lesson.id}`])
-      .then(() => {
-        this.loadLesson(); // Reload lesson after URL update
-      });
+      .then(() => this.loadLesson());
     this.cdr.detectChanges();
+  }
+
+  onProgressUpdated() {
+    // Get total lessons across all sections
+    const totalLessons =
+      this.course?.sections.flatMap((section) => section.lessons).length || 0;
+
+    // Get completed lessons from student enrollment
+    const completedLessons =
+      this.course?.studentEnrollment.completedLessons || 0;
+
+    // Ensure totalLessons is greater than 0 to avoid division by zero
+    if (totalLessons > 0) {
+      // Calculate progress percentage
+      this.progressPercentage = (completedLessons / totalLessons) * 100;
+    } else {
+      this.progressPercentage = 0; // Handle case when there are no lessons
+    }
+
+    console.log('Total Lessons:', totalLessons);
+    console.log('Completed Lessons:', completedLessons);
+    console.log('Progress Percentage:', this.progressPercentage);
   }
 }
