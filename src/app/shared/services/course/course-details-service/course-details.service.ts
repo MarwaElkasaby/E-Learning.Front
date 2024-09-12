@@ -22,4 +22,15 @@ export class CourseDetailsService {
       }
     );
   }
+
+  markLessonAsCompleted(lessonId: number, courseId: number): Observable<any> {
+    console.log('Lesson ID:', lessonId, 'Course ID:', courseId); // Check the values
+    return this.httpClient.post(
+      `http://localhost:5062/api/Course/complete-lesson`,
+      {
+        lessonId,
+        courseId,
+      }
+    );
+  }
 }
