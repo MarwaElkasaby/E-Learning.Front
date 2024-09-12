@@ -32,7 +32,7 @@ export const routes: Routes = [
   {
     path: '',
     component: BlankLayoutComponent,
-    canActivate: [AuthguardService],
+    // canActivate: [AuthguardService],
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
 
@@ -41,7 +41,7 @@ export const routes: Routes = [
       { path: 'category/:id', component: CategoryComponent, title:"Taalam - Categories" },
       { path: 'wishlist/:id', component: WishlistComponent, title:"Taalam - Wishlist" },
       { path: 'userProfile/:id', component: EditUserProfileComponent, title:"Taalam - UserProfile" },
-      { path: 'userCourses', component: UserCoursesComponent , title:"Taalam - MyCourses" },
+      { path: 'userCourses/:id', component: UserCoursesComponent , title:"Taalam - MyCourses" },
       { path: 'createCourse', component: CreateCourseComponent , title:"Taalam - CreateCourse" },
       { path: 'instructorProfile/:id', component: InstructorProfileComponent , title:"Taalam - InstructorProfile" },
       {path: 'searchResult/:SearchTerm', component:SearchResultComponent , title:"Taalam - SearchResult"},

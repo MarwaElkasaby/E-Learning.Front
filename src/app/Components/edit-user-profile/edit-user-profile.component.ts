@@ -28,7 +28,7 @@ export class EditUserProfileComponent {
   };
   selectedFile: File | null = null;
   profilePicture: string | ArrayBuffer | null = null;
-  defaultProfilePicture = 'http://bootdey.com/img/Content/avatar/avatar1.png'; // Placeholder image
+  defaultProfilePicture = 'http://bootdey.com/img/Content/avatar/avatar1.png';
 
   constructor(
     private userservice: UserService,

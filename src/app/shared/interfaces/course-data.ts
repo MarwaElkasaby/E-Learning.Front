@@ -9,6 +9,18 @@ export interface CourseData {
   sectionsNo: number;
   sections: Section[];
 }
+export interface IEnrolledCourse {
+  id: number,
+  title: string,
+  instructorName:string,
+  InstructorInfo:string,
+  description: string,
+  price: number,
+  rate: number,
+  coverPicture: string,
+  categoryName:string,
+  duration: number
+}
 
 export interface Section {
   sectionTitle: string;
