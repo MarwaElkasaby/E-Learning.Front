@@ -3,8 +3,7 @@ import {
   EventEmitter,
   inject,
   Input,
-  OnChanges,
-  SimpleChanges,
+  Output, // <-- Add Output for emitting events
 } from '@angular/core';
 import {
   NgbModal,
@@ -29,13 +28,16 @@ export class CourseDescriptionComponent {
   @Input() progressPercentage!: number;
   @Input({ required: true }) selectedLesson!: Lesson;
 
+  // Define an output event to notify progress changes
+  @Output() progressUpdated = new EventEmitter<void>(); // <-- This will notify the parent when progress is updated
+
   loadingSubject = new BehaviorSubject<boolean>(false);
   loading$ = this.loadingSubject.asObservable();
   toastr = inject(ToastrService);
-  progress: number = 0;
   modalService = inject(NgbModal);
   courseDetailsSrv = inject(CourseDetailsService);
 
+  // Method to mark lesson as completed
   markAsCompleted() {
     if (!this.selectedLesson.id || this.selectedLesson.isCompleted) {
       return;
@@ -47,6 +49,9 @@ export class CourseDescriptionComponent {
       .subscribe({
         next: () => {
           this.selectedLesson.isCompleted = true;
+
+          // Emit progress update after marking the lesson as completed
+          this.progressUpdated.emit(); // <-- Notify parent to update the progress
         },
         error: () => {
           this.toastr.error('Something went wrong');
