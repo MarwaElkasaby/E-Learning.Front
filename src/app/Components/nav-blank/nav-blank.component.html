@@ -27,6 +27,9 @@
             <li><a class="dropdown-item" [routerLink]="['/category', category.id]">{{category.name}} </a></li>
 
             }
+         
+         
+            
             <!-- <li><a class="dropdown-item" href="#">Category 2</a></li>
               <li><a class="dropdown-item" href="#">Category 3</a></li>
               <li><a class="dropdown-item" href="#">Category 4</a></li> -->
@@ -68,11 +71,12 @@
           [(ngModel)]="searchTerm"
           name="searchQuery">
         <button
-          type="submit"
+          
           class="btn btn-outline-success"
           style="border-radius: 20px;">
           Search
         </button>
+       
       </form>
 
 
@@ -97,6 +101,14 @@
             <i class="fas fa-user"></i>
           </a>
         </li>
+        @if(isauth){
+          <li class="nav-item">
+            <button type="button" class="btn btn-danger" style="border-radius: 20px" (click)="signout()">
+              logout
+            </button>
+          </li>
+
+        }
       </ul>
     </div>
   </div>
