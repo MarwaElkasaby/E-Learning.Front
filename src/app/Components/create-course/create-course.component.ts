@@ -13,6 +13,8 @@ import { CourseData } from '../../shared/interfaces/course-data';
 import { CoursesService } from '../../shared/services/courses.service';
 import { ToastrService } from 'ngx-toastr';
 import { NgxDropzoneModule } from 'ngx-dropzone';
+import { catchError, forkJoin, Observable, of, tap, throwError } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-course',
@@ -40,7 +42,8 @@ export class CreateCourseComponent {
     private fb: FormBuilder,
     private courseService: CoursesService,
     private _ToastrService: ToastrService,
-    private _UploadService: UploadService
+    private _UploadService: UploadService,
+    private _Router: Router
   ) {
     this.token = localStorage.getItem('token');
     if (this.token) {
@@ -64,7 +67,6 @@ export class CreateCourseComponent {
       description: ['', [Validators.required, Validators.minLength(50)]],
       category: ['', [Validators.required, Validators.minLength(5)]],
       duration: ['', [Validators.required, Validators.pattern(/^[0-9]+$/)]],
-      // coverPicture2: ['', Validators.required],
       coverPicture: ['', Validators.required],
       price: ['', [Validators.required, Validators.pattern(/^[0-9]+$/)]],
       sections: this.fb.array([]),
@@ -154,10 +156,7 @@ export class CreateCourseComponent {
     this.CourseForm.patchValue({
       coverPicture: file,
     });
-
-    // Optionally mark the control as dirty or touched to show validation errors if necessary
-    this.CourseForm.get('coverPicture')?.markAsTouched();
-    this.uploadImageFile();
+    this.CourseForm.get('coverPicture')?.updateValueAndValidity(); // Recalculate validity
   }
 
   // Handle file removal
@@ -169,16 +168,19 @@ export class CreateCourseComponent {
       coverPicture: null,
     });
 
-    // Mark the control as untouched if necessary
-    this.CourseForm.get('coverPicture')?.markAsUntouched();
+    // Update the form control after removing the file
+    if (this.files.length === 0) {
+      this.CourseForm.get('coverPicture')?.setValue(''); // Clear the form control value
+      this.CourseForm.get('coverPicture')?.markAsTouched(); // Mark as touched to show validation error
+      this.CourseForm.get('coverPicture')?.updateValueAndValidity(); // Recalculate validity
+    }
   }
 
-  uploadImageFile() {
+  uploadImageFile(): Observable<any> {
     // Check if the form is valid and if a file has been selected
     if (!this.CourseForm.get('coverPicture')?.valid) {
-      // if (!this.CourseForm.valid) {
       alert('Please select a cover picture before uploading.');
-      return;
+      return of(null); // Return a dummy observable if no file is selected
     }
 
     const file = this.CourseForm.get('coverPicture')?.value;
@@ -187,21 +189,20 @@ export class CreateCourseComponent {
     formData.append('upload_preset', 'Taalam_Project'); // Set your Cloudinary unsigned preset
 
     // Call the upload service and handle the response
-    this._UploadService.uploadImage(formData).subscribe({
-      next: (response) => {
+    return this._UploadService.uploadImage(formData).pipe(
+      tap((response) => {
         console.log(response.secure_url);
         const secureUrl = response.secure_url;
-
-        // Set the coverPicture value in the CourseForm to the secure URL
         this.CourseForm.patchValue({
           coverPicture: secureUrl,
         });
-      },
-      error: (err) => {
+      }),
+      catchError((err) => {
         console.error('Upload error:', err);
         alert('An error occurred while uploading the file.');
-      },
-    });
+        return throwError(err); // Return an observable that throws an error
+      })
+    );
   }
 
   onSelectLessonFile(event: any, sectionIndex: number, lessonIndex: number) {
@@ -220,8 +221,18 @@ export class CreateCourseComponent {
       .get('lessonUrl')
       ?.setValue(files[0].name); // You can use URL.createObjectURL(files[0]) for a local URL
 
+    // Mark as touched and recalculate the validity to trigger validation messages
+    this.getLessons(sectionIndex)
+      .at(lessonIndex)
+      .get('lessonUrl')
+      ?.markAsTouched();
+    this.getLessons(sectionIndex)
+      .at(lessonIndex)
+      .get('lessonUrl')
+      ?.updateValueAndValidity();
+
     // Automatically upload the selected video
-    this.uploadVideoFile(sectionIndex, lessonIndex);
+    // this.uploadVideoFile(sectionIndex, lessonIndex);
   }
 
   onRemoveLessonFile(file: File, sectionIndex: number, lessonIndex: number) {
@@ -235,22 +246,33 @@ export class CreateCourseComponent {
         .get('lessonUrl')
         ?.setValue('');
     }
+
+    // Mark as touched and recalculate the validity to trigger validation messages
+    this.getLessons(sectionIndex)
+      .at(lessonIndex)
+      .get('lessonUrl')
+      ?.markAsTouched();
+    this.getLessons(sectionIndex)
+      .at(lessonIndex)
+      .get('lessonUrl')
+      ?.updateValueAndValidity();
   }
 
-  uploadVideoFile(sectionIndex: number, lessonIndex: number) {
+  uploadVideoFile(sectionIndex: number, lessonIndex: number): Observable<any> {
     const file = this.lessonsFiles[sectionIndex][lessonIndex][0];
 
     if (!file) {
       alert('Please select a video before uploading.');
-      return;
+      return of(null); // Return a dummy observable if no file is selected
     }
 
     const formData = new FormData();
     formData.append('file', file);
     formData.append('upload_preset', 'Taalam_Project');
 
-    this._UploadService.uploadVideo(formData).subscribe({
-      next: (response) => {
+    // Return the observable for video upload
+    return this._UploadService.uploadVideo(formData).pipe(
+      tap((response) => {
         console.log(response);
         const secureUrl = response.secure_url;
         const publicId = response.public_id; // Store public_id
@@ -260,87 +282,87 @@ export class CreateCourseComponent {
           lessonUrl: secureUrl,
           lessonPublicId: publicId, // Add this field to store public_id
         });
-
         this._ToastrService.success('Video uploaded successfully.');
-
-        // alert('Video uploaded successfully.');
-      },
-      error: (err) => {
+      }),
+      catchError((err) => {
         console.error('Upload error:', err);
-        this._ToastrService.success(
+        this._ToastrService.error(
           'An error occurred while uploading the video.'
         );
-        // alert('An error occurred while uploading the video.');
-      },
-    });
+        return throwError(err); // Return an observable that throws an error
+      })
+    );
   }
 
-  // onRemoveLessonFile(file: File, sectionIndex: number, lessonIndex: number) {
-  //   const publicId = this.getLessons(sectionIndex)
-  //     .at(lessonIndex)
-  //     .get('lessonPublicId')?.value;
-
-  //   if (publicId) {
-  //     // Delete the video from Cloudinary
-  //     this._UploadService.deleteVideo(publicId).subscribe({
-  //       next: () => {
-  //         console.log('Video deleted successfully from Cloudinary.');
-
-  //         // Remove the video from the form and lessonsFiles array
-  //         this.lessonsFiles[sectionIndex][lessonIndex] = this.lessonsFiles[
-  //           sectionIndex
-  //         ][lessonIndex].filter((f) => f !== file);
-  //         this.getLessons(sectionIndex).at(lessonIndex).patchValue({
-  //           lessonUrl: '', // Clear the URL
-  //           lessonPublicId: '', // Clear the public ID
-  //         });
-  //       },
-  //       error: (err) => {
-  //         console.error('Error deleting video from Cloudinary:', err);
-  //         alert('An error occurred while deleting the video.');
-  //       },
-  //     });
-  //   } else {
-  //     // If no publicId is found, just remove it from the UI
-  //     this.lessonsFiles[sectionIndex][lessonIndex] = this.lessonsFiles[
-  //       sectionIndex
-  //     ][lessonIndex].filter((f) => f !== file);
-  //   }
-  // }
-
-  isSubmitting: boolean = false; // Add this flag
-
   onsubmit() {
-    if (this.isSubmitting) return; // Prevent double submission
-    this.isSubmitting = true; // Set the flag to true
+    // Check if coverPicture is valid
+    if (this.CourseForm.get('coverPicture')?.invalid) {
+      this.CourseForm.get('coverPicture')?.markAsTouched();
+    }
 
     if (this.CourseForm.invalid) {
       this.CourseForm.markAllAsTouched();
-      this.isSubmitting = false; // Reset the flag
       return;
     } else {
       this.isLoading = true;
-      const formData = this.CourseForm.value;
-      let json: CourseData = this.convertToJson(formData);
-      console.log('Form Data to Submit:', json);
 
-      this.courseService.submitCourse(json).subscribe({
-        next: (response) => {
+      // Create an array to hold all upload observables
+      const uploadObservables: Observable<any>[] = [];
+
+      // Upload image and add its observable to the array
+      const imageUpload$ = this.uploadImageFile();
+      uploadObservables.push(imageUpload$);
+
+      // Iterate through each section
+      Object.keys(this.lessonsFiles).forEach((sectionIndex) => {
+        const sectionFiles = this.lessonsFiles[+sectionIndex]; // Convert sectionIndex to number
+
+        // Iterate through each lesson within the section
+        Object.keys(sectionFiles).forEach((lessonIndex) => {
+          const lessonFiles = sectionFiles[+lessonIndex]; // Convert lessonIndex to number
+
+          // Upload the video file for each lesson if there are files to upload
+          if (lessonFiles.length > 0) {
+            const videoUpload$ = this.uploadVideoFile(
+              +sectionIndex,
+              +lessonIndex
+            ); // Pass numeric indexes to the upload function
+            uploadObservables.push(videoUpload$);
+          }
+        });
+      });
+
+      // Wait for all uploads to complete
+      forkJoin(uploadObservables).subscribe({
+        next: () => {
+          const formData = this.CourseForm.value;
+          let json: CourseData = this.convertToJson(formData);
+          console.log('Form Data to Submit:', json);
+
+          // Submit JSON data to the backend
+          this.courseService.submitCourse(json).subscribe({
+            next: (response) => {
+              this.isLoading = false;
+              console.log('Success Response:', response);
+              this._ToastrService.success(response.message || 'Course Uploaded Successfully');
+              this._Router.navigate(['/home']);
+            },
+            error: (err) => {
+              this.isLoading = false;
+              console.error('Error Response:', err);
+              this._ToastrService.error(
+                err.message || 'An error occurred while uploading the course.'
+              );
+            },
+          });
+        },
+        error: (err) => {
           this.isLoading = false;
-          this.isSubmitting = false; // Reset the flag on success
-          console.log('Success Response:', response);
-          this._ToastrService.success(
-            response.message || 'Course Uploaded Successfully'
+          console.error('Upload error:', err);
+          this._ToastrService.error(
+            'An error occurred while uploading files. Please try again.'
           );
         },
-        // error: (err) => {
-        //   this.isLoading = false;
-        //   this.isSubmitting = false; // Reset the flag on error
-        //   console.error('Error Response:', err);
-        //   this._ToastrService.error(
-        //     err.message || 'An error occurred while uploading the course.'
-        //   );
-        // },
       });
     }
   }
