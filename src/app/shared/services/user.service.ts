@@ -13,16 +13,16 @@ export class UserService {
       .post('http://localhost:5062/Api/Account/register', user)
       .pipe(
         tap((response:any) => {
-          // Assuming the response contains the token in a property named 'token'
+       
           const token = response.token;
           if (token) {
-            localStorage.setItem('token', token);  // Store token in localStorage
+            localStorage.setItem('token', token); 
                  // Set the expiration timer
             this.setTokenExpiration(token);
           }
         }),
         catchError((error) => {
-          return throwError(() => error);  // Handle error
+          return throwError(() => error);  
         })
       );
   }
@@ -99,5 +99,15 @@ getUserInfo(id:string): Observable<any> {
       return throwError(() => error);
     })
   );
+}
+
+getusers(): Observable<any> { 
+  return this.http.get(`http://localhost:5062/Api/Account/getusers`).pipe(
+    catchError((error) => {
+      console.error('Error getting users', error);
+      return throwError(() => error);
+    })
+  );
+
 }
 }

@@ -25,6 +25,7 @@ import { ForgetpasswordComponent } from './pages/forgetpassword/forgetpassword.c
 import { ForgetpasswordtokenComponent } from './pages/forgetpasswordtoken/forgetpasswordtoken.component';
 import { AuthguardService } from './guards/authguard.service';
 import { AuthCallbackComponentComponent } from './Components/auth-callback-component/auth-callback-component.component';
+import { AdminComponent } from './pages/admin/admin.component';
 
 
 export const routes: Routes = [
@@ -32,10 +33,9 @@ export const routes: Routes = [
   {
     path: '',
     component: BlankLayoutComponent,
-    // canActivate: [AuthguardService],
+    canActivate: [AuthguardService],
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
-
       { path: 'home', component: HomeComponent, title:"Taalam - Home" },
       { path: 'cart/:id', component: CartComponent, title:"Taalam - Cart" },
       { path: 'category/:id', component: CategoryComponent, title:"Taalam - Categories" },
@@ -70,6 +70,7 @@ export const routes: Routes = [
       { path: 'login', component: LoginComponent , title:"Taalam - Login" },
       { path: 'register', component: RegisterComponent  , title:"Taalam - Register"},
       {path: 'serachResult', component:SearchResultComponent},
+      {path:'admin', component:AdminComponent},
       {
         path:'forget-password',
         component:ForgetpasswordComponent,

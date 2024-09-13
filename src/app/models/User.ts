@@ -5,4 +5,9 @@ export default interface User {
     password: string;
     role: string;
     token: string;
+    fName : string;
+    LName :string;
+    phoneNumber :number
+
+
 }
