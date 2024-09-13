@@ -35,7 +35,7 @@ export class WishlistComponent {
     this._ActivatedRoute.paramMap.subscribe({
       next:(params)=>{
         //shayl kol eli fe el url
-        this.userId=params.get('userId')
+        this.userId=params.get('id')
   
         
       }
