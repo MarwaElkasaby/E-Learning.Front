@@ -9,7 +9,14 @@ export class AuthInterceptor implements HttpInterceptor {
   constructor(private router: Router) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-
+    // Check if the request has the custom header 'X-Skip-Interceptor'
+    // if (req.headers.has('X-Skip-Interceptor')) {
+    //   // Clone the request and remove the custom header before passing it on
+    //   const modifiedReq = req.clone({
+    //     headers: req.headers.delete('X-Skip-Interceptor'),
+    //   });
+    //   return next.handle(modifiedReq);
+    // }
 
     // let token = typeof window !== 'undefined' && localStorage.getItem('token');
     // if (token) {

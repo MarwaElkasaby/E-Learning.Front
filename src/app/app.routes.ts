@@ -32,7 +32,7 @@ export const routes: Routes = [
   {
     path: '',
     component: BlankLayoutComponent,
-    canActivate: [AuthguardService],
+    // canActivate: [AuthguardService],
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
 
