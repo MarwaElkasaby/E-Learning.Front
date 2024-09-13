@@ -19,7 +19,9 @@ export class NavBlankComponent implements OnInit {
   username !: string;
   role !: string;
   constructor (private _CategoryService:CategoryService, private _Router:Router){
-    this.token = localStorage.getItem('token');
+if(typeof window !== 'undefined') {
+  this.token = localStorage.getItem('token');
+}
     
     if (this.token) {
       this.tokendata = JSON.parse(atob(this.token.split('.')[1]));
