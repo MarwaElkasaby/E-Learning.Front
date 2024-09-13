@@ -43,6 +43,8 @@ export class EditUserProfileComponent {
       this.id = idParam ? +idParam : undefined;
       this.loadUserProfile(this.id);
     });
+
+    
   }
 
   loadUserProfile(id: string) {

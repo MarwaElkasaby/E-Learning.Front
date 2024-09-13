@@ -35,15 +35,25 @@ export class NavBlankComponent implements OnInit {
   userId !: number;
   username !: string;
   role !: string;
+
   constructor (private _CategoryService:CategoryService, private _Router:Router,private userservice :UserService){
     if (typeof window !== 'undefined') {
       this.token = localStorage.getItem('token');
      if (this.token) {
        this.isauth=true;
+       this.tokendata = JSON.parse(atob(this.token.split('.')[1]));
+
+       // Extracting user ID, username, and role
+       this.userId = this.tokendata['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier'];
+       this.username = this.tokendata['sub']; // Username claim
+       this.role = this.tokendata['http://schemas.microsoft.com/ws/2008/06/identity/claims/role']; // Role claim
+       console.log(this.userId);
      }
    }else{
      this.isauth=false;
    }
+
+
   }
 
 categories:any[]=[];
@@ -53,7 +63,7 @@ ngOnInit(): void {
       this.categories=response;
       console.log(response);
 
-      
+
     }
   })
 }
