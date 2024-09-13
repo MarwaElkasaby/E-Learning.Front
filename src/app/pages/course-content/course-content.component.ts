@@ -36,6 +36,9 @@ export class CourseContentComponent {
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params) => {
       this.courseId = +params['courseId'];
+      if (!params['lessonId']) {
+        this.lessonId = this.course?.sections[0].lessons[0].id!;
+      }
       this.lessonId = +params['lessonId'];
       this.getCourseDetails(this.courseId);
     });
