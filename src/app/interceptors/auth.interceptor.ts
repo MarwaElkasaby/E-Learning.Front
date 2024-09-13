@@ -18,7 +18,7 @@ export class AuthInterceptor implements HttpInterceptor {
     // Skip setting the token for specific URLs
     const isCloudinaryRequest = req.url.includes('https://api.cloudinary.com/v1_1/doiiwtmvq/video/upload');
 
-    if (token && !isCloudinaryRequest) {
+    if (token && !isCloudinaryRequest && !req.url.includes('https://api.cloudinary.com/v1_1/doiiwtmvq/video/upload')) {
       req = req.clone({
         setHeaders: {
           Authorization: `Bearer ${token}`
