@@ -10,7 +10,6 @@ export class AuthInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-
     let token = typeof window !== 'undefined' && localStorage.getItem('token');
     if (token) {
       req = req.clone({
@@ -19,6 +18,24 @@ export class AuthInterceptor implements HttpInterceptor {
         }
       });
     }
+
+
+
+ 
+    const token = typeof window !== 'undefined' && localStorage.getItem('token');
+    
+    // Skip setting the token for specific URLs
+    const isCloudinaryRequest = req.url.includes('https://api.cloudinary.com/v1_1/doiiwtmvq/video/upload');
+
+    if (token && !isCloudinaryRequest && !req.url.includes('https://api.cloudinary.com/v1_1/doiiwtmvq/image/upload')) {
+      req = req.clone({
+        setHeaders: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+    }
+    
+    
 
     return next.handle(req).pipe(
       catchError((error: HttpErrorResponse) => {

@@ -32,6 +32,7 @@ export class CourseContentComponent {
   activatedRoute = inject(ActivatedRoute);
   router = inject(Router);
   cdr = inject(ChangeDetectorRef);
+  completedLessons?: number = 0;
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params) => {
@@ -51,6 +52,12 @@ export class CourseContentComponent {
         this.progressPercentage =
           this.course?.studentEnrollment?.progressPercentage || 0;
         this.selectedLesson = this.course?.sections[0].lessons[0];
+
+        const totalLessons = this.course?.sections.flatMap(
+          (section) => section.lessons
+        ).length;
+        this.completedLessons = this.course?.studentEnrollment.completedLessons;
+        this.updateProgress(totalLessons!, this.completedLessons!);
         this.loadLesson();
       },
       error: () => {
@@ -75,25 +82,20 @@ export class CourseContentComponent {
     this.cdr.detectChanges();
   }
 
-  onProgressUpdated() {
-    // Get total lessons across all sections
+  updateProgress(totalLessons: number, completedLessons: number) {
+    if (totalLessons > 0) {
+      this.progressPercentage = (completedLessons / totalLessons) * 100;
+    } else {
+      this.progressPercentage = 0;
+    }
+  }
+
+  onProgressUpdated(completedLessonIncrement: number) {
     const totalLessons =
       this.course?.sections.flatMap((section) => section.lessons).length || 0;
 
-    // Get completed lessons from student enrollment
-    const completedLessons =
-      this.course?.studentEnrollment.completedLessons || 0;
+    this.completedLessons! += completedLessonIncrement;
 
-    // Ensure totalLessons is greater than 0 to avoid division by zero
-    if (totalLessons > 0) {
-      // Calculate progress percentage
-      this.progressPercentage = (completedLessons / totalLessons) * 100;
-    } else {
-      this.progressPercentage = 0; // Handle case when there are no lessons
-    }
-
-    console.log('Total Lessons:', totalLessons);
-    console.log('Completed Lessons:', completedLessons);
-    console.log('Progress Percentage:', this.progressPercentage);
+    this.updateProgress(totalLessons, this.completedLessons!);
   }
 }
