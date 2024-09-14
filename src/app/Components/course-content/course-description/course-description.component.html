@@ -1,3 +1,4 @@
+<!-- course-description.component.html -->
 <p>{{ selectedLesson.title || "No description available" }}</p>
 
 <!-- Progress Bar -->
@@ -22,4 +23,10 @@
     role="status"
     aria-hidden="true"
   ></span>
+</button>
+
+<!-- Rate this Course Button -->
+<button class="btn btn-primary mt-3" (click)="openRatingModal()">
+  <i class="bi-star me-2"></i>
+  Rate this Course
 </button>
