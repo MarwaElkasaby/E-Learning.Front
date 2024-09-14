@@ -22,4 +22,10 @@ return this._HttpClient.get(`${this.baseURL}/api/Cart/GetCartItems?userId=${id}`
   removeCartItemById(userId:number, courseId:number):Observable<any>{
     return this._HttpClient.delete(`${this.baseURL}/api/Cart/RemoveCartItem?userId=${userId}&courseId=${courseId}`)
   }
+
+  addtoCart(courseId:number):Observable<any>{
+    return this._HttpClient.post(
+      `${this.baseURL}/api/Cart/AddItemToUserCart`,{courseId:courseId}
+    );
+  }
 }

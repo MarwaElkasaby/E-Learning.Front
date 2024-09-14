@@ -4,11 +4,14 @@ import { SectionsListComponent } from '../../Components/course-details/sections-
 import { Course } from '../../models/CourseDetails';
 import { CourseDetailsService } from '../../shared/services/course/course-details-service/course-details.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CartService } from '../../shared/services/cart.service';
+import { ToastrService } from 'ngx-toastr';
+import { CurrencyPipe } from '@angular/common';
 
 @Component({
   selector: 'app-course-details',
   standalone: true,
-  imports: [CourseDetailsHeaderComponent, SectionsListComponent],
+  imports: [CourseDetailsHeaderComponent, SectionsListComponent,CurrencyPipe],
   templateUrl: './course-details.component.html',
   styleUrl: './course-details.component.css',
 })
@@ -17,6 +20,19 @@ export class CourseDetailsComponent implements OnInit {
   courseDetailsSrv = inject(CourseDetailsService);
   activatedRoute = inject(ActivatedRoute);
   router = inject(Router);
+
+  // Inject CartService and ToastrService
+  cartService = inject(CartService);
+  toastr = inject(ToastrService);
+
+  courseId: number | undefined;
+
+  ngOnInit(): void {
+    this.courseId = +this.activatedRoute.snapshot.paramMap.get('id')!;
+    this.getCourseDetails(this.courseId);
+  }
+
+  // Fetch course details
   getCourseDetails(id: number) {
     this.courseDetailsSrv.getCourseDetails(id).subscribe({
       next: (res) => {
@@ -28,9 +44,16 @@ export class CourseDetailsComponent implements OnInit {
     });
   }
 
-  courseId: number | undefined;
-  ngOnInit(): void {
-    this.courseId = +this.activatedRoute.snapshot.paramMap.get('id')!;
-    this.getCourseDetails(this.courseId);
+  // Add to cart function
+  addToCart(courseId: number) {
+    this.cartService.addtoCart(courseId).subscribe({
+      next: () => {
+        this.toastr.success('Course added to cart successfully!');
+      },
+      error: (error) => {
+        this.toastr.error('Failed to add course to cart.');
+        console.error('Error adding course to cart:', error);
+      }
+    });
   }
 }
