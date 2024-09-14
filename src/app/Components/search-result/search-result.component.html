@@ -5,11 +5,7 @@
       <h2>{{ courses.length}} results for "{{ searchTerm }}"</h2>
     </div>
 
-    <!-- Filter and Sort Buttons -->
-    <div class="col-12 filter-sort-buttons d-flex justify-content-between align-items-center">
-      <button class="btn btn-light">Filters</button>
-      <button class="btn btn-light">Sort By</button>
-    </div>
+  
 
     <!-- Main Content -->
     <div class="col-12 main-content row mt-3">
@@ -19,42 +15,37 @@
         <!-- Add your filter controls here -->
         <div class="filter-category">
           <h6>Category</h6>
-          <select class="form-control">
-            <option>All Categories</option>
-            <option>Development</option>
-            <option>Business</option>
-            <!-- Add more categories as needed -->
+          <select class="form-control" (change)="filterByCategory($event)" [(ngModel)]="catFilter">
+           <option>All Categories</option> 
+            @for(category of categories; track category.name ){
+            <option>{{category.name}}</option>
+          }
           </select>
         </div>
         <!-- Add more filters as needed -->
+
+        <div class="filter-category" >
+          <h6>Price</h6>
+          <select class="form-control" (change)="filterByPrice($event)" [(ngModel)]="priceFilter">>
+           <option>All </option>
+           <option>Free </option> 
+           <option>Paid </option> 
+          </select>
+        </div>
+
+        <div class="filter-category">
+          <h6>duration</h6>
+          <select class="form-control" (change)="filterByDuration($event)" [(ngModel)]="durationFilter">
+          <option>All </option> 
+           <option>5  - 10 Hours</option> 
+           <option>10 - 20 Hours </option> 
+           <option>20+     Hours</option> 
+          </select>
+        </div>
+
       </div>
 
-      <!-- Courses Section -->
-
-      <!-- <div class="row ">
-
-        <div class="col-lg-8">
-          @for(course of courses ;track course.id)
-          {
-          <div class="cart-item bg-white p-3 mb-4 shadow-sm">
-            <div class="d-flex align-items-center">
-              <img [src]="course.coverPicture" alt="Course Image" class="img-fluid me-3"
-                style="width: 150px; height: 100px;">
-              <div class="w-100">
-                <h5 class="mb-2">{{course.title}}</h5>
-                <p class="text-muted mb-1">{{course.instructorName}}</p>
-                <p class="text-muted small mb-0">{{course.rate}} </p>
-              </div>
-              <div class="text-end ms-auto d-flex align-items-start">
-
-                <span class="fw-bold text-success fs-5">{{ course.price | currency }}</span>
-              </div>
-            </div>
-          </div>
-          }
-        </div>
-      </div> -->
-
+      
       <div class="col-md-9 courses-section">
         <div *ngFor="let course of courses" class="course-item mb-4">
           <img [src]="course.coverPicture" alt="{{ course.title }}" class="img-fluid course-image">
