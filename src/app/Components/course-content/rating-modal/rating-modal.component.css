@@ -1,0 +1,4 @@
+/* Style for filled stars */
+.star-rating .bi-star-fill.filled {
+  color: gold;
+}
