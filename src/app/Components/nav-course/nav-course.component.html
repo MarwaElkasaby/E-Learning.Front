@@ -54,9 +54,13 @@
           </div>
         </li>
 
-        <!-- Share Button -->
         <li class="nav-item">
-          <button class="btn btn-outline-primary" (click)="copyShareLink()">
+          <button
+            class="btn btn-outline-primary"
+            (click)="openShareModal()"
+            placement="top"
+            ngbTooltip="Share this course"
+          >
             <i class="bi-share-fill me-2"></i> Share
           </button>
         </li>
