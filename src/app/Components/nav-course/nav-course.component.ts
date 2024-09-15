@@ -5,13 +5,14 @@ import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-nav-course',
   standalone: true,
-  imports: [RouterLink,CommonModule],
+  imports: [RouterLink, CommonModule],
   templateUrl: './nav-course.component.html',
   styleUrl: './nav-course.component.css',
 })
 export class NavCourseComponent {
   @Input() courseId!: number;
   @Input() courseTitle!: string;
+  @Input() progressPercentage?: number;
   isNavbarOpen = false;
 
   toggleNavbar() {

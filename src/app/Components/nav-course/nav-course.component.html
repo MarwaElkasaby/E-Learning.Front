@@ -37,6 +37,11 @@
         </li>
       </ul>
     </div>
+    <!-- Progress Badge -->
+    <span *ngIf="progressPercentage" class="badge bg-success me-3">
+      Progress: {{ progressPercentage.toFixed(1) }}%
+    </span>
+
   </nav>
 </div>
 
