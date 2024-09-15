@@ -34,6 +34,8 @@
         [selectedLesson]="selectedLesson"
         [progressPercentage]="progressPercentage"
         (progressUpdated)="onProgressUpdated(1)"
+        (nextLesson)="goToNextLesson()"
+        [isLastLesson]="isLastLesson"
       ></app-course-description>
       }
     </div>
