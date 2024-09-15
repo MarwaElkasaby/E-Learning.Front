@@ -26,6 +26,8 @@ import { ForgetpasswordtokenComponent } from './pages/forgetpasswordtoken/forget
 import { AuthguardService } from './guards/authguard.service';
 import { AuthCallbackComponentComponent } from './Components/auth-callback-component/auth-callback-component.component';
 import { AdminComponent } from './pages/admin/admin.component';
+import { PaymentComponent } from './Components/payment/payment.component';
+import { PaymentapproveComponent } from './pages/paymentapprove/paymentapprove.component';
 
 
 export const routes: Routes = [
@@ -46,6 +48,7 @@ export const routes: Routes = [
       { path: 'instructorProfile/:id', component: InstructorProfileComponent , title:"Taalam - InstructorProfile" },
       {path: 'searchResult/:SearchTerm', component:SearchResultComponent , title:"Taalam - SearchResult"},
       { path: 'course/:id', component: CourseDetailsComponent },
+      {path:'paymentapprove' ,component:PaymentapproveComponent, title:"Taalam - Search"}
 
     ],
   },
