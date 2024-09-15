@@ -100,15 +100,7 @@
           <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
         </ngx-dropzone-preview>
       </ngx-dropzone>
-      <ngx-dropzone
-        (change)="onSelect($event)"
-        [accept]="'image/*'"
-      >
-        <ngx-dropzone-label>Drag and Drop Your Cover Picture</ngx-dropzone-label>
-        <ngx-dropzone-preview *ngFor="let f of coverPictureFile" [removable]="true" (removed)="onRemove(f)">
-          <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
-        </ngx-dropzone-preview>
-      </ngx-dropzone>
+
       <!-- Error message for cover picture -->
       <div class="alert alert-danger" *ngIf="CourseForm.get('coverPicture')?.invalid && CourseForm.get('coverPicture')?.touched">
         Cover picture is required.
