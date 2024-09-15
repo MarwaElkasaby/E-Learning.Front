@@ -1,7 +1,8 @@
 <div *ngIf="course" class="course-header container-fluid py-4">
   <div class="row align-items-center">
     <!-- Course Cover Image -->
-    <div class="col-md-4">
+    <div class="col-md-4 d-lg-none">
+      <img [src]="course.coverPicture" class="img-fluid rounded shadow-sm" alt="Course Cover Image">
     </div>
 
     <!-- Course Information -->
@@ -16,10 +17,7 @@
         <!-- Rating -->
         <div class="rating me-3">
           <span *ngIf="course?.rate">
-            <i
-              class="fa fa-star"
-              *ngFor="let _ of [].constructor(course?.rate)"
-            ></i>
+            <i class="fa fa-star" *ngFor="let _ of [].constructor(course?.rate)"></i>
             {{ course.rate || 0 }} / 5
           </span>
           <span *ngIf="!course?.rate" class="text-muted">No Rating</span>
@@ -46,10 +44,17 @@
         <div>
           <span class="text-muted">Instructor: </span>
           <span>
-            {{ course.instructor.fName + course.instructor.lName }}
+            {{ course.instructor.fName + ' ' + course.instructor.lName }}
           </span>
         </div>
       </div>
     </div>
+  </div>
+
+  <!-- Add to Cart Button for Small Screens -->
+  <div class="d-lg-none mt-4 text-center">
+    <button class="btn btn-primary btn-lg w-100" (click)="addToCart(course.id)">
+      Add to Cart
+    </button>
   </div>
 </div>
