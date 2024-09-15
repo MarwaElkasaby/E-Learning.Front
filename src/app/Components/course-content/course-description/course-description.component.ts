@@ -28,8 +28,15 @@ export class CourseDescriptionComponent {
   @Input() courseId!: number;
   @Input() progressPercentage!: number;
   @Input({ required: true }) selectedLesson!: Lesson;
+  @Input() isLastLesson!: boolean;
 
   @Output() progressUpdated = new EventEmitter<void>();
+
+  @Output() nextLesson = new EventEmitter<void>();
+
+  goToNextLesson() {
+    this.nextLesson.emit(); // Notify parent component
+  }
 
   loadingSubject = new BehaviorSubject<boolean>(false);
   loading$ = this.loadingSubject.asObservable();
@@ -48,8 +55,7 @@ export class CourseDescriptionComponent {
       .subscribe({
         next: () => {
           this.selectedLesson.isCompleted = true;
-
-          this.progressUpdated.emit(); // <-- Notify parent to update the progress
+          this.progressUpdated.emit(); // Notify parent to update progress
         },
         error: () => {
           this.toastr.error('Something went wrong');

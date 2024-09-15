@@ -26,8 +26,12 @@ import { ForgetpasswordtokenComponent } from './pages/forgetpasswordtoken/forget
 import { AuthguardService } from './guards/authguard.service';
 import { AuthCallbackComponentComponent } from './Components/auth-callback-component/auth-callback-component.component';
 import { AdminComponent } from './pages/admin/admin.component';
+
 import { InstructorComponent } from './Components/instructor/instructor.component';
 import { EditCourseComponent } from './Components/edit-course/edit-course.component';
+import { PaymentComponent } from './Components/payment/payment.component';
+import { PaymentapproveComponent } from './pages/paymentapprove/paymentapprove.component';
+
 
 
 export const routes: Routes = [
@@ -35,7 +39,7 @@ export const routes: Routes = [
   {
     path: '',
     component: BlankLayoutComponent,
-    // canActivate: [AuthguardService],
+    canActivate: [AuthguardService],
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: HomeComponent, title:"Taalam - Home" },
@@ -51,8 +55,7 @@ export const routes: Routes = [
       { path: 'instructorProfile/:id', component: InstructorProfileComponent , title:"Taalam - InstructorProfile" },
       {path: 'searchResult/:SearchTerm', component:SearchResultComponent , title:"Taalam - SearchResult"},
       { path: 'course/:id', component: CourseDetailsComponent },
-      { path: 'course/content/:courseId', component: CourseContentComponent },
-      {path: 'course/content/:courseId/:lessonId', component: CourseContentComponent }
+      {path:'paymentapprove' ,component:PaymentapproveComponent, title:"Taalam - Search"}
 
     ],
   },
@@ -90,6 +93,9 @@ export const routes: Routes = [
 
     ],
   },
+    { path: 'course/content/:courseId', component: CourseContentComponent },
+    {path: 'course/content/:courseId/:lessonId', component: CourseContentComponent },
+
   { path: '**', component: NotFoundComponent },
 ];
 
