@@ -1,0 +1,19 @@
+.card-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.card-text {
+  font-size: 0.95rem;
+}
+
+.card-footer button {
+  background-color: #007bff;
+  border-color: #007bff;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+}
+
+.card-footer button:hover {
+  background-color: #0056b3;
+}

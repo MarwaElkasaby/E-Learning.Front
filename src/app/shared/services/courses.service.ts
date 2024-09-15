@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError} from 'rxjs';
+import { CourseData } from '../interfaces/course-data';
 
 
 @Injectable({
@@ -21,13 +22,27 @@ export class CoursesService {
     );
   }
 
-  getAllUserCourses(id:number): Observable<any> {
-    return this._HttpClient.get(`${this.baseURL}/api/Course/GetAllUserCourses/${id}`).pipe(
-      catchError((error) => {
-        console.error('Error getting user courses', error);
-        return throwError(() => error);
-      })
+  getAllUserCourses(id: number): Observable<any> {
+    return this._HttpClient
+      .get(`${this.baseURL}/api/Course/GetAllUserCourses/${id}`)
+      .pipe(
+        catchError((error) => {
+          console.error('Error getting user courses', error);
+          return throwError(() => error);
+        })
+      );
+  }
+
+  getCourseById(id: number): Observable<any> {
+    return this._HttpClient.get(
+      `${this.baseURL}/api/Course/GetCourseById/${id}`
     );
   }
 
+  editCourse(data: any): Observable<any> {
+    return this._HttpClient.put<any>(
+      `${this.baseURL}/Api/course/editcourse`,
+      data
+    );
+  }
 }
