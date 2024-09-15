@@ -18,24 +18,24 @@
             "browser": "src/main.ts",
             "polyfills": ["zone.js", "@angular/localize/init"],
             "tsConfig": "tsconfig.app.json",
-            "assets": ["src/assets",
+            "assets": [
+              "src/assets",
               {
                 "glob": "**/*",
                 "input": "public"
               }
             ],
             "styles": [
+             
 
-              
+
+
               "src/styles.css",
               "src/assets/lib/animate/animate.min.css",
               "src/assets/lib/owlcarousel/assets/owl.carousel.min.css",
               "src/assets/css/bootstrap.min.css",
               "src/assets/css/style.css",
 
-
-
-          
               "node_modules/bootstrap/scss/bootstrap.scss",
               "node_modules/bootstrap-icons/font/bootstrap-icons.css",
               "./node_modules/@fortawesome/fontawesome-free/css/all.min.css",
@@ -44,6 +44,8 @@
               "node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": [
+              
+
               "src/assets/lib/wow/wow.min.js",
               "src/assets/lib/easing/easing.min.js",
               "src/assets/lib/waypoints/waypoints.min.js",
@@ -107,20 +109,15 @@
               "@angular/localize/init"
             ],
             "tsConfig": "tsconfig.spec.json",
-            "assets": ["src/assets",
+            "assets": [
+              "src/assets",
               {
                 "glob": "**/*",
                 "input": "public"
               }
             ],
             "styles": [
-              "src/styles.css",
-              "src/assets/lib/animate/animate.min.css",
-              "src/assets/lib/owlcarousel/assets/owl.carousel.min.css",
-              "src/assets/css/bootstrap.min.css",
-              "src/assets/css/style.css",
-
-
+              
 
               "node_modules/bootstrap/scss/bootstrap.scss",
               "node_modules/bootstrap-icons/font/bootstrap-icons.css",
@@ -129,15 +126,18 @@
               "src/styles.css",
               "node_modules/ngx-toastr/toastr.css"
             ],
-            "scripts": [ "src/assets/lib/wow/wow.min.js",
-            "src/assets/lib/easing/easing.min.js",
-            "src/assets/lib/waypoints/waypoints.min.js",
-            "src/assets/lib/owlcarousel/owl.carousel.min.js",
-            "src/assets/lib/counterup/counterup.min.js",
-            "src/assets/js/main.js",
+            "scripts": [
+             
 
-            "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
-          ]
+              "src/assets/lib/wow/wow.min.js",
+              "src/assets/lib/easing/easing.min.js",
+              "src/assets/lib/waypoints/waypoints.min.js",
+              "src/assets/lib/owlcarousel/owl.carousel.min.js",
+              "src/assets/lib/counterup/counterup.min.js",
+              "src/assets/js/main.js",
+
+              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+            ]
           }
         }
       }

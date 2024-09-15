@@ -26,7 +26,8 @@ getCartTotal(){
 
       next:(response)=>{
         console.log(response);
-        this.total=response;
+        this.total=response.totalPrice;
+        console.log(this.total)
       },
       error: (err) => {
         console.log(err);
@@ -76,6 +77,8 @@ ngOnInit(): void {
   )
 
 this.getCartTotal();
+
+console.log(this.total)
 }
 
 }
