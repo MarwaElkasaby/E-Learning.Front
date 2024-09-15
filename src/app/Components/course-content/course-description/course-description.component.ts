@@ -48,8 +48,7 @@ export class CourseDescriptionComponent {
       .subscribe({
         next: () => {
           this.selectedLesson.isCompleted = true;
-
-          this.progressUpdated.emit(); // <-- Notify parent to update the progress
+          this.progressUpdated.emit(); // Notify parent to update progress
         },
         error: () => {
           this.toastr.error('Something went wrong');
