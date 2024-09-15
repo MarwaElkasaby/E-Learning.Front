@@ -1,0 +1,28 @@
+<!-- Ensure this component is placed within a container with Bootstrap's grid system -->
+<div *ngIf="course" class="add-to-cart-card">
+  <div class="card">
+    <img [src]="course.coverPicture" class="card-img-top" alt="Course Image" />
+
+    <div class="card-body text-center">
+      <h5 class="card-title">{{ course.title }}</h5>
+
+      <!-- Rating -->
+      <div class="rating my-2">
+        <i class="fa fa-star"></i>
+        <span *ngIf="course?.rate">{{ course.rate }} / 5</span>
+        <span *ngIf="!course?.rate" class="text-muted">No Rating</span>
+      </div>
+
+      <!-- Price -->
+      <h3 class="price">${{ course.price }}</h3>
+
+      <!-- Add to Cart Button -->
+      <button
+        class="btn btn-primary btn-lg mt-3"
+        (click)="addToCart(course.id)"
+      >
+        Add to Cart
+      </button>
+    </div>
+  </div>
+</div>

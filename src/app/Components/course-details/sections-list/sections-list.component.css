@@ -1,27 +1,19 @@
 .accordion-button {
-  font-size: 1.125rem;
-  font-weight: 600;
+  font-size: 1.2rem;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
 }
 
-.accordion-body {
-  font-size: 1rem;
-  line-height: 1.5;
+.accordion-button:hover {
+  background-color: #f1f1f1;
 }
 
-.accordion-body h5 {
-  margin-top: 1rem;
-  font-weight: 600;
+.list-group-item {
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 0.5rem;
 }
 
-.accordion-body ul {
-  list-style-type: none;
-  padding-left: 0;
-}
-
-.accordion-body li {
-  padding: 0.5rem 0;
-}
-
-i{
-  padding-left: 20px;
+.list-group-item:hover {
+  background-color: #e9ecef;
 }

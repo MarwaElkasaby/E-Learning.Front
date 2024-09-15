@@ -108,7 +108,7 @@
                 }
             }
         });
-    }, 3000); // Delay can be adjusted as needed
+    }, 2000); // Delay can be adjusted as needed
     
     
 

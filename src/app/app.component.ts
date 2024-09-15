@@ -11,4 +11,13 @@ import { RouterOutlet } from '@angular/router';
 })
 export class AppComponent {
   title = 'E-learning';
+
+  isLoading = true;
+
+  ngOnInit(): void {
+    // Simulate loading time for demonstration purposes
+    setTimeout(() => {
+      this.isLoading = false;
+    }, 3000); // Change 3000 to the time (in ms) you want the preloader to show
+  }
 }

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CartService } from '../../shared/services/cart.service';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
+import { PaymentService } from '../../shared/services/payment.service';
 @Component({
   selector: 'app-cart',
   standalone: true,
@@ -11,7 +12,10 @@ import { ActivatedRoute } from '@angular/router';
 })
 
 export class CartComponent {
-constructor(private _CartService:CartService, private _ActivatedRoute:ActivatedRoute)
+checkoutwithmobile() {
+this.paymentservice.checkoutwithcard
+}
+constructor(private _CartService:CartService, private _ActivatedRoute:ActivatedRoute,private paymentservice:PaymentService)
 {
 }
 courses:any[]=[];
@@ -26,7 +30,8 @@ getCartTotal(){
 
       next:(response)=>{
         console.log(response);
-        this.total=response;
+        this.total=response.totalPrice;
+        console.log(this.total)
       },
       error: (err) => {
         console.log(err);
@@ -76,6 +81,8 @@ ngOnInit(): void {
   )
 
 this.getCartTotal();
+
+console.log(this.total)
 }
 
 }

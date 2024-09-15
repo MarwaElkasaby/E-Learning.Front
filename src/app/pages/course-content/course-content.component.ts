@@ -7,6 +7,8 @@ import { CourseDescriptionComponent } from '../../Components/course-content/cour
 import { SectionsSidebarComponent } from '../../Components/course-content/sections-sidebar/sections-sidebar.component';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { NavCourseComponent } from '../../Components/nav-course/nav-course.component';
+import { ShareModalComponent } from '../../Components/share-modal/share-modal.component';
 
 @Component({
   selector: 'app-course-content',
@@ -17,7 +19,10 @@ import { CommonModule } from '@angular/common';
     SectionsSidebarComponent,
     FormsModule,
     CommonModule,
+    NavCourseComponent,
+    ShareModalComponent,
   ],
+
   templateUrl: './course-content.component.html',
   styleUrl: './course-content.component.css',
 })
@@ -33,6 +38,8 @@ export class CourseContentComponent {
   router = inject(Router);
   cdr = inject(ChangeDetectorRef);
   completedLessons?: number = 0;
+
+  isLastLesson: boolean = false; // To track if it's the last lesson
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params) => {
@@ -97,5 +104,42 @@ export class CourseContentComponent {
     this.completedLessons! += completedLessonIncrement;
 
     this.updateProgress(totalLessons, this.completedLessons!);
+  }
+
+  goToNextLesson() {
+    if (!this.course || !this.selectedLesson) return;
+
+    // Find current section and lesson indexes
+    let sectionIndex = this.course.sections.findIndex((section) =>
+      section.lessons.includes(this.selectedLesson!)
+    );
+    let lessonIndex = this.course.sections[sectionIndex].lessons.findIndex(
+      (lesson) => lesson.id === this.selectedLesson!.id
+    );
+
+    // Move to the next lesson in the same section
+    if (lessonIndex < this.course.sections[sectionIndex].lessons.length - 1) {
+      this.onLessonSelected(
+        this.course.sections[sectionIndex].lessons[lessonIndex + 1]
+      );
+    }
+    // Move to the first lesson in the next section if current section ends
+    else if (sectionIndex < this.course.sections.length - 1) {
+      this.onLessonSelected(this.course.sections[sectionIndex + 1].lessons[0]);
+    }
+
+    // Check if this is the last lesson in the entire course
+    this.checkIfLastLesson();
+  }
+
+  checkIfLastLesson() {
+    if (!this.course || !this.selectedLesson) return;
+
+    // Check if current lesson is the last in the course
+    const allLessons = this.course.sections.flatMap(
+      (section) => section.lessons
+    );
+    this.isLastLesson =
+      this.selectedLesson?.id === allLessons[allLessons.length - 1].id;
   }
 }

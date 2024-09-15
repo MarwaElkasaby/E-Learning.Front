@@ -17,8 +17,21 @@ export class LoginComponent implements OnInit {
 isloading: boolean = false; 
   emailerrormessage: string ='';
   passworderrormessage: string ='';
-  constructor(private userservice:UserService ,private toaster:ToastrService ,private router:Router) { }
+
+
+  token: any;
+  tokendata: any;
+  constructor(private userservice:UserService ,private toaster:ToastrService ,private router:Router) { 
+  
+
+
+
+  }
   ngOnInit(): void {
+
+
+
+
     this.loginform = {
       email: '',
       password: ''
@@ -61,5 +74,10 @@ if(form.valid){
 googleLogin(){
   window.location.href = 'http://localhost:5062/api/account/signin-google';
 }
+
+
+//
+
+
 
 }

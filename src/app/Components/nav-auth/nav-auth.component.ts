@@ -1,18 +1,23 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+
+import {  RouterLink } from '@angular/router';
+import { CategoryService } from '../../shared/services/category.service';
+import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 import { UserService } from '../../shared/services/user.service';
+
 @Component({
   selector: 'app-nav-auth',
   standalone: true,
-  imports: [CommonModule,RouterLink],
+  imports: [CommonModule,RouterLink , FormsModule],
   templateUrl: './nav-auth.component.html',
   styleUrl: './nav-auth.component.css'
 })
 export class NavAuthComponent  {
   token: any;
   isauth:boolean=false;
-  constructor(private userservice :UserService) {
+  constructor(private userservice :UserService,private _CategoryService:CategoryService,private _Router:Router) {
     if (typeof window !== 'undefined') {
        this.token = localStorage.getItem('token');
       if (this.token) {
@@ -41,5 +46,44 @@ if (typeof window != 'undefined') {
 
 
 
+categories:any[]=[];
 
+
+
+ngOnInit(): void {
+  this._CategoryService.getCategories().subscribe({
+    next: (response)=>{
+      this.categories=response;
+      console.log(response);
+
+
+    }
+  })
 }
+
+ 
+isNavbarOpen = false;
+isDropdownOpen:any = {
+  categoryDropdown: false
+};
+
+toggleNavbar() {
+  this.isNavbarOpen = !this.isNavbarOpen;
+}
+
+toggleDropdown(dropdown: string) {
+  this.isDropdownOpen[dropdown] = !this.isDropdownOpen[dropdown];
+}
+
+  ////////search
+  searchTerm: string = '';
+
+
+  onSearch(): void {
+    if (this.searchTerm.trim()) {
+      this._Router.navigate(['/searchResult', this.searchTerm]);
+      this.searchTerm='';
+    }
+  }
+}
+

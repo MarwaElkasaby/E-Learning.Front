@@ -15,6 +15,7 @@ import { BehaviorSubject } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
 import { Lesson } from '../../../models/CourseDetails';
+import { RatingModalComponent } from '../rating-modal/rating-modal.component';
 
 @Component({
   selector: 'app-course-description',
@@ -27,9 +28,15 @@ export class CourseDescriptionComponent {
   @Input() courseId!: number;
   @Input() progressPercentage!: number;
   @Input({ required: true }) selectedLesson!: Lesson;
+  @Input() isLastLesson!: boolean;
 
-  // Define an output event to notify progress changes
-  @Output() progressUpdated = new EventEmitter<void>(); // <-- This will notify the parent when progress is updated
+  @Output() progressUpdated = new EventEmitter<void>();
+
+  @Output() nextLesson = new EventEmitter<void>();
+
+  goToNextLesson() {
+    this.nextLesson.emit(); // Notify parent component
+  }
 
   loadingSubject = new BehaviorSubject<boolean>(false);
   loading$ = this.loadingSubject.asObservable();
@@ -37,7 +44,6 @@ export class CourseDescriptionComponent {
   modalService = inject(NgbModal);
   courseDetailsSrv = inject(CourseDetailsService);
 
-  // Method to mark lesson as completed
   markAsCompleted() {
     if (!this.selectedLesson.id || this.selectedLesson.isCompleted) {
       return;
@@ -49,9 +55,7 @@ export class CourseDescriptionComponent {
       .subscribe({
         next: () => {
           this.selectedLesson.isCompleted = true;
-
-          // Emit progress update after marking the lesson as completed
-          this.progressUpdated.emit(); // <-- Notify parent to update the progress
+          this.progressUpdated.emit(); // Notify parent to update progress
         },
         error: () => {
           this.toastr.error('Something went wrong');
@@ -61,5 +65,12 @@ export class CourseDescriptionComponent {
           this.loadingSubject.next(false);
         },
       });
+  }
+
+  openRatingModal() {
+    const modalRef = this.modalService.open(RatingModalComponent, {
+      size: 'md',
+    });
+    modalRef.componentInstance.courseId = this.courseId;
   }
 }

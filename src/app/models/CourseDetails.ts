@@ -31,6 +31,7 @@ export interface Instructor {
   fName: string;
   lName: string;
   description?: string;
+  profilePicture?:string
 }
 
 export interface StudentEnrollment {
