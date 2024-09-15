@@ -110,4 +110,13 @@ getusers(): Observable<any> {
   );
 
 }
+
+logout() {
+  localStorage.removeItem('token');
+  return this.http.get('http://localhost:5062/Api/Account/logout').pipe(
+    catchError((error) => {
+      return throwError(() => error);
+    })
+  );  
+}
 }

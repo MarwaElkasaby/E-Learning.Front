@@ -16,10 +16,7 @@ export class CourseDetailsService {
 
   getCourseContent(id: number): Observable<any> {
     return this.httpClient.get(
-      `http://localhost:5062/api/course/content/${id}`,
-      {
-        params: new HttpParams().set('userId', 3),
-      }
+      `http://localhost:5062/api/course/content/${id}`
     );
   }
 

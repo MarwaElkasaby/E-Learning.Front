@@ -9,6 +9,7 @@ import { Observable } from 'rxjs';
 import { OfferService } from '../../shared/services/offer.service';
 import { Inject, PLATFORM_ID, AfterViewInit } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
+
 @Component({
   selector: 'app-nav-blank',
   standalone: true,
@@ -17,6 +18,22 @@ import { isPlatformBrowser } from '@angular/common';
   styleUrl: './nav-blank.component.css',
 })
 export class NavBlankComponent implements OnInit {
+  signout() {
+    if (typeof window != 'undefined') {
+      localStorage.removeItem('token');
+      this.userservice.logout().subscribe({
+        next: (response)=>{
+          console.log(response);
+          this.isauth=false;
+        } , 
+        error: (err)=>{
+          console.log(err);
+        }
+      })
+    }
+    }
+  
+  isauth:boolean=false;
   token: any;
   tokendata: any;
   userId!: number;
@@ -51,6 +68,7 @@ export class NavBlankComponent implements OnInit {
         ]; // Role claim
       console.log(this.userId);
     }
+
   }
 
   categories: any[] = [];
