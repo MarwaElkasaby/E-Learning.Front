@@ -26,8 +26,12 @@ import { ForgetpasswordtokenComponent } from './pages/forgetpasswordtoken/forget
 import { AuthguardService } from './guards/authguard.service';
 import { AuthCallbackComponentComponent } from './Components/auth-callback-component/auth-callback-component.component';
 import { AdminComponent } from './pages/admin/admin.component';
+
+import { InstructorComponent } from './Components/instructor/instructor.component';
+import { EditCourseComponent } from './Components/edit-course/edit-course.component';
 import { PaymentComponent } from './Components/payment/payment.component';
 import { PaymentapproveComponent } from './pages/paymentapprove/paymentapprove.component';
+
 
 
 export const routes: Routes = [
@@ -44,7 +48,10 @@ export const routes: Routes = [
       { path: 'wishlist/:id', component: WishlistComponent, title:"Taalam - Wishlist" },
       { path: 'userProfile/:id', component: EditUserProfileComponent, title:"Taalam - UserProfile" },
       { path: 'userCourses/:id', component: UserCoursesComponent , title:"Taalam - MyCourses" },
-      { path: 'createCourse', component: CreateCourseComponent , title:"Taalam - CreateCourse" },
+      { path: 'instructor/:id', component: InstructorComponent, title: "Taalam - Instructor"},
+      { path: 'createcourse', component: CreateCourseComponent, title: "Taalam - Create Course" },
+      { path: 'editcourse/:id', component: EditCourseComponent, title: "Taalam - Edit Course" },
+
       { path: 'instructorProfile/:id', component: InstructorProfileComponent , title:"Taalam - InstructorProfile" },
       {path: 'searchResult/:SearchTerm', component:SearchResultComponent , title:"Taalam - SearchResult"},
       { path: 'course/:id', component: CourseDetailsComponent },
