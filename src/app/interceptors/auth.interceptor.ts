@@ -15,7 +15,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
 
  
-    // const token = typeof window !== 'undefined' && localStorage.getItem('token');
+    const token = typeof window !== 'undefined' && localStorage.getItem('token');
     
     // Skip setting the token for specific URLs
     const isCloudinaryRequest = req.url.includes('https://api.cloudinary.com/v1_1/doiiwtmvq/video/upload');

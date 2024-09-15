@@ -9,6 +9,7 @@ import { Observable } from 'rxjs';
 import { OfferService } from '../../shared/services/offer.service';
 import { Inject, PLATFORM_ID, AfterViewInit } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
+import { UserService } from '../../shared/services/user.service';
 
 @Component({
   selector: 'app-nav-blank',
@@ -45,6 +46,7 @@ export class NavBlankComponent implements OnInit {
     private _CategoryService: CategoryService,
     private _Router: Router,
     private _OfferService: OfferService,
+    private userservice:UserService,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
     this.isBrowser = isPlatformBrowser(this.platformId); // Set the value

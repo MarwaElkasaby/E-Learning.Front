@@ -5,6 +5,7 @@ import {  RouterLink } from '@angular/router';
 import { CategoryService } from '../../shared/services/category.service';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { UserService } from '../../shared/services/user.service';
 
 @Component({
   selector: 'app-nav-auth',
@@ -16,7 +17,7 @@ import { FormsModule } from '@angular/forms';
 export class NavAuthComponent  {
   token: any;
   isauth:boolean=false;
-  constructor(private userservice :UserService) {
+  constructor(private userservice :UserService,private _CategoryService:CategoryService,private _Router:Router) {
     if (typeof window !== 'undefined') {
        this.token = localStorage.getItem('token');
       if (this.token) {
@@ -42,8 +43,6 @@ if (typeof window != 'undefined') {
 }
 }
 
-constructor(private _CategoryService:CategoryService,private _Router:Router){
-}
 
 
 
