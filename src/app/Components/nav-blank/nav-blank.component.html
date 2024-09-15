@@ -21,11 +21,11 @@
   </div>
   
   <!-- Main Navbar -->
-<nav class="navbar navbar-expand-lg navbar-light py-lg-0 px-lg-5 wow fadeIn">
+<nav  id="mainNavbar" class="navbar navbar-expand-lg navbar-light py-lg-0 px-lg-5 wow fadeIn  " 
+>
   <a class="navbar-brand ms-4 ms-lg-0" href="#" routerLink="home">
     <h1 class="display-5 text-primary m-0">Taalam</h1>
   </a>
-
   <button
     class="navbar-toggler me-4"
     type="button"
@@ -57,7 +57,7 @@
     <!-- Search Bar -->
     <form class="d-flex mx-auto my-2 my-lg-0" style="width: 50%" (ngSubmit)="onSearch()">
       <input
-        class="form-control me-2 flex-grow-1 search-btn"
+        class="form-control me-2 flex-grow-1 search-btn "
         type="search"
         placeholder="Search"
         aria-label="Search"
@@ -65,7 +65,7 @@
         name="searchQuery"
         style="border-radius: 20px"
       />
-      <button type="submit" class="btn" style="border-radius: 20px">Search</button>
+      <button type="submit" class="btn button-header align-items-center" style="border-radius: 20px">Search</button>
     </form>
 
     <!-- Right Side Icons -->
