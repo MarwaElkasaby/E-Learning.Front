@@ -55,6 +55,16 @@
       >
         <i class="bi-star me-2"></i> Rate this Course
       </button>
+
+      <button
+        class="btn btn-secondary"
+        (click)="goToNextLesson()"
+        [disabled]="isLastLesson || !selectedLesson"
+        placement="top"
+        ngbTooltip="Go to the next lesson"
+      >
+        <i class="bi-arrow-right me-2"></i> Next Lesson
+      </button>
     </div>
   </div>
 
