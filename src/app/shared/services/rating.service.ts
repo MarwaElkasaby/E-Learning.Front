@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Rating, RatingDTO } from '../../models/Rating';
+import { Rating, RatingDTO, ReadCourseRatingDTO } from '../../models/Rating';
 
 @Injectable({
   providedIn: 'root',
@@ -12,8 +12,10 @@ export class RatingService {
   constructor(private http: HttpClient) {}
 
   // 1. Fetch all ratings for a course
-  getAllRatingsForCourse(courseId: number): Observable<Rating[]> {
-    return this.http.get<Rating[]>(`${this.apiUrl}/rating/course/${courseId}`);
+  getAllRatingsForCourse(courseId: number): Observable<ReadCourseRatingDTO[]> {
+    return this.http.get<ReadCourseRatingDTO[]>(
+      `${this.apiUrl}/rating/courses/${courseId}`
+    );
   }
 
   // 2. Fetch all ratings given by a user

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavCourseComponent } from "../nav-course/nav-course.component";
-import { CourseContentComponent } from "../course-content/course-content.component";
 import { FooterComponent } from '../footer/footer.component';
+import { CourseContentComponent } from '../../pages/course-content/course-content.component';
 
 @Component({
   selector: 'app-course-layout',

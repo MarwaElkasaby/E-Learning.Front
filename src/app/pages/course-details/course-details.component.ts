@@ -6,54 +6,73 @@ import { CourseDetailsService } from '../../shared/services/course/course-detail
 import { ActivatedRoute, Router } from '@angular/router';
 import { CartService } from '../../shared/services/cart.service';
 import { ToastrService } from 'ngx-toastr';
-import { CurrencyPipe } from '@angular/common';
+import { CommonModule, CurrencyPipe } from '@angular/common';
+import {  ReadCourseRatingDTO } from '../../models/Rating';
+import { RatingService } from '../../shared/services/rating.service';
+import { RatingCardComponent } from '../../Components/course-details/rating-card/rating-card.component';
+import { AddToCartComponent } from '../../Components/course-details/add-to-cart/add-to-cart.component';
 
 @Component({
   selector: 'app-course-details',
   standalone: true,
-  imports: [CourseDetailsHeaderComponent, SectionsListComponent,CurrencyPipe],
+  imports: [
+    CourseDetailsHeaderComponent,
+    SectionsListComponent,
+    CurrencyPipe,
+    RatingCardComponent,
+    AddToCartComponent,
+    CommonModule,
+  ],
   templateUrl: './course-details.component.html',
   styleUrl: './course-details.component.css',
 })
 export class CourseDetailsComponent implements OnInit {
   course: Course | null = null;
-  courseDetailsSrv = inject(CourseDetailsService);
-  activatedRoute = inject(ActivatedRoute);
-  router = inject(Router);
+  ratings: ReadCourseRatingDTO[] = [];
 
-  // Inject CartService and ToastrService
-  cartService = inject(CartService);
-  toastr = inject(ToastrService);
+  constructor(
+    private courseDetailsService: CourseDetailsService,
+    private ratingService: RatingService,
+    private cartService: CartService,
+    private toastr: ToastrService,
+    private route: ActivatedRoute
+  ) {}
 
-  courseId: number | undefined;
+  ngOnInit() {
+    const courseId = Number(this.route.snapshot.paramMap.get('id'));
 
-  ngOnInit(): void {
-    this.courseId = +this.activatedRoute.snapshot.paramMap.get('id')!;
-    this.getCourseDetails(this.courseId);
-  }
+    // Fetch course details
+    this.courseDetailsService.getCourseDetails(courseId).subscribe({
+      next: (course: any) => {
+        // console.log('course', course);
 
-  // Fetch course details
-  getCourseDetails(id: number) {
-    this.courseDetailsSrv.getCourseDetails(id).subscribe({
-      next: (res) => {
-        this.course = res;
+        this.course = course;
       },
       error: () => {
-        this.router.navigate(['not-found']);
+        this.toastr.error('Failed to load course details.');
+      },
+    });
+
+    // Fetch course ratings
+    this.ratingService.getAllRatingsForCourse(courseId).subscribe({
+      next: (ratings: ReadCourseRatingDTO[]) => {
+        console.log('Ratings:', ratings); // Log the data to ensure it's an array
+        this.ratings = ratings;
+      },
+      error: () => {
+        this.toastr.error('Failed to load course ratings.');
       },
     });
   }
 
-  // Add to cart function
   addToCart(courseId: number) {
     this.cartService.addtoCart(courseId).subscribe({
       next: () => {
         this.toastr.success('Course added to cart successfully!');
       },
-      error: (error) => {
+      error: () => {
         this.toastr.error('Failed to add course to cart.');
-        console.error('Error adding course to cart:', error);
-      }
+      },
     });
   }
 }
