@@ -7,7 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CartService } from '../../shared/services/cart.service';
 import { ToastrService } from 'ngx-toastr';
 import { CommonModule, CurrencyPipe } from '@angular/common';
-import { ReadCourseRatingDTO } from '../../models/Rating';
+import {  ReadCourseRatingDTO } from '../../models/Rating';
 import { RatingService } from '../../shared/services/rating.service';
 import { RatingCardComponent } from '../../Components/course-details/rating-card/rating-card.component';
 import { AddToCartComponent } from '../../Components/course-details/add-to-cart/add-to-cart.component';
@@ -28,7 +28,7 @@ import { AddToCartComponent } from '../../Components/course-details/add-to-cart/
 })
 export class CourseDetailsComponent implements OnInit {
   course: Course | null = null;
-  ratings: any[] = [];
+  ratings: ReadCourseRatingDTO[] = [];
 
   constructor(
     private courseDetailsService: CourseDetailsService,
@@ -44,7 +44,7 @@ export class CourseDetailsComponent implements OnInit {
     // Fetch course details
     this.courseDetailsService.getCourseDetails(courseId).subscribe({
       next: (course: any) => {
-        console.log('course', course);
+        // console.log('course', course);
 
         this.course = course;
       },
@@ -55,8 +55,8 @@ export class CourseDetailsComponent implements OnInit {
 
     // Fetch course ratings
     this.ratingService.getAllRatingsForCourse(courseId).subscribe({
-      next: (ratings: any) => {
-        console.log('ratings', ratings);
+      next: (ratings: ReadCourseRatingDTO[]) => {
+        console.log('Ratings:', ratings); // Log the data to ensure it's an array
         this.ratings = ratings;
       },
       error: () => {
