@@ -12,3 +12,30 @@
 .btn-outline-primary i {
   margin-right: 5px;
 }
+
+.progress-circle-container {
+  position: relative;
+  width: 40px;
+  height: 40px;
+}
+
+
+.circle-bg {
+  fill: none;
+  stroke: #e6e6e6;
+  stroke-width: 2.8;
+}
+
+.circle {
+  fill: none;
+  stroke-width: 2.8;
+  stroke: #4caf50;
+  stroke-linecap: round;
+  transition: stroke-dasharray 0.3s;
+}
+
+.progress-text {
+  font-size: 8px;
+  fill: #333;
+  text-anchor: middle;
+}
