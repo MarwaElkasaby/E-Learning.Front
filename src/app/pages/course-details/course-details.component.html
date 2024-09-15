@@ -1,45 +1,20 @@
-@if (course) {
+@if(course){
 
-<div class="container mt-4">
+<div class="container-fluid">
   <div class="row">
-    <!-- Course Image and Add to Cart Section -->
-    <div class="col-md-4">
-      <div class="card mb-3">
-        <img
-          [src]="course?.coverPicture"
-          class="card-img-top"
-          alt="Cover Picture"
-          style="height: 300px; object-fit: cover"
-        />
-        <div class="card-body">
-          <div class="d-flex justify-content-between align-items-center">
-            <h2 class="card-title">{{ course?.title }}</h2>
-            <!-- Add to Cart Button in the Card -->
-            <button
-              type="button"
-              class="btn btn-primary btn-lg"
-              (click)="addToCart(course.id)"
-            >
-              Add to Cart
-            </button>
-          </div>
-          <p class="card-text mt-3">
-            {{ course?.description || "No description available." }}
-          </p>
-          <div class="d-flex justify-content-between mb-3">
-            <span class="badge bg-info">{{ course.courseCategory.name }}</span>
-            <div class="hstack gap-3">
-              <span class="text-muted md">Price: {{ course.price | currency }}</span>
-            </div>
-          </div>
-        </div>
-      </div>
+    <!-- Left Column: Course Details -->
+    <div class="col-lg-8">
+      <app-course-details-header [course]="course"></app-course-details-header>
+      <app-sections-list [sections]="course.sections"></app-sections-list>
+      @if(ratings){
+      <app-rating-card [ratings]="ratings"></app-rating-card>
+      }
     </div>
 
-    <!-- Course Sections List -->
-    <div class="col-md-8">
-      <app-sections-list [sections]="course.sections"></app-sections-list>
-    </div>
-  </div>
+    <!-- Right Column: Add to Cart (Fixed) -->
+    <div class="col-lg-4 d-none d-lg-block">
+      <app-add-to-cart [course]="course"></app-add-to-cart>
+    </div>  </div>
 </div>
+
 }

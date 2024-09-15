@@ -1,27 +1,53 @@
-<div class="container mt-4">
-  <div class="card">
-    <img
-      src="{{ course.coverPicture }}"
-      class="card-img-top"
-      alt="Cover Picture"
-      style="height: 200px; object-fit: cover"
-    />
+<div *ngIf="course" class="course-header container-fluid py-4">
+  <div class="row align-items-center">
+    <!-- Course Cover Image -->
+    <div class="col-md-4">
+    </div>
 
-    <div class="card-body">
-      <div class="d-flex justify-content-between">
-        <h2 class="card-title">{{ course.title }}</h2>
-
-        <!-- <button type="button" class="btn btn-info">Go to content</button> -->
-        <button type="button" class="btn btn-primary">Add to Cart</button>
-      </div>
-      <p class="card-text">
+    <!-- Course Information -->
+    <div class="col-md-8">
+      <h1 class="display-4">{{ course.title }}</h1>
+      <p class="lead">
         {{ course.description || "No description available." }}
       </p>
 
-      <div class="d-flex justify-content-between mb-3">
-        <span class="badge bg-info">{{ course.courseCategory.name }}</span>
-        <div class="hstack gap-3">
-          <span class="text-muted md">Price: {{ course.price }}</span>
+      <!-- Course Rating and Creation Date -->
+      <div class="course-meta mt-3 d-flex align-items-center">
+        <!-- Rating -->
+        <div class="rating me-3">
+          <span *ngIf="course?.rate">
+            <i
+              class="fa fa-star"
+              *ngFor="let _ of [].constructor(course?.rate)"
+            ></i>
+            {{ course.rate || 0 }} / 5
+          </span>
+          <span *ngIf="!course?.rate" class="text-muted">No Rating</span>
+        </div>
+
+        <!-- Creation Date -->
+        <div class="creation-date text-muted">
+          Created on: {{ getFormattedDate(course.creationDate) }}
+        </div>
+      </div>
+
+      <!-- Course Category -->
+      <div class="mt-3">
+        <span class="badge bg-secondary">{{ course.courseCategory.name }}</span>
+      </div>
+
+      <!-- Instructor Info -->
+      <div class="instructor-info mt-4 d-flex align-items-center">
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Windows_10_Default_Profile_Picture.svg/768px-Windows_10_Default_Profile_Picture.svg.png?20221210150350"
+          class="instructor-avatar rounded-circle me-3"
+          alt="Instructor Image"
+        />
+        <div>
+          <span class="text-muted">Instructor: </span>
+          <span>
+            {{ course.instructor.fName + course.instructor.lName }}
+          </span>
         </div>
       </div>
     </div>
