@@ -2,33 +2,98 @@
     border-radius: 20px; /* Adjust the value as needed */
 }
 /* Custom styles for the dropdown menu */
-.nav-item.dropdown .dropdown-menu {
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  background-color: #f8f9fa;
+  border: 1px solid #ddd;
+  border-radius: 0.25rem;
+  z-index: 1000;
+}
+
+/* .dropdown-menu.show {
+  display: block;
+} */
+
+.dropdown-item {
+  padding: 0.5rem 1rem;
+  color: #212529;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-item:hover {
+  background-color: #e9ecef;
+}
+
+
+/* whole navbar */
+/* Ensure that the navbar content is hidden by default on small screens */
+@media (max-width: 991px) {
+  .navbar-collapse {
     display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    z-index: 1000;
-    min-width: 250px;
-    padding: 0.5rem 1rem;
-    border: 1px solid rgba(0, 0, 0, 0.15);
-    background-color: white;
-    box-shadow: var(--shadow);
+    opacity: 0;
+    transition: opacity 0.3s ease;
   }
-  
-  /* Show the dropdown menu on hover */
-  .nav-item.dropdown:hover .dropdown-menu {
+
+  .navbar-collapse.show {
     display: block;
+    opacity: 1;
   }
-  
-  /* Style dropdown items */
-  .dropdown-item {
-    padding: 10px 20px;
-    font-size: 16px;
-    color: #333;
-    transition: background-color 0.2s;
+
+  /* Handle dropdown menu visibility */
+  .dropdown-menu {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
   }
-  
-  .dropdown-item:hover {
-    background-color: var(--light-color);
+
+  .dropdown-menu.show {
+    display: block;
+    opacity: 1;
   }
-  
+}
+
+
+  .search-btn:hover,  .search-btn:selection{
+    background-color: #9AAEFD
+  }
+
+  /* offer Bar */
+
+  /* Top Bar Styles */
+/* Offer Bar Styling */
+.top-bar{
+  background-color: #F7C339;
+}
+.offer-bar {
+  background-color: #f8f9fa; /* Light background color */
+  border-bottom: 1px solid #e9ecef; /* Subtle border */
+  padding: 10px 0; /* Padding for spacing */
+  text-align: center; /* Center all content */
+}
+
+.offer-text {
+  font-size: 16px; /* Font size */
+  color: #333; /* Main text color */
+  margin: 0; /* Remove default margin */
+  font-weight: normal; /* Normal weight for main text */
+}
+
+/* Timer Styling */
+.offer-timer {
+  font-size: 18px; /* Slightly larger font for the timer */
+  font-weight: bold; /* Bold text */
+  color: red; /* Red color for the countdown */
+   /* Small spacing above the timer */
+}
+
+.offer-link {
+  font-weight: bold; /* Make the link bold */
+  text-decoration: underline; /* Underline the link */
+}
+
+.offer-link:hover {
+  color: #007bff; /* Change color on hover */
+  text-decoration: none; /* Remove underline on hover */
+}
