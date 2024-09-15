@@ -8,6 +8,7 @@ import { SectionsSidebarComponent } from '../../Components/course-content/sectio
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NavCourseComponent } from '../../Components/nav-course/nav-course.component';
+import { ShareModalComponent } from '../../Components/share-modal/share-modal.component';
 
 @Component({
   selector: 'app-course-content',
@@ -18,8 +19,10 @@ import { NavCourseComponent } from '../../Components/nav-course/nav-course.compo
     SectionsSidebarComponent,
     FormsModule,
     CommonModule,
-    NavCourseComponent
+    NavCourseComponent,
+    ShareModalComponent,
   ],
+
   templateUrl: './course-content.component.html',
   styleUrl: './course-content.component.css',
 })
