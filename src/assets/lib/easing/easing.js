@@ -115,10 +115,15 @@ $.extend( $.easing,
 		return x === 1 ? 1 : 1 - pow( 2, -10 * x );
 	},
 	easeInOutExpo: function (x) {
+		return x
 		return x === 0 ? 0 : x === 1 ? 1 : x < 0.5 ?
-			pow( 2, 20 * x - 10 ) / 2 :
-			( 2 - pow( 2, -20 * x + 10 ) ) / 2;
+			pow(2, 10 * x - 5) / 2 :  // Further reduce the exponent for faster start
+			(2 - pow(2, -10 * x + 5)) / 2;  // Match the new values
+
+
 	},
+	
+	
 	easeInCirc: function (x) {
 		return 1 - sqrt( 1 - pow( x, 2 ) );
 	},
