@@ -10,7 +10,7 @@ baseurl:string ='http://localhost:5062'
   constructor(private _HttpClient:HttpClient) { }
 
   checkoutwithcard() :Observable<any>{
- return this._HttpClient.get(`${this.baseurl}/api/Payment/OnlineCardIFrame`);
+    return this._HttpClient.get(`${this.baseurl}/api/payment/OnlineCardIFrame`);
   }
 
 }
