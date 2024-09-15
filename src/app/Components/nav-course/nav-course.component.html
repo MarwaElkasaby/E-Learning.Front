@@ -1,38 +1,43 @@
+<div class="container  px-0 wow fadeIn" data-wow-delay="0.1s">
+  <!-- Main Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light py-lg-0 px-lg-5 wow fadeIn">
+    <!-- Logo -->
+    <a class="navbar-brand ms-4 ms-lg-0" href="#" routerLink="home">
+      <h1 class="display-5 text-primary m-0">Taalam</h1>
+    </a>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-      <!-- Brand -->
-      <a class="navbar-brand" href="#" routerLink="home">EduGate
-        <!-- <img src="./assets/images/freshcart-logo.svg" alt="Brand Logo" height="40"> -->
-      </a>
-  
-      <!-- Toggler Button for Mobile -->
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-  
-      <!-- Collapsible Content -->
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <!-- Left Side Nav Links -->
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a  class="nav-link text-capitalize" href="">course title tweeeel awiiiiiiiii mamamamaamamammamm</a>
-          </li>
-          
-        </ul>
-  
+    <!-- Toggler for mobile screens -->
+    <button
+      class="navbar-toggler me-4"
+      type="button"
+      (click)="toggleNavbar()"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-        
-          
-        <!-- Right Side Icons and Profile -->
-        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 d-flex align-items-center">
-            <li class="nav-item">
-                <a class="nav-link text-capitalize" routerLink="userCourses" routerLinkActive="active">My Learning</a>
-            </li>
-         
-        </ul>
-      </div>
+    <div
+      class="collapse navbar-collapse"
+      [ngClass]="{ 'show': isNavbarOpen }"
+      id="navbarSupportedContent"
+    >
+      <!-- Center: Course Title -->
+      <span class="navbar-text mx-auto">
+        <h3 class="course-title mb-0">{{ courseTitle || "Course Title" }}</h3>
+      </span>
+
+      <!-- Right Side: Share Button -->
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <button class="btn btn-outline-primary" (click)="copyShareLink()">
+            <i class="bi-share-fill me-2"></i> Share
+          </button>
+        </li>
+      </ul>
     </div>
   </nav>
-  
-  
+</div>
+
+

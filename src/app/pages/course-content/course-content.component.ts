@@ -7,6 +7,7 @@ import { CourseDescriptionComponent } from '../../Components/course-content/cour
 import { SectionsSidebarComponent } from '../../Components/course-content/sections-sidebar/sections-sidebar.component';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { NavCourseComponent } from '../../Components/nav-course/nav-course.component';
 
 @Component({
   selector: 'app-course-content',
@@ -17,6 +18,7 @@ import { CommonModule } from '@angular/common';
     SectionsSidebarComponent,
     FormsModule,
     CommonModule,
+    NavCourseComponent
   ],
   templateUrl: './course-content.component.html',
   styleUrl: './course-content.component.css',

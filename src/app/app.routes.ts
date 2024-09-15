@@ -46,8 +46,6 @@ export const routes: Routes = [
       { path: 'instructorProfile/:id', component: InstructorProfileComponent , title:"Taalam - InstructorProfile" },
       {path: 'searchResult/:SearchTerm', component:SearchResultComponent , title:"Taalam - SearchResult"},
       { path: 'course/:id', component: CourseDetailsComponent },
-      { path: 'course/content/:courseId', component: CourseContentComponent },
-      {path: 'course/content/:courseId/:lessonId', component: CourseContentComponent }
 
     ],
   },
@@ -85,6 +83,9 @@ export const routes: Routes = [
 
     ],
   },
+    { path: 'course/content/:courseId', component: CourseContentComponent },
+    {path: 'course/content/:courseId/:lessonId', component: CourseContentComponent },
+
   { path: '**', component: NotFoundComponent },
 ];
 
