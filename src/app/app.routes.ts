@@ -36,7 +36,7 @@ export const routes: Routes = [
     // canActivate: [AuthguardService],
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
-      { path: 'home', component: HomeComponent, title:"Taalam - Home" },
+      { path: 'home', component: HomeComponent, title:"Taalam" },
       { path: 'cart/:id', component: CartComponent, title:"Taalam - Cart" },
       { path: 'category/:id', component: CategoryComponent, title:"Taalam - Categories" },
       { path: 'wishlist/:id', component: WishlistComponent, title:"Taalam - Wishlist" },

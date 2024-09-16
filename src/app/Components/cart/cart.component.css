@@ -1,3 +1,17 @@
+.slider-area{
+  background: linear-gradient(to bottom,#6473FF  0%,#4e5bca );
+  position: relative;
+  top:24px;
+}
+
+@media (max-width: 991px) {
+  .slider-area{
+     background: linear-gradient(to bottom,#6473FF  0%,#4e5bca );
+     position: relative;
+     top:-34px;
+  }
+}
+
 .cart-item {
   border-radius: 10px;
   /* transition: box-shadow 0.3s; */
