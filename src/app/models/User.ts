@@ -7,7 +7,8 @@ export default interface User {
     token: string;
     fName : string;
     LName :string;
-    phoneNumber :number
+    phoneNumber :number,
+    emailConfirmed: boolean;
 
 
 }

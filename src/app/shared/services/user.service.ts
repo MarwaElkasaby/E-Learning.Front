@@ -123,4 +123,14 @@ export class UserService {
       })
     );
   }
+
+  approveuser(id: number) {
+    return this.http
+      .get(`http://localhost:5062/Api/Account/approveuser/${id}`)
+      .pipe(
+        catchError((error) => {
+          return throwError(() => error);
+        })
+      );
+  }
 }
