@@ -9,8 +9,13 @@ export class PaymentService {
 baseurl:string ='http://localhost:5062'
   constructor(private _HttpClient:HttpClient) { }
 
-  checkoutwithcard() :Observable<any>{
+  PayWithOnlineCard() :Observable<any>{
     return this._HttpClient.get(`${this.baseurl}/api/payment/OnlineCardIFrame`);
+  }
+
+  PayWithMobileWallet(mobileNumber : string): Observable<any>{
+    const apiUrl = `http://localhost:5062/api/Payment/MobileWalletUrl?walletMobileNumber=${mobileNumber}`;
+    return this._HttpClient.get(apiUrl);
   }
 
 }
