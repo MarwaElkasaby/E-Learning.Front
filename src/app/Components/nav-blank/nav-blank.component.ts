@@ -102,6 +102,8 @@ export class NavBlankComponent implements OnInit {
     this.isDropdownOpen[dropdown] = !this.isDropdownOpen[dropdown];
   }
 
+
+
   ngOnInit(): void {
     this._CategoryService.getCategories().subscribe({
       next: (response) => {
@@ -119,6 +121,13 @@ export class NavBlankComponent implements OnInit {
     if (this.searchTerm.trim()) {
       this._Router.navigate(['/searchResult', this.searchTerm]);
       this.searchTerm = '';
+    }
+  }
+
+  isDropdownOpenUser=false
+  toggleDropdownUser() {
+    if (window.innerWidth < 992) {
+      this.isDropdownOpenUser = !this.isDropdownOpenUser;
     }
   }
 

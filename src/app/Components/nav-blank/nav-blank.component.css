@@ -231,6 +231,38 @@
 
 }
 
+
+
+
+
+/* user icon */
+/* Custom CSS */
+#userDropdown:hover .dropdown-menu {
+  display: block;
+}
+
+#userDropdown .dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%; /* Ensure it appears below the icon */
+  left: -76px; /* Adjust position as needed */
+  background-color: #fff; /* Set background */
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1); /* Add some shadow */
+  border-radius: 5px;
+}
+
+#userDropdown .dropdown-menu a {
+  padding: 10px;
+  color: #000; /* Adjust text color */
+}
+
+#userDropdown .dropdown-menu a:hover {
+  background-color: #f1f1f1; /* Highlight on hover */
+}
+
+
+
+
 @media (max-width: 991px) {
   .navbar-collapse {
     display: none;
@@ -289,4 +321,19 @@
     padding-top: 10px;
     padding-bottom: 10px;
    }
+
+   #userDropdown .dropdown-menu {
+    display: none; /* Hide by default */
+  }
+
+  /* When dropdown is active */
+  #userDropdown.show .dropdown-menu {
+    display: block;
+    position: absolute;
+    top: 100%;
+    left: -20px;
+    background-color: #fff;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+  }
 }
