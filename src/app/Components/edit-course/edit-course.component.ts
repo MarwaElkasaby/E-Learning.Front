@@ -1,4 +1,7 @@
-import { Section } from './../../shared/interfaces/course-data';
+import {
+  CourseDataForEditing,
+  Section,
+} from './../../shared/interfaces/course-data';
 import { UploadService } from './../../shared/services/upload.service';
 import { Component, OnInit } from '@angular/core';
 import {
@@ -78,95 +81,6 @@ export class EditCourseComponent implements OnInit {
 
   coverPictureFile: File[] = [];
 
-  // ngOnInit(): void {
-  //   this._ActivatedRoute.paramMap.subscribe({
-  //     next: (params) => {
-  //       let courseId: any = params.get('id');
-  //       this.courseService
-  //         .getCourseById(courseId)
-  //         .subscribe((courseData: CourseData) => {
-  //           this.CourseForm.patchValue({
-  //             title: courseData.title,
-  //             description: courseData.description,
-  //             category: courseData.courseCategory,
-  //             duration: courseData.duration,
-  //             coverPicture: courseData.coverPicture,
-  //             price: courseData.price,
-  //           });
-  //           // Add sections and lessons
-  //           if (courseData.sections) {
-  //             courseData.sections.forEach((section: Section) =>
-  //               this.addSection()
-  //             );
-  //           }
-  //         });
-  //     },
-  //   });
-  // }
-
-  // ngOnInit(): void {
-  //   this._ActivatedRoute.paramMap.subscribe({
-  //     next: (params) => {
-  //       let courseId: any = params.get('id');
-  //       this.courseService
-  //         .getCourseById(courseId)
-  //         .subscribe((courseData: any) => {
-  //           console.log(courseData)
-  //           // Patch the main course data
-  //           this.CourseForm.patchValue({
-  //             title: courseData.title,
-  //             description: courseData.description,
-  //             category: courseData.courseCategory,
-  //             duration: courseData.duration,
-  //             coverPicture: courseData.coverPicture,
-  //             price: courseData.price,
-  //           });
-
-  //           // Bind sections and lessons from response
-  //           if (courseData.sections) {
-  //             this.bindSections(courseData.sections);
-  //           }
-  //         });
-  //     },
-  //   });
-  // }
-
-  // // Function to bind sections and lessons from the backend response
-  // bindSections(sectionsData: any[]) {
-  //   const sectionsArray = this.CourseForm.get('sections') as FormArray;
-
-  //   // Initialize lessonsFiles array
-  //   this.lessonsFiles = [];
-
-  //   sectionsData.forEach((section, sectionIndex) => {
-  //     const sectionGroup = this.fb.group({
-  //       sectionTitle: [section.sectionTitle, Validators.required],
-  //       lessons: this.fb.array([]), // Create an empty lessons array for each section
-  //     });
-
-  //     // Initialize lessonsFiles for this section
-  //     this.lessonsFiles[sectionIndex] = [];
-
-  //     // Bind lessons to the section
-  //     section.lessons.forEach((lesson: any, lessonIndex: number) => {
-  //       const lessonGroup = this.fb.group({
-  //         lessonTitle: [lesson.lessonTitle, Validators.required],
-  //         lessonUrl: [lesson.lessonUrl, Validators.required],
-  //       });
-
-  //       // Initialize lessonsFiles for this lesson
-  //       this.lessonsFiles[sectionIndex][lessonIndex] = [];
-
-  //       // Add the lesson to the section's lessons array
-  //       (sectionGroup.get('lessons') as FormArray).push(lessonGroup);
-  //     });
-
-  //     // Add the section group to the sections array
-  //     sectionsArray.push(sectionGroup);
-  //   });
-  // }
-
-  // Function to convert a URL to a File object
   urlToFile(url: string, filename: string, mimeType: string): Promise<File> {
     return fetch(url)
       .then((res) => res.blob())
@@ -182,7 +96,6 @@ export class EditCourseComponent implements OnInit {
           .subscribe((courseData: any) => {
             console.log(courseData);
             console.log(this.courseId);
-
             // Patch the main course data
             this.CourseForm.patchValue({
               title: courseData.title,
@@ -191,6 +104,7 @@ export class EditCourseComponent implements OnInit {
               duration: courseData.duration,
               price: courseData.price,
             });
+            this.numberOfSections = courseData.sectionsNo;
 
             // Convert the coverPicture URL to a File object and bind it to the files array
             if (courseData.coverPicture) {
@@ -221,15 +135,20 @@ export class EditCourseComponent implements OnInit {
       },
     });
   }
-  // Function to bind sections and lessons from the backend response
+
   bindSections(sectionsData: any[]) {
     const sectionsArray = this.CourseForm.get('sections') as FormArray;
 
     // Initialize lessonsFiles array
     this.lessonsFiles = [];
 
+    // Clear existing sections
+    sectionsArray.clear();
+
     sectionsData.forEach((section, sectionIndex) => {
+      // Create section group including sectionId
       const sectionGroup = this.fb.group({
+        sectionId: [section.sectionId], // Bind sectionId from the response
         sectionTitle: [section.sectionTitle, Validators.required],
         lessons: this.fb.array([]), // Create an empty lessons array for each section
       });
@@ -239,7 +158,9 @@ export class EditCourseComponent implements OnInit {
 
       // Bind lessons to the section
       section.lessons.forEach((lesson: any, lessonIndex: number) => {
+        // Create lesson group including lessonId
         const lessonGroup = this.fb.group({
+          lessonId: [lesson.lessonId], // Bind lessonId from the response
           lessonTitle: [lesson.lessonTitle, Validators.required],
           lessonUrl: [lesson.lessonUrl, Validators.required],
         });
@@ -273,27 +194,77 @@ export class EditCourseComponent implements OnInit {
     return this.CourseForm.get('sections') as FormArray;
   }
 
+  // addSection() {
+  //   const section = this.fb.group({
+  //     sectionTitle: ['', Validators.required],
+  //     lessons: this.fb.array([]),
+  //     // numberOfLessons: [0], // Add hidden control for lesson count
+  //   });
+  //   this.numberOfSections += 1;
+  //   this.sections.push(section);
+  //   const sectionsArray = this.CourseForm.get('sections') as FormArray;
+  //   const sectionIndex = sectionsArray.length - 1;
+  //   this.lessonsFiles[sectionIndex] = {}; // Initialize lessonsFiles for new section
+  // }
+
   addSection() {
     const section = this.fb.group({
       sectionTitle: ['', Validators.required],
       lessons: this.fb.array([]),
-      numberOfLessons: [0], // Add hidden control for lesson count
+      // numberOfLessons: [0], // Add hidden control for lesson count
     });
     this.numberOfSections += 1;
     this.sections.push(section);
-    const sectionsArray = this.CourseForm.get('sections') as FormArray;
-    const sectionIndex = sectionsArray.length - 1;
+    // const sectionsArray = this.CourseForm.get('sections') as FormArray;
+    const sectionIndex = this.sections.length - 1;
     this.lessonsFiles[sectionIndex] = {}; // Initialize lessonsFiles for new section
   }
+
+  // removeSection(index: number) {
+  //   this.numberOfSections -= 1;
+  //   this.sections.removeAt(index);
+  // }
 
   removeSection(index: number) {
     this.numberOfSections -= 1;
     this.sections.removeAt(index);
+
+    // Update lessonsFiles
+    if (this.lessonsFiles[index]) {
+      delete this.lessonsFiles[index];
+    }
+
+    // Adjust the indices of the remaining sections
+    Object.keys(this.lessonsFiles).forEach((key) => {
+      const sectionIndex = +key;
+      if (sectionIndex > index) {
+        this.lessonsFiles[sectionIndex - 1] = this.lessonsFiles[sectionIndex];
+        delete this.lessonsFiles[sectionIndex];
+      }
+    });
   }
 
   getLessons(sectionIndex: number): FormArray {
     return this.sections.at(sectionIndex).get('lessons') as FormArray;
   }
+
+  // addLesson(sectionIndex: number) {
+  //   const lesson = this.fb.group({
+  //     lessonTitle: ['', Validators.required],
+  //     lessonUrl: ['', Validators.required],
+  //   });
+
+  //   this.getLessons(sectionIndex).push(lesson);
+  //   // Update the lesson count
+  //   this.updateLessonCount(sectionIndex);
+  //   // Initialize lessonsFiles for new lesson
+  //   const lessonsArray = this.getLessons(sectionIndex);
+  //   const lessonIndex = lessonsArray.length - 1;
+  //   if (!this.lessonsFiles[sectionIndex]) {
+  //     this.lessonsFiles[sectionIndex] = {};
+  //   }
+  //   this.lessonsFiles[sectionIndex][lessonIndex] = []; // Initialize lessonsFiles for new lesson
+  // }
 
   addLesson(sectionIndex: number) {
     const lesson = this.fb.group({
@@ -302,15 +273,12 @@ export class EditCourseComponent implements OnInit {
     });
 
     this.getLessons(sectionIndex).push(lesson);
-    // Update the lesson count
     this.updateLessonCount(sectionIndex);
-    // Initialize lessonsFiles for new lesson
-    const lessonsArray = this.getLessons(sectionIndex);
-    const lessonIndex = lessonsArray.length - 1;
+    const lessonIndex = this.getLessons(sectionIndex).length - 1;
     if (!this.lessonsFiles[sectionIndex]) {
       this.lessonsFiles[sectionIndex] = {};
     }
-    this.lessonsFiles[sectionIndex][lessonIndex] = []; // Initialize lessonsFiles for new lesson
+    this.lessonsFiles[sectionIndex][lessonIndex] = [];
   }
 
   removeLesson(sectionIndex: number, lessonIndex: number) {
@@ -320,13 +288,19 @@ export class EditCourseComponent implements OnInit {
     delete this.lessonsFiles[sectionIndex][lessonIndex]; // Remove lesson files data
   }
 
+  // updateLessonCount(sectionIndex: number) {
+  //   const lessonsCount = this.getLessons(sectionIndex).length;
+  //   this.sections
+  //     .at(sectionIndex)
+  //     .get('numberOfLessons')
+  //     ?.setValue(lessonsCount);
+  // }
+
   updateLessonCount(sectionIndex: number) {
     const lessonsCount = this.getLessons(sectionIndex).length;
-    this.sections
-      .at(sectionIndex)
-      .get('numberOfLessons')
-      ?.setValue(lessonsCount);
+    this.sections.at(sectionIndex).get('numberOfLessons')?.patchValue(lessonsCount);
   }
+
 
   onSelect(event: any) {
     // Check if a file is already selected and clear it if necessary
@@ -399,6 +373,14 @@ export class EditCourseComponent implements OnInit {
 
   onSelectLessonFile(event: any, sectionIndex: number, lessonIndex: number) {
     const files = event.addedFiles;
+
+    // Check if more than one file is added
+    if (files.length > 1) {
+      // Show an error message or alert to the user (optional)
+      alert('You can upload only one video at a time.');
+      return; // Prevent further execution
+    }
+
     if (!this.lessonsFiles[sectionIndex]) {
       this.lessonsFiles[sectionIndex] = {};
     }
@@ -471,7 +453,7 @@ export class EditCourseComponent implements OnInit {
           lessonUrl: secureUrl,
           lessonPublicId: publicId, // Add this field to store public_id
         });
-        this._ToastrService.success('Video uploaded successfully.');
+        // this._ToastrService.success('Video uploaded successfully.');
       }),
       catchError((err) => {
         console.error('Upload error:', err);
@@ -534,7 +516,7 @@ export class EditCourseComponent implements OnInit {
               this.isLoading = false;
               console.log('Success Response:', response);
               this._ToastrService.success(
-                response.message || 'Course Uploaded Successfully'
+                response.message || 'Course Updated Successfully'
               );
               this._Router.navigate(['/home']);
             },
@@ -542,7 +524,7 @@ export class EditCourseComponent implements OnInit {
               this.isLoading = false;
               console.error('Error Response:', err);
               this._ToastrService.error(
-                err.message || 'An error occurred while uploading the course.'
+                err.message || 'An error occurred while Updating the course.'
               );
             },
           });
@@ -558,8 +540,9 @@ export class EditCourseComponent implements OnInit {
     }
   }
 
-  convertToJson(formData: any): CourseData {
+  convertToJson(formData: any): CourseDataForEditing {
     return {
+      CourseId: this.courseId,
       userId: this.userId,
       title: formData.title,
       description: formData.description,
@@ -569,9 +552,11 @@ export class EditCourseComponent implements OnInit {
       price: formData.price,
       sectionsNo: this.numberOfSections,
       sections: formData.sections.map((section: any) => ({
+        sectionId: section.sectionId,
         sectionTitle: section.sectionTitle,
         numberOfLessons: section.numberOfLessons, // Include number of lessons in the JSON
         lessons: section.lessons.map((lesson: any) => ({
+          lessonId: lesson.lessonId,
           lessonTitle: lesson.lessonTitle,
           lessonUrl: lesson.lessonUrl,
         })),

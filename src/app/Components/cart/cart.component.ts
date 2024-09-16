@@ -1,33 +1,25 @@
 import { Component } from '@angular/core';
 import { CartService } from '../../shared/services/cart.service';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { PaymentService } from '../../shared/services/payment.service';
+import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-cart',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.css'
 })
 
 export class CartComponent {
 
-  constructor(private _CartService:CartService, private _ActivatedRoute:ActivatedRoute,private paymentservice:PaymentService,private route:Router)
+  constructor(
+    private _CartService:CartService, 
+    private _ActivatedRoute:ActivatedRoute,
+    private paymentservice:PaymentService,
+  )
 {
-}
-
-
-checkoutwithmobile() {
-  this.paymentservice.checkoutwithcard().subscribe({
-    next: (response) => {
-      console.log(response);
-      window.location.href = response.data;
-    },
-    error: (err) => {
-      console.log(err);
-    }
-  })
 }
 
 courses:any[]=[];
@@ -92,11 +84,39 @@ ngOnInit(): void {
     }
   )
 
-this.getCartTotal();
+  this.getCartTotal();
 
-console.log(this.total)
+  console.log(this.total)
 }
 
+// CHECKOUT
+selectedPaymentMethod: string = '';
+mobileNumber : string = '';
+
+checkOut(method : string) {
+  if(method == 'card'){
+    this.paymentservice.PayWithOnlineCard().subscribe({
+      next: (response) => {
+        console.log(response);
+        window.location.href = response.data;
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    });
+  }
+  if(method == 'wallet'){
+    this.paymentservice.PayWithMobileWallet(this.mobileNumber).subscribe({
+      next: (response) => {
+        console.log(response);
+        window.location.href = response.data;
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    });
+  }
+}
 }
 
 

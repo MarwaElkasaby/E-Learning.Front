@@ -38,7 +38,9 @@ export class UserService {
   }
 
   loginUser(user: any) {
-    return this.http.post('http://localhost:5062/Api/Account/login', user).pipe(
+
+    return this.http.post('http://localhost:5062/Api/Account/login', user,{withCredentials: true }).pipe(
+
       tap((response: any) => {
         const token = response.token;
         if (token) {
@@ -122,5 +124,15 @@ export class UserService {
         return throwError(() => error);
       })
     );
+  }
+
+  approveuser(id: number) {
+    return this.http
+      .get(`http://localhost:5062/Api/Account/approveuser/${id}`)
+      .pipe(
+        catchError((error) => {
+          return throwError(() => error);
+        })
+      );
   }
 }
