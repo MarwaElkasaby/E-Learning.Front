@@ -5,13 +5,14 @@ import { ActivatedRoute } from '@angular/router';
 import { NgClass, NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IEnrolledCourse } from '../../shared/interfaces/course-data';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-user-courses',
   standalone: true,
   templateUrl: './user-courses.component.html',
   styleUrls: ['./user-courses.component.css'],
-  imports: [CourseCardComponent, NgClass, NgIf, FormsModule, NgFor],
+  imports: [CourseCardComponent, NgClass, NgIf, FormsModule, NgFor,RouterModule],
 })
 export class UserCoursesComponent {
   id!: any;
@@ -39,6 +40,8 @@ export class UserCoursesComponent {
       this.EnrolledCourses = Courses;
       this.filteredCourses = Courses;
       this.extractCategories(Courses);
+      console.log(Courses);
+      
     });
   }
 
@@ -58,6 +61,7 @@ export class UserCoursesComponent {
   onCategorySelect(category: string) {
     this.selectedCategory = category;
     this.applyFilters(this.searchTerm.toLowerCase().trim(), category);
+    
   }
 
   // Apply search and category filters
@@ -66,5 +70,8 @@ export class UserCoursesComponent {
       (searchValue === '' || course.title.toLowerCase().includes(searchValue)) &&
       (category === '' || course.categoryName === category)
     );
+  }
+  get hasNoCourses(): boolean {
+    return this.filteredCourses.length === 0;
   }
 }
