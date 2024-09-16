@@ -38,7 +38,9 @@ export class UserService {
   }
 
   loginUser(user: any) {
-    return this.http.post('http://localhost:5062/Api/Account/login', user, {withCredentials:true}).pipe(
+
+    return this.http.post('http://localhost:5062/Api/Account/login', user,{withCredentials: true }).pipe(
+
       tap((response: any) => {
         const token = response.token;
         if (token) {
