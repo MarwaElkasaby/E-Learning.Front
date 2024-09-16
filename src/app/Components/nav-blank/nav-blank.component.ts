@@ -10,6 +10,8 @@ import { OfferService } from '../../shared/services/offer.service';
 import { Inject, PLATFORM_ID, AfterViewInit } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { UserService } from '../../shared/services/user.service';
+import { AnnouncementService } from '../../shared/services/announcement.service';
+import { log } from 'console';
 
 @Component({
   selector: 'app-nav-blank',
@@ -41,12 +43,13 @@ export class NavBlankComponent implements OnInit {
   username!: string;
   role!: string;
   isBrowser: boolean;
-
+ endofsale!: Date;
   constructor(
     private _CategoryService: CategoryService,
     private _Router: Router,
     private _OfferService: OfferService,
     private userservice:UserService,
+    private announcementservice:AnnouncementService,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
     this.isBrowser = isPlatformBrowser(this.platformId); // Set the value
@@ -82,9 +85,10 @@ export class NavBlankComponent implements OnInit {
     setTimeout(() => {
       if (this.isBrowser) {
         // Ensure countdown only runs in the browser
-        const offerEndTime = new Date();
-        offerEndTime.setHours(offerEndTime.getHours() + 24); // Set offer end time 24 hours from now
-        this.countdown$ = this._OfferService.getCountdown(offerEndTime);
+
+        const endofsaledate = new Date(this.endofsale);
+
+        this.countdown$ = this._OfferService.getCountdown(endofsaledate);
       }
     }, 2000);
   }
@@ -109,6 +113,15 @@ export class NavBlankComponent implements OnInit {
       next: (response) => {
         this.categories = response;
         console.log(response);
+      },
+    });
+
+    this.announcementservice.getAnnouncements().subscribe({
+      next: (response:any) => {
+        console.log(response);
+        this.endofsale = response[0].endOfSale;
+        console.log(this.endofsale);
+        
       },
     });
 
