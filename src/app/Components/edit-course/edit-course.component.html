@@ -251,49 +251,6 @@
                 </div>
               </div>
             </div>
-
-
-            <!-- Quiz Management -->
-            <!-- <h5 class="mt-3 mb-2">Quizzes</h5>
-            <button type="button" class="btn btn-outline-info btn-sm mb-3" (click)="addQuiz(sectionIndex)">
-              <i class="bx bx-plus-circle"></i> Add Quiz
-            </button>
-            <div class="list-group mb-4" formArrayName="quizzes">
-              <div *ngFor="let quiz of getQuizzes(sectionIndex).controls; let quizIndex = index" [formGroupName]="quizIndex" class="list-group-item">
-                <div class="input-group mb-3">
-                  <input type="text" class="form-control" placeholder="Quiz Name" formControlName="quizName" />
-                  <button type="button" class="btn btn-danger" (click)="removeQuiz(sectionIndex, quizIndex)">
-                    <i class="bx bx-minus"></i>
-                  </button>
-                </div>
-
-                <div formArrayName="questions">
-                  <div *ngFor="let question of getQuestions(sectionIndex, quizIndex).controls; let questionIndex = index" [formGroupName]="questionIndex" class="mb-3">
-                    <div class="input-group mb-2">
-                      <input type="text" class="form-control" placeholder="Question Title" formControlName="questionTitle" />
-                      <button type="button" class="btn btn-outline-danger" (click)="removeQuestion(sectionIndex, quizIndex, questionIndex)">
-                        <i class="bx bx-minus"></i> Remove Question
-                      </button>
-                    </div>
-                    <div formArrayName="answers">
-                      <div *ngFor="let answer of getAnswers(sectionIndex, quizIndex, questionIndex).controls; let answerIndex = index" [formGroupName]="answerIndex" class="input-group mb-2">
-                        <input type="text" class="form-control" placeholder="Answer Option" formControlName="answerText" />
-                        <button type="button" class="btn btn-outline-secondary" (click)="removeAnswer(sectionIndex, quizIndex, questionIndex, answerIndex)">
-                          <i class="bx bx-minus"></i>
-                        </button>
-                      </div>
-                    </div>
-                    <button type="button" class="btn btn-outline-primary btn-sm mt-2" (click)="addAnswer(sectionIndex, quizIndex, questionIndex)">
-                      <i class="bx bx-plus"></i> Add Answer
-                    </button>
-                  </div>
-                </div>
-
-                <button type="button" class="btn btn-outline-warning btn-sm mb-3" (click)="addQuestion(sectionIndex, quizIndex)">
-                  <i class="bx bx-plus-circle"></i> Add Question
-                </button>
-              </div>
-            </div> -->
           </div>
         </div>
       </div>
@@ -302,7 +259,7 @@
     <!-- Submit Button -->
     <div class="text-center">
       <button class="btn btn-primary btn-lg" type="submit" [disabled]="CourseForm.invalid">
-        <i *ngIf="isLoading" class="fas fa-spinner fa-spin"></i>Submit</button>
+        <i *ngIf="isLoading" class="fas fa-spinner fa-spin"></i> Submit</button>
     </div>
   </form>
 </div>

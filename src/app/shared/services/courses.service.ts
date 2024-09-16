@@ -41,7 +41,7 @@ export class CoursesService {
 
   editCourse(data: any): Observable<any> {
     return this._HttpClient.put<any>(
-      `${this.baseURL}/Api/course/editcourse`,
+      `${this.baseURL}/Api/course/editCourse`,
       data
     );
   }
