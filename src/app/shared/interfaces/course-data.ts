@@ -18,6 +18,7 @@ export interface IEnrolledCourse {
   description: string,
   price: number,
   rate: number,
+  progress:number,
   coverPicture: string,
   categoryName:string,
   duration: number

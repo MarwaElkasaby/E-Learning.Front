@@ -42,6 +42,7 @@ export class EditUserProfileComponent {
       const idParam = params.get('id');
       this.id = idParam ? +idParam : undefined;
       this.loadUserProfile(this.id);
+      
     });
 
     
@@ -54,14 +55,22 @@ export class EditUserProfileComponent {
       this.user = user;
     });
   }
-
   onFileSelected(event: any): void {
     const file: File = event.target.files[0];
+    
     if (file) {
       this.selectedFile = file;
+  
+      const reader = new FileReader();
+  
+      reader.onload = (e: any) => {
+        this.profilePicture = e.target.result;
+      };
+  
+      reader.readAsDataURL(file);
     }
   }
-
+  
   saveChanges(user: IUserProfile) {
     const formData: FormData = new FormData();
 
