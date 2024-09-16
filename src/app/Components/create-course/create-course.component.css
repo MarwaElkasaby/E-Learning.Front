@@ -1,5 +1,13 @@
 .slider-area{
    background: linear-gradient(to bottom,#6473FF  0%,#4e5bca );
    position: relative;
-   top:25px;
+   top:24px;
+}
+
+@media (max-width: 991px) {
+   .slider-area{
+      background: linear-gradient(to bottom,#6473FF  0%,#4e5bca );
+      position: relative;
+      top:-34px;
+   }
 }
