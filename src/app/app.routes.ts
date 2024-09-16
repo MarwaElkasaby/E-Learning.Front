@@ -39,7 +39,7 @@ export const routes: Routes = [
   {
     path: '',
     component: BlankLayoutComponent,
-    canActivate: [AuthguardService],
+    // canActivate: [AuthguardService],
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: HomeComponent, title:"Taalam - Home" },

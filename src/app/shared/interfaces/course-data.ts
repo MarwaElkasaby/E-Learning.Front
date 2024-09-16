@@ -9,6 +9,7 @@ export interface CourseData {
   sectionsNo: number;
   sections: Section[];
 }
+
 export interface IEnrolledCourse {
   id: number,
   title: string,
@@ -34,14 +35,29 @@ export interface Lesson {
   lessonUrl: string;
 }
 
-// export interface Quiz {
-//   question: string;
-//   answer: Answer[];
-// }
 
-// export interface Answer {
-//   choise1?: string;
-//   choice2?: string;
-//   choise3?: string;
-//   choice4?: string;
-// }
+export interface CourseDataForEditing {
+  CourseId: number;
+  userId: number;
+  title: string;
+  description: string;
+  duration: string;
+  courseCategory: string;
+  coverPicture: string;
+  price: number;
+  sectionsNo: number;
+  sections: SectionForEditing[];
+}
+
+export interface SectionForEditing {
+  sectionId: number;
+  sectionTitle: string;
+  numberOfLessons: number;
+  lessons: LessonForEditing[];
+}
+
+export interface LessonForEditing {
+  lessonId: number;
+  lessonTitle: string;
+  lessonUrl: string;
+}
