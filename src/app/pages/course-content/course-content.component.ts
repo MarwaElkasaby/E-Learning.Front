@@ -84,8 +84,9 @@ export class CourseContentComponent {
   onLessonSelected(lesson: Lesson) {
     this.selectedLesson = lesson;
     this.router
-      .navigate([`/course/content/${this.courseId}/${lesson.id}`])
-      .then(() => this.loadLesson());
+this.router.navigate([`/course/content/${this.courseId}/${lesson.id}`], {
+  replaceUrl: true,
+})      .then(() => this.loadLesson());
     this.cdr.detectChanges();
   }
 
