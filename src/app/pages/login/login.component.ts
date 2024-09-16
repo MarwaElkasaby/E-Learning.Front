@@ -14,7 +14,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class LoginComponent implements OnInit {
 
-
+isloading: boolean = false; 
   emailerrormessage: string ='';
   passworderrormessage: string ='';
 
@@ -47,9 +47,11 @@ onSubmit(form: NgForm) {
 
 
 if(form.valid){
+  this.isloading = true;
   this.userservice.loginUser(form.value).subscribe({
     next: (response: any) => {
       console.log('Login successful', response);
+      this.isloading = false;
       this.toaster.success('Login successful');
       setTimeout(() => {
         this.router.navigate(['/']);

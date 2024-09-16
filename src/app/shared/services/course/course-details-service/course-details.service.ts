@@ -30,4 +30,9 @@ export class CourseDetailsService {
       }
     );
   }
+
+  downloadCertificate(courseId: number): Observable<Blob> {
+    const certUrl = `http://localhost:5062/api/course/getOrCreateCert/${courseId}`;
+    return this.httpClient.get(certUrl, { responseType: 'blob' });
+  }
 }

@@ -22,6 +22,7 @@ newpasswordform!:{
   email: string;  
   token: string;
 };
+isloading: boolean = false;
 
 constructor(private route :ActivatedRoute,private userservice:UserService,private router:Router,private toaster:ToastrService) { 
   this.route.queryParams.subscribe(params => {
