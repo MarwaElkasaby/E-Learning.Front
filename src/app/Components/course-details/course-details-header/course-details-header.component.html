@@ -2,7 +2,7 @@
   <div class="row align-items-center">
     <!-- Course Cover Image -->
     <div class="col-md-4 d-lg-none">
-      <img [src]="course.coverPicture" class="img-fluid rounded shadow-sm" alt="Course Cover Image">
+      <img [src]="course.coverPicture" class="img-fluid rounded shadow-sm" alt="Cover Image">
     </div>
 
     <!-- Course Information -->
@@ -36,11 +36,14 @@
 
       <!-- Instructor Info -->
       <div class="instructor-info mt-4 d-flex align-items-center">
+
         <img
-          [src]="course.instructor.profilePicture"
+          [src]="course.instructor.profilePicture|| 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Windows_10_Default_Profile_Picture.svg/768px-Windows_10_Default_Profile_Picture.svg.png?20221210150350'
+
+"
           class="instructor-avatar rounded-circle me-3"
-          alt="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Windows_10_Default_Profile_Picture.svg/768px-Windows_10_Default_Profile_Picture.svg.png?20221210150350"
         />
+
         <div>
           <span class="text-muted">Instructor: </span>
           <span>
