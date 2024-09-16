@@ -95,6 +95,8 @@ export class NavBlankComponent implements OnInit {
 
   isNavbarOpen = false;
   isDropdownOpen:any = {
+    userDropdown: false,
+
     categoryDropdown: false
   };
 
@@ -103,9 +105,16 @@ export class NavBlankComponent implements OnInit {
   }
 
   toggleDropdown(dropdown: string) {
-    this.isDropdownOpen[dropdown] = !this.isDropdownOpen[dropdown];
+    // Close all dropdowns if the clicked one is already open
+    if (this.isDropdownOpen[dropdown]) {
+      this.isDropdownOpen[dropdown] = false;
+    } else {
+      // Close all other dropdowns
+      Object.keys(this.isDropdownOpen).forEach(key => this.isDropdownOpen[key] = false);
+      this.isDropdownOpen[dropdown] = true;
+    }
   }
-
+  
 
 
   ngOnInit(): void {
@@ -134,13 +143,6 @@ export class NavBlankComponent implements OnInit {
     if (this.searchTerm.trim()) {
       this._Router.navigate(['/searchResult', this.searchTerm]);
       this.searchTerm = '';
-    }
-  }
-
-  isDropdownOpenUser=false
-  toggleDropdownUser() {
-    if (window.innerWidth < 992) {
-      this.isDropdownOpenUser = !this.isDropdownOpenUser;
     }
   }
 

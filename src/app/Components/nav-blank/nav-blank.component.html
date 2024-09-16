@@ -85,6 +85,44 @@
         </div>
       </form>
 
+<<<<<<< HEAD
+      <!-- Right Side Icons -->
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0 d-flex align-items-center">
+        <li class="nav-item">
+          <a
+            class="nav-link text-capitalize"
+            routerLink="createCourse"
+            routerLinkActive="active"
+            >Instructor</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link text-capitalize"
+            [routerLink]="['/userCourses', userId]"
+            routerLinkActive="active"
+            >My Learning</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            [routerLink]="['/wishlist', userId]"
+            routerLinkActive="active"
+          >
+            <i class="fas fa-heart fa-lg"></i>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            [routerLink]="['/cart', userId]"
+            routerLinkActive="active"
+          >
+            <i class="fas fa-shopping-cart fa-lg"></i>
+          </a>
+        </li>
+=======
     <!-- Right Side Icons -->
 <ul class="navbar-nav ms-auto mb-2 mb-lg-0 d-flex align-items-center">
   <li class="nav-item">
@@ -141,7 +179,50 @@
   </ul>
 </li>
 </ul>
+>>>>>>> 598e66fa8fd46e973c9dbee3e6e4f03dbfad231a
 
+        <!-- User Icon with Dropdown -->
+        <!-- User Icon with Dropdown (Updated for responsiveness) -->
+        <li class="nav-item dropdown" id="userDropdown">
+          <a
+            class="nav-link d-flex align-items-center justify-content-center text-white rounded-circle dropdown-toggle"
+            id="userDropdownMenu"
+            role="button"
+            (click)="toggleDropdown('userDropdown')"
+            aria-expanded="false"
+          >
+            <i class="fas fa-user fa-lg"></i>
+          </a>
+          <ul
+            class="dropdown-menu"
+            [ngClass]="{ show: isDropdownOpen['userDropdown'] }"
+            aria-labelledby="userDropdownMenu"
+          >
+            <li><a class="dropdown-item" [routerLink]="['/userProfile', userId]">Profile</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/userCourses', userId]">My Learning</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/logout']">Log Out</a></li>
+          </ul>
+        </li>
+        
+        <!-- <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              (click)="toggleDropdown('categoryDropdown')"
+              >Category</a >
+            <ul
+              class="dropdown-menu"
+              [ngClass]="{ show: isDropdownOpen['categoryDropdown'] }" >
+              <li *ngFor="let category of categories">
+                <a
+                  class="dropdown-item"
+                  [routerLink]="['/category', category.id]"
+                  >{{ category.name }}</a>
+              </li>
+            </ul>
+          </li>
+        </ul> -->
+      </ul>
     </div>
   </nav>
 </div>

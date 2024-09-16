@@ -1,4 +1,20 @@
+.slider-area{
+  background: linear-gradient(to bottom,#6473FF  0%,#4e5bca );
+  position: relative;
+  top:24px;
+}
+
+@media (max-width: 991px) {
+  .slider-area{
+     background: linear-gradient(to bottom,#6473FF  0%,#4e5bca );
+     position: relative;
+     top:-34px;
+  }
+}
+
+
 /* Container for each card to ensure consistent sizing */
+
 .wishlist-item {
   position: relative; /* Ensure the wishlist-item is positioned relatively */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);

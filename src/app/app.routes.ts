@@ -44,43 +44,16 @@ export const routes: Routes = [
     // canActivate: [AuthguardService],
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
-      { path: 'home', component: HomeComponent, title: 'Taalam - Home' },
-      { path: 'cart/:id', component: CartComponent, title: 'Taalam - Cart' },
-      {
-        path: 'category/:id',
-        component: CategoryComponent,
-        title: 'Taalam - Categories',
-      },
-      {
-        path: 'wishlist/:id',
-        component: WishlistComponent,
-        title: 'Taalam - Wishlist',
-      },
-      {
-        path: 'userProfile/:id',
-        component: EditUserProfileComponent,
-        title: 'Taalam - UserProfile',
-      },
-      {
-        path: 'userCourses/:id',
-        component: UserCoursesComponent,
-        title: 'Taalam - MyCourses',
-      },
-      {
-        path: 'instructor/:id',
-        component: InstructorComponent,
-        title: 'Taalam - Instructor',
-      },
-      {
-        path: 'createcourse',
-        component: CreateCourseComponent,
-        title: 'Taalam - Create Course',
-      },
-      {
-        path: 'editcourse/:id',
-        component: EditCourseComponent,
-        title: 'Taalam - Edit Course',
-      },
+      { path: 'home', component: HomeComponent, title:"Taalam" },
+      { path: 'cart/:id', component: CartComponent, title:"Taalam - Cart" },
+      { path: 'category/:id', component: CategoryComponent, title:"Taalam - Categories" },
+      { path: 'wishlist/:id', component: WishlistComponent, title:"Taalam - Wishlist" },
+      { path: 'userProfile/:id', component: EditUserProfileComponent, title:"Taalam - UserProfile" },
+      { path: 'userCourses/:id', component: UserCoursesComponent , title:"Taalam - MyCourses" },
+      { path: 'instructor/:id', component: InstructorComponent, title: "Taalam - Instructor"},
+      { path: 'createcourse', component: CreateCourseComponent, title: "Taalam - Create Course" },
+      { path: 'editcourse/:id', component: EditCourseComponent, title: "Taalam - Edit Course" },
+
 
       {
         path: 'instructorProfile/:id',
