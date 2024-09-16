@@ -28,8 +28,15 @@ export class CourseDescriptionComponent {
   @Input() courseId!: number;
   @Input() progressPercentage!: number;
   @Input({ required: true }) selectedLesson!: Lesson;
+  @Input() isLastLesson!: boolean;
 
   @Output() progressUpdated = new EventEmitter<void>();
+
+  @Output() nextLesson = new EventEmitter<void>();
+
+  goToNextLesson() {
+    this.nextLesson.emit(); // Notify parent component
+  }
 
   loadingSubject = new BehaviorSubject<boolean>(false);
   loading$ = this.loadingSubject.asObservable();
@@ -48,8 +55,7 @@ export class CourseDescriptionComponent {
       .subscribe({
         next: () => {
           this.selectedLesson.isCompleted = true;
-
-          this.progressUpdated.emit(); // <-- Notify parent to update the progress
+          this.progressUpdated.emit();
         },
         error: () => {
           this.toastr.error('Something went wrong');
@@ -66,5 +72,21 @@ export class CourseDescriptionComponent {
       size: 'md',
     });
     modalRef.componentInstance.courseId = this.courseId;
+  }
+
+  downloadCertificate() {
+    this.courseDetailsSrv.downloadCertificate(this.courseId).subscribe({
+      next: (blob) => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `Certificate_Course_${this.courseId}.pdf`; // Name the file
+        a.click();
+        window.URL.revokeObjectURL(url); // Clean up
+      },
+      error: () => {
+        this.toastr.error('Failed to download the certificate');
+      },
+    });
   }
 }

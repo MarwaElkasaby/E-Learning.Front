@@ -13,6 +13,7 @@ import { Router, RouterLink } from '@angular/router';
   styleUrl: './register.component.css'
 })
 export class RegisterComponent implements OnInit {
+  isloading: boolean = false; 
   emailerrormessage: string ='';
   passworderrormessage: string ='';
   confirmPassworderrormessage: string ='';
@@ -62,8 +63,10 @@ if (this.registerform.password !== this.registerform.confirmPassword) {
 }
 
 if(form.valid){
+  this.isloading = true;
   this.userservice.registerUser(form.value).subscribe({
     next: (response:any) => {
+      this.isloading = false;
       console.log('Registration successful', response);
       this.toastr.success('Registration successful');
     

@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { CartService } from '../../shared/services/cart.service';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { PaymentService } from '../../shared/services/payment.service';
 @Component({
   selector: 'app-cart',
   standalone: true,
@@ -11,9 +12,24 @@ import { ActivatedRoute } from '@angular/router';
 })
 
 export class CartComponent {
-constructor(private _CartService:CartService, private _ActivatedRoute:ActivatedRoute)
+
+  constructor(private _CartService:CartService, private _ActivatedRoute:ActivatedRoute,private paymentservice:PaymentService,private route:Router)
 {
 }
+
+
+checkoutwithmobile() {
+  this.paymentservice.checkoutwithcard().subscribe({
+    next: (response) => {
+      console.log(response);
+      window.location.href = response.data;
+    },
+    error: (err) => {
+      console.log(err);
+    }
+  })
+}
+
 courses:any[]=[];
 total:any;
 userId:any;
