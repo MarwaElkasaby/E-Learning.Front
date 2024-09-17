@@ -23,6 +23,7 @@ export class HomeComponent implements OnInit {
   token!: any;
   tokendata: any;
   username : string='';
+  role!: string;
 
 
 courses:any[]=[]
@@ -35,18 +36,25 @@ constructor (private _CoursesService:CoursesService, private _CategoryService:Ca
 
     
 
-    if(typeof window !== 'undefined') {
+    if (typeof window !== 'undefined') {
       this.token = localStorage.getItem('token');
     }
-        
-        if (this.token) {
-          this.tokendata = JSON.parse(atob(this.token.split('.')[1]));
-    
-          // Extracting user ID, username, and role
-          this.username = this.tokendata['sub']; // Username claim
-          console.log(this.username);
-    
-        }
+
+    if (this.token) {
+      this.tokendata = JSON.parse(atob(this.token.split('.')[1]));
+
+      // Extracting user ID, username, and role
+      this.userId =
+        this.tokendata[
+          'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier'
+        ];
+      this.username = this.tokendata['sub']; // Username claim
+      this.role =
+        this.tokendata[
+          'http://schemas.microsoft.com/ws/2008/06/identity/claims/role'
+        ]; // Role claim
+      console.log(this.userId);
+    }
    }
 
 ngOnInit(): void {          console.log(this.username);
