@@ -69,7 +69,10 @@ export const routes: Routes = [
         component: SearchResultComponent,
         title: 'Taalam - SearchResult',
       },
-      { path: 'course/:id', component: CourseDetailsComponent },
+      { path: 'course/:id',
+         component: CourseDetailsComponent,
+         title: 'Taalam - CourseDetails',
+      },
       {
         path: 'paymentapprove',
         component: PaymentapproveComponent,
