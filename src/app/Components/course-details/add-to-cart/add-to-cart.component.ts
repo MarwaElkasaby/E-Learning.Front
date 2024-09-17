@@ -3,6 +3,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Course } from '../../../models/CourseDetails';
 import { CartService } from '../../../shared/services/cart.service';
 import { CommonModule } from '@angular/common';
+import { WishlistService } from '../../../shared/services/wishlist.service';
 
 @Component({
   selector: 'app-add-to-cart',
@@ -26,7 +27,8 @@ export class AddToCartComponent {
 
   constructor(
     private cartService: CartService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private wishListService:WishlistService
   ) {
     
     if (typeof window !== 'undefined') {
@@ -51,14 +53,11 @@ export class AddToCartComponent {
     this.cartService.addtoCart(courseId).subscribe({
       next: (response:any) => {
         this.toastr.success('Course added to cart successfully!');
-        console.log("hatshaaaal")
         console.log(response)
         this.cartService.getCartItemsById(this.userId).subscribe({
           next:(response)=>
           {
             this.cartno=response.length
-            console.log("da el responssss"+ this.cartno)
-
             this.cartService.cartNumber.next(this.cartno)
 
           }
@@ -70,5 +69,16 @@ export class AddToCartComponent {
         this.toastr.error('Failed to add course to cart.');
       },
     });
+  }
+
+  addToWishList(CourseId:number):void {
+    this.wishListService.addToWishList(CourseId).subscribe({
+      next:(response:any)=>{
+        this.toastr.success('Course added to wishlist successfully!');
+      },
+      error: () => {
+        this.toastr.error('Failed to add course to wishlist.');
+      },
+    })
   }
 }

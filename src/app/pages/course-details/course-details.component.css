@@ -1,9 +1,9 @@
 .fixed-top {
-  position: fixed;
+  position: static;
   top: 80px;
   /* Adjust this value to align below the navbar */
   right: 20px;
-  z-index: 1050;
+  /* z-index: 1050; */
   /* Ensure it is above other content */
 }
 
@@ -16,4 +16,9 @@
 .price {
   font-size: 1.5rem;
   font-weight: bold;
+}
+
+.test {
+  padding-left: 20px;  /* Adjust as needed */
+  padding-right: 20px; /* Adjust as needed */
 }
