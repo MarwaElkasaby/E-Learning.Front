@@ -1,15 +1,10 @@
 .add-to-cart-card {
-  /* This will adjust the positioning based on screen size */
-  position: relative;
-  /* Adjust to relative to handle responsiveness */
+  /* Adjust position and width for small screens */
+  position: static !important;
   max-width: 100%;
-  /* Ensure it does not overflow on small screens */
   margin: 20px auto;
-  /* Center horizontally with auto margins */
   padding: 10px;
-  /* Add padding around the card */
   box-sizing: border-box;
-  /* Include padding and border in element's total width and height */
 }
 
 .card {
@@ -21,9 +16,7 @@
 
 .card-img-top {
   height: 180px;
-  /* Fixed height for images */
   object-fit: cover;
-  /* Ensure image covers the area */
 }
 
 .card-body {
@@ -40,23 +33,65 @@
 }
 
 .price {
-  color: #28a745;
   font-weight: bold;
 }
 
 .btn {
   width: 100%;
-  /* Full-width button */
+}
+
+@media (min-width: 768px) {
+  /* Medium screens (tablets) and up */
+  .add-to-cart-card {
+    width: 400px; /* Increased width for medium screens */
+  }
 }
 
 @media (min-width: 992px) {
+  /* Large screens (desktops) and up */
   .add-to-cart-card {
     position: fixed;
     top: 100px;
-    /* Adjust based on your header height */
     right: 20px;
-    /* Add space from the right edge */
-    width: 300px;
-    /* Fixed width for larger screens */
+    width: 500px; /* Further increased width for large screens */
   }
+}
+
+.add-to-cart-btns {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+
+}
+
+.wishlist-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px; /* Adjust width to fit the heart icon */
+  color: #6C757D; /* Heart icon color */
+  border-color: #6C757D; /* Match the outline with the icon color */
+}
+
+.wishlist-btn:hover {
+  background-color:#6C757D ;
+  color: #fff;
+}
+
+.cartBtn{
+  background-color: #6772ff;
+
+}
+.cartBtn:hover {
+  color: #fff;
+  background-color: #4e56c4;
+  border-color: #4e56c4;
+}
+
+.cartBtn:focus,
+.btn-primary.focus {
+  color: #fff;
+  background-color: #4e56c4;
+  border-color: #4e56c4;
+  box-shadow: 0 0 0 0.2rem #4e56c4;
 }
