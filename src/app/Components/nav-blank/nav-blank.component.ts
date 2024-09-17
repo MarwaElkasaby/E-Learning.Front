@@ -36,6 +36,7 @@ export class NavBlankComponent implements OnInit {
   role!: string;
   isBrowser: boolean;
  endofsale!: Date;
+ amountofsale!: number;
   constructor(
     private _CategoryService: CategoryService,
     private _Router: Router,
@@ -140,6 +141,7 @@ export class NavBlankComponent implements OnInit {
       next: (response:any) => {
         console.log(response);
         this.endofsale = response[0].endOfSale;
+        this.amountofsale = response[0].discount;
         console.log(this.endofsale);
         
       },

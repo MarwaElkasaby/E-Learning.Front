@@ -44,25 +44,25 @@ export const routes: Routes = [
   {
     path: '',
     component: BlankLayoutComponent,
-     canActivate: [authGuard],
+    
    
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: HomeComponent, title:"Taalam" },
-      { path: 'cart/:id', component: CartComponent, title:"Taalam - Cart" },
+      { path: 'cart/:id', component: CartComponent, title:"Taalam - Cart", canActivate: [authGuard], },
       { path: 'category/:id', component: CategoryComponent, title:"Taalam - Categories" },
-      { path: 'wishlist/:id', component: WishlistComponent, title:"Taalam - Wishlist" },
-      { path: 'userProfile/:id', component: EditUserProfileComponent, title:"Taalam - UserProfile" },
-      { path: 'userCourses/:id', component: UserCoursesComponent , title:"Taalam - MyCourses" },
-      { path: 'instructor/:id', component: InstructorComponent, title: "Taalam - Instructor"},
-      { path: 'createcourse', component: CreateCourseComponent, title: "Taalam - Create Course" },
-      { path: 'editcourse/:id', component: EditCourseComponent, title: "Taalam - Edit Course" },
+      { path: 'wishlist/:id', component: WishlistComponent, title:"Taalam - Wishlist", canActivate: [authGuard], },
+      { path: 'userProfile/:id', component: EditUserProfileComponent, title:"Taalam - UserProfile" , canActivate: [authGuard],},
+      { path: 'userCourses/:id', component: UserCoursesComponent , title:"Taalam - My Learning", canActivate: [authGuard], },
+      { path: 'instructor/:id', component: InstructorComponent, title: "Taalam - Instructor", canActivate: [authGuard],},
+      { path: 'createcourse', component: CreateCourseComponent, title: "Taalam - Create Course", canActivate: [authGuard], },
+      { path: 'editcourse/:id', component: EditCourseComponent, title: "Taalam - Edit Course", canActivate: [authGuard], },
 
 
       {
         path: 'instructorProfile/:id',
         component: InstructorProfileComponent,
-        title: 'Taalam - InstructorProfile',
+        title: 'Taalam - InstructorProfile', canActivate: [authGuard],
       },
       {
         path: 'searchResult/:SearchTerm',
@@ -77,6 +77,7 @@ export const routes: Routes = [
         path: 'paymentapprove',
         component: PaymentapproveComponent,
         title: 'Taalam - Search',
+        canActivate: [authGuard],
       },
     ],
   },
@@ -117,10 +118,10 @@ export const routes: Routes = [
       { path: 'auth-callback', component: AuthCallbackComponentComponent },
     ],
   },
-  { path: 'course/content/:courseId', component: CourseContentComponent },
+  { path: 'course/content/:courseId', component: CourseContentComponent, canActivate: [authGuard] },
   {
     path: 'course/content/:courseId/:lessonId',
-    component: CourseContentComponent,
+    component: CourseContentComponent, canActivate: [authGuard]
   },
 
   {

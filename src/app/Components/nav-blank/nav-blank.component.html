@@ -5,7 +5,7 @@
 
     <div class="col text-center">
       <p class="mb-0 offer-text">
-        Limited Time Offer! Get 20% off on all courses.
+        Limited Time Offer! Get <span style="color: red;text-decoration: underline;">{{amountofsale}}%</span> off on all courses.
       </p>
       <span *ngIf="isBrowser; else staticMessage" class="offer-timer">
         Ends in: {{ countdown$ | async }}
