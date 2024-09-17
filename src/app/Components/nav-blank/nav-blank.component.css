@@ -231,6 +231,52 @@
 
 }
 
+/* user profile */
+
+
+
+/* Ensure the dropdown-menu is hidden by default on small screens */
+.dropdown-menu {
+  display: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+/* Show dropdown menu when active */
+.dropdown-menu.show {
+  display: block;
+  opacity: 1;
+}
+
+/* User Dropdown Styles for Small Screens */
+#userDropdown .dropdown-menu {
+  display: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  color: #333;
+  position: absolute;
+  right: 0; /* Adjust as needed */
+  top: 100%; /* Position below the icon */
+  background-color: #fff;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+}
+
+#userDropdown .dropdown-menu.show {
+  display: block;
+  opacity: 1;
+}
+
+#userDropdown .dropdown-menu a {
+  padding: 10px;
+  color: #000;
+}
+
+#userDropdown .dropdown-menu a:hover {
+  
+  background-color: #f1f1f1;
+}
+
 
 
 
@@ -238,7 +284,7 @@
 /* user icon */
 /* Custom CSS */
 #userDropdown:hover .dropdown-menu {
-  display: block;
+  display: block !important;
 }
 
 #userDropdown .dropdown-menu {
@@ -259,6 +305,7 @@
 #userDropdown .dropdown-menu a:hover {
   background-color: #f1f1f1; /* Highlight on hover */
 }
+
 
 
 
@@ -309,9 +356,7 @@
     align-self: flex-start;
     padding-left: 30px;
    }
-   #navbarSupportedContent{
-    
-   }
+   
    .search-container{
     align-self: flex-start;
     position: relative;
@@ -322,18 +367,24 @@
     padding-bottom: 10px;
    }
 
+
    #userDropdown .dropdown-menu {
-    display: none; /* Hide by default */
+    
+    position: absolute !important;
+    left:30px !important;
+    
   }
 
-  /* When dropdown is active */
-  #userDropdown.show .dropdown-menu {
-    display: block;
-    position: absolute;
-    top: 100%;
-    left: -20px;
-    background-color: #fff;
-    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
+  .top-bar{
+   display: block !important;
   }
+
+  
+  
 }
+
+
+/* badge */
+/* .cls-bdg{
+  position: relative;
+} */

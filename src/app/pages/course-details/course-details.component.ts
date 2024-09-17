@@ -30,13 +30,22 @@ export class CourseDetailsComponent implements OnInit {
   course: Course | null = null;
   ratings: ReadCourseRatingDTO[] = [];
 
+
+
   constructor(
     private courseDetailsService: CourseDetailsService,
     private ratingService: RatingService,
     private cartService: CartService,
     private toastr: ToastrService,
-    private route: ActivatedRoute
-  ) {}
+    private route: ActivatedRoute,
+    private router: Router
+  ) {
+
+
+
+    
+
+  }
 
   ngOnInit() {
     const courseId = Number(this.route.snapshot.paramMap.get('id'));
@@ -49,6 +58,8 @@ export class CourseDetailsComponent implements OnInit {
         this.course = course;
       },
       error: () => {
+        this.router.navigate(['not-found']);
+
         this.toastr.error('Failed to load course details.');
       },
     });
@@ -66,9 +77,20 @@ export class CourseDetailsComponent implements OnInit {
   }
 
   addToCart(courseId: number) {
+
     this.cartService.addtoCart(courseId).subscribe({
-      next: () => {
+      next: (response) => {
         this.toastr.success('Course added to cart successfully!');
+        
+        // console.log(response)
+        // this.cartService.getCartItemsById(this.userId).subscribe({
+        //   next:(response)=>
+        //   {
+        //     this.cartno=response.length
+        //     console.log("da el responssss"+ this.cartno)
+        //   }
+        // })
+        // this.cartService.cartNumber.next(this.cartno)
       },
       error: () => {
         this.toastr.error('Failed to add course to cart.');
