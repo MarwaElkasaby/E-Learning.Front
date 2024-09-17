@@ -21,25 +21,20 @@ import { BackToTopService } from '../../shared/services/backtotop.service';
 export class HomeComponent implements OnInit {
   token!: any;
   tokendata: any;
-  username: string = '';
-  private subscription: any;
+  username : string='';
+  role!: string;
 
-  courses: any[] = [];
-  categories: any[] = [];
-  userId: any = '';
-  userData: any;
 
-  constructor(
-    private _CoursesService: CoursesService,
-    private _CategoryService: CategoryService,
-    private _ActivatedRoute: ActivatedRoute,
-    private carouselService: CarouselService,
-    private renderer: Renderer2,
-    private cdr: ChangeDetectorRef,
-    private router: Router,
-    private backToTopService:BackToTopService
+courses:any[]=[]
+categories:any[]=[]
+userId:any='';
+userData:any;
+
+constructor (private _CoursesService:CoursesService, private _CategoryService:CategoryService,
+   private _ActivatedRoute:ActivatedRoute, private carouselService:CarouselService, private renderer: Renderer2,private cdr: ChangeDetectorRef){
+
     
-  ) {
+
     if (typeof window !== 'undefined') {
       this.token = localStorage.getItem('token');
     }
@@ -48,10 +43,18 @@ export class HomeComponent implements OnInit {
       this.tokendata = JSON.parse(atob(this.token.split('.')[1]));
 
       // Extracting user ID, username, and role
+      this.userId =
+        this.tokendata[
+          'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier'
+        ];
       this.username = this.tokendata['sub']; // Username claim
-      console.log(this.username);
+      this.role =
+        this.tokendata[
+          'http://schemas.microsoft.com/ws/2008/06/identity/claims/role'
+        ]; // Role claim
+      console.log(this.userId);
     }
-  }
+   }
 
   ngOnInit(): void {
 
