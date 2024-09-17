@@ -35,4 +35,8 @@ export class CourseDetailsService {
     const certUrl = `http://localhost:5062/api/course/getOrCreateCert/${courseId}`;
     return this.httpClient.get(certUrl, { responseType: 'blob' });
   }
+
+  enrollFreeCourse() : Observable<any>{
+    return this.httpClient.get(`http://localhost:5062/api/Course/enrollFree`)
+  }
 }
