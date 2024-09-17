@@ -3,38 +3,49 @@ import { CoursesService } from '../../shared/services/courses.service';
 import { CommonModule } from '@angular/common';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { CategoryService } from '../../shared/services/category.service';
-import { ActivatedRoute, RouterLink ,NavigationEnd, Router} from '@angular/router';
+import {
+  ActivatedRoute,
+  RouterLink,
+  NavigationEnd,
+  Router,
+} from '@angular/router';
 import { CarouselService } from '../../shared/services/carousel.service';
 import { FormsModule } from '@angular/forms';
 import { BackToTopService } from '../../shared/services/backtotop.service';
-
+import { CourseCardComponent } from '../course-card/course-card.component';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, RouterLink, CarouselModule, FormsModule],
+  imports: [
+    CommonModule,
+    RouterLink,
+    CarouselModule,
+    FormsModule,
+    CourseCardComponent,
+  ],
+
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
 export class HomeComponent implements OnInit {
   token!: any;
   tokendata: any;
-  username : string='';
+  username: string = '';
   role!: string;
   private subscription: any;
-  courses:any[]=[]
-  categories:any[]=[]
-  userId:any='';
-  userData:any;
+  courses: any[] = [];
+  categories: any[] = [];
+  userId: any = '';
+  userData: any;
 
-constructor (private _CoursesService: CoursesService,
-  private _CategoryService: CategoryService,
-  private _ActivatedRoute: ActivatedRoute,
-  private carouselService: CarouselService,
-  private router: Router,
-  private backToTopService:BackToTopService){
-
-    
-
+  constructor(
+    private _CoursesService: CoursesService,
+    private _CategoryService: CategoryService,
+    private _ActivatedRoute: ActivatedRoute,
+    private carouselService: CarouselService,
+    private router: Router,
+    private backToTopService: BackToTopService
+  ) {
     if (typeof window !== 'undefined') {
       this.token = localStorage.getItem('token');
     }
@@ -53,28 +64,24 @@ constructor (private _CoursesService: CoursesService,
           'http://schemas.microsoft.com/ws/2008/06/identity/claims/role'
         ]; // Role claim
       console.log(this.userId);
-      console.log(this.role)
+      console.log(this.role);
     }
-   }
+  }
 
   ngOnInit(): void {
-
-   
-
     this.carouselService.initializeCarousels();
 
     // Reinitialize carousel on route change
-    this.subscription = this.router.events.subscribe(event => {
+    this.subscription = this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.carouselService.initializeCarousels();
       }
     });
 
-
     this.backToTopService.initializeBackToTop();
 
     // Reinitialize on route change
-    this.subscription = this.router.events.subscribe(event => {
+    this.subscription = this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.backToTopService.initializeBackToTop();
       }
@@ -114,5 +121,4 @@ constructor (private _CoursesService: CoursesService,
       this.subscription.unsubscribe();
     }
   }
-
 }

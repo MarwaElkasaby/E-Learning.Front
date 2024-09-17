@@ -6,6 +6,7 @@ import { PaymentService } from '../../shared/services/payment.service';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { WishlistService } from '../../shared/services/wishlist.service';
+import { CourseDetailsService } from '../../shared/services/course/course-details-service/course-details.service';
 
 @Component({
   selector: 'app-cart',
@@ -20,19 +21,25 @@ export class CartComponent {
   cartno: any;
 
   constructor(
+
     private _CartService: CartService,
     private _ActivatedRoute: ActivatedRoute,
     private paymentservice: PaymentService,
     private wishListService: WishlistService
+     private courseService:CourseDetailsService,
+
   ) {}
 
-  courses: any[] = [];
-  total: any;
-  userId: any;
 
-  getCartTotal() {
-    this._CartService.getCartTotalById(this.userId).subscribe({
-      next: (response) => {
+courses:any[]=[];
+total:any;
+userId:any;
+
+getCartTotal(){
+  
+  this._CartService.getCartTotalById(this.userId).subscribe(
+    {
+      next:(response)=>{
         console.log(response);
         this.total = response.totalPrice;
         console.log(this.total);
@@ -115,6 +122,26 @@ export class CartComponent {
         console.log(err);
       },
     });
+
+  }
+}
+
+EnrollFreeCourses(){
+    this.courseService.enrollFreeCourse().subscribe({
+      next: (response) =>{
+        window.location.href = response.url;
+        console.log(response);
+        
+      },
+      error: (err) =>{
+        console.log(err);
+      }
+    })
+  }
+}
+
+
+
 
     this.getCartTotal();
 
