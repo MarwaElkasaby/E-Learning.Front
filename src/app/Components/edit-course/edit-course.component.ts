@@ -81,6 +81,7 @@ export class EditCourseComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.loadCategories();
     this._ActivatedRoute.paramMap.subscribe({
       next: (params) => {
         this.courseId = params.get('id');
@@ -619,6 +620,23 @@ export class EditCourseComponent implements OnInit {
         })),
       })),
     };
+  }
+
+  categories: any[] = [];
+
+  // ngOnInit() {
+  //   // Simulate fetching categories from a service or API
+  // }
+
+  loadCategories() {
+    // Simulated response from an API
+    const response = [
+      { id: 1, name: 'Programming' },
+      { id: 2, name: 'Sporting' },
+    ];
+
+    // Assign the response to the categories array
+    this.categories = response;
   }
 }
 
