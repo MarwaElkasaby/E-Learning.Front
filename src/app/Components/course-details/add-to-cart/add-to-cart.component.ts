@@ -15,22 +15,16 @@ import { WishlistService } from '../../../shared/services/wishlist.service';
 export class AddToCartComponent {
   @Input() course!: Course;
 
-
-
-
-  
   token: any;
   tokendata: any;
   userId!: number;
-  cartno:any
-
+  cartno: any;
 
   constructor(
     private cartService: CartService,
     private toastr: ToastrService,
-    private wishListService:WishlistService
+    private wishListService: WishlistService
   ) {
-    
     if (typeof window !== 'undefined') {
       this.token = localStorage.getItem('token');
     }
@@ -43,27 +37,22 @@ export class AddToCartComponent {
         this.tokendata[
           'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier'
         ];
-      
+
       console.log(this.userId);
     }
-
   }
 
   addToCart(courseId: number): void {
     this.cartService.addtoCart(courseId).subscribe({
-      next: (response:any) => {
+      next: (response: any) => {
         this.toastr.success('Course added to cart successfully!');
-        console.log(response)
+        console.log(response);
         this.cartService.getCartItemsById(this.userId).subscribe({
-          next:(response)=>
-          {
-            this.cartno=response.length
-            this.cartService.cartNumber.next(this.cartno)
-
-          }
-
-        })
-      
+          next: (response) => {
+            this.cartno = response.length;
+            this.cartService.cartNumber.next(this.cartno);
+          },
+        });
       },
       error: () => {
         this.toastr.error('Failed to add course to cart.');
@@ -71,14 +60,14 @@ export class AddToCartComponent {
     });
   }
 
-  addToWishList(CourseId:number):void {
+  addToWishList(CourseId: number): void {
     this.wishListService.addToWishList(CourseId).subscribe({
-      next:(response:any)=>{
+      next: (response: any) => {
         this.toastr.success('Course added to wishlist successfully!');
       },
       error: () => {
-        this.toastr.error('Failed to add course to wishlist.');
+        this.toastr.error('FCourse Already Exists');
       },
-    })
+    });
   }
 }
