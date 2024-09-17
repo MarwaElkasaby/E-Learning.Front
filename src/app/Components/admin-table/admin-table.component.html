@@ -38,7 +38,7 @@
                 <a class="btn btn-success" (click)="approveuser(user.id)" >Approve</a>
             </td>
           <td>
-            <a class="btn btn-danger" href="/admin/delete/{{ user.id }}">Delete</a>
+            <a class="btn btn-danger" (click)="deleteuser(user.id)">Delete</a>
           </td>
         </tr>
       </tbody>

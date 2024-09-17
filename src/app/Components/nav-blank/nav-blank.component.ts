@@ -21,6 +21,7 @@ import { log } from 'console';
   styleUrl: './nav-blank.component.css',
 })
 export class NavBlankComponent implements OnInit {
+
   signout() {
     if (typeof window != 'undefined') {
       localStorage.removeItem('token');
@@ -143,6 +144,21 @@ export class NavBlankComponent implements OnInit {
       this.isDropdownOpenUser = !this.isDropdownOpenUser;
     }
   }
+
+  logout() {
+ this.userservice.logout().subscribe({
+
+    next:(response)=>{
+if (typeof window !== 'undefined') {
+      localStorage.removeItem('token');
+      this.isauth=false;
+      this._Router.navigate(['/login']);
+    }
+
+  
+}
+  })
+    }
 
 
 }

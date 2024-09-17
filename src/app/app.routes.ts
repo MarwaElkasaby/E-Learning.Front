@@ -23,16 +23,19 @@ import { CourseContentComponent } from './pages/course-content/course-content.co
 
 import { ForgetpasswordComponent } from './pages/forgetpassword/forgetpassword.component';
 import { ForgetpasswordtokenComponent } from './pages/forgetpasswordtoken/forgetpasswordtoken.component';
-import { AuthguardService } from './guards/authguard.service';
+
 import { AuthCallbackComponentComponent } from './Components/auth-callback-component/auth-callback-component.component';
 import { AdminComponent } from './pages/admin/admin.component';
 
 import { InstructorComponent } from './Components/instructor/instructor.component';
 import { EditCourseComponent } from './Components/edit-course/edit-course.component';
-import { PaymentComponent } from './Components/payment/payment.component';
+
 import { PaymentapproveComponent } from './pages/paymentapprove/paymentapprove.component';
 import { AdminLayoutComponent } from './pages/admin-layout/admin-layout.component';
 import { AdminHomeComponent } from './pages/admin-home/admin-home.component';
+import { authGuard, authGuardLogin } from './guards/auth.guard';
+import { CreateannouncementComponent } from './Components/createannouncement/createannouncement.component';
+import { AdminTableComponent } from './Components/admin-table/admin-table.component';
 
 
 
@@ -41,7 +44,8 @@ export const routes: Routes = [
   {
     path: '',
     component: BlankLayoutComponent,
-    // canActivate: [AuthguardService],
+     canActivate: [authGuard],
+   
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: HomeComponent, title: 'Taalam - Home' },
@@ -116,7 +120,7 @@ export const routes: Routes = [
     component: AuthLayoutComponent,
     children: [
       { path: 'home', component: HomeComponent, title: 'Taalam - Home' },
-      { path: 'login', component: LoginComponent, title: 'Taalam - Login' },
+      { path: 'login', component: LoginComponent, title: 'Taalam - Login',canActivate:[authGuardLogin] },
       {
         path: 'register',
         component: RegisterComponent,
@@ -146,14 +150,14 @@ export const routes: Routes = [
   {
     path: 'admin',
     component: AdminLayoutComponent,
-    canActivate: [AuthguardService],
+    canActivate: [authGuard],
 
     children: [
       { path: '', component: AdminHomeComponent },
 
       { path: 'courses', component: AdminComponent },
-      { path: 'users', component: AdminComponent },
-      { path: 'announcements', component: AdminComponent },
+      { path: 'users', component: AdminTableComponent },
+      { path: 'announcements', component: CreateannouncementComponent },
     ],
   },
 

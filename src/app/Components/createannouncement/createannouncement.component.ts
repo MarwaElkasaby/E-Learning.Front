@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Announcement } from '../../models/Announcement';
 import { AnnouncementService } from '../../shared/services/announcement.service';
+
 @Component({
   selector: 'app-createannouncement',
   standalone: true,
@@ -11,6 +12,12 @@ import { AnnouncementService } from '../../shared/services/announcement.service'
   styleUrl: './createannouncement.component.css'
 })
 export class CreateannouncementComponent implements OnInit {
+
+  @ViewChild('closeButtonedit') closeButtonedit!: ElementRef<HTMLButtonElement>; 
+  @ViewChild('closeButtoncreate') closeButtoncreate!: ElementRef<HTMLButtonElement>; 
+
+  
+minDate: string = '';
 deleteannouncement(id: any) {
 this.announcementservice.deleteAnnouncement(id).subscribe((data:any)=>{
   this.announcements = this.announcements.filter((x)=>x.id !== id);
@@ -24,28 +31,47 @@ this.announcementservice.deleteAnnouncement(id).subscribe((data:any)=>{
 );
 }
 onSubmitcreate() {
-this.announcementservice.createAnnouncement(this.announcement).subscribe((data:any)=>{
-  this.announcements.push(data);
-  console.log(data);
-},
-(error)=>{
-  console.error('Error creating announcement',error);
-  alert('Error creating announcement');
-}
-);
+
+  if (this.announcement.body !== '' && this.announcement.discount >= 0 && this.announcement.discount <= 100) {
+    this.announcementservice.createAnnouncement(this.announcement).subscribe((data:any)=>{
+      this.announcements.push(data);
+      console.log(data);
+    },
+    (error)=>{
+      console.error('Error creating announcement',error);
+      alert('Error creating announcement');
+    }
+    );
+  this.closeButtoncreate.nativeElement.click();
+  }else{
+    alert('Please fill in all fields correctly.');
+  }
+
+
 
 }
 onEditSubmit() {
+if (this.editannouncementmodel.body !== '' && this.editannouncementmodel.discount >0 && this.editannouncementmodel.discount<100) {
+ 
   this.announcementservice.updateAnnouncement(this.editannouncementmodel).subscribe((data:any)=>{
-    const index = this.announcements.findIndex((x)=>x.id === this.editannouncementmodel.id);
-    this.announcements[index] = this.editannouncementmodel;
+    const index = this.announcements.findIndex((x)=>x.id === data.id);
+    if(index !== -1){
+      this.announcements[index] = data;
+    }
     console.log(data);
+
+ 
   },
   (error)=>{
     console.error('Error updating announcement',error);
     alert('Error updating announcement');
   }
   );
+
+  this.closeButtonedit.nativeElement.click();
+  
+}
+ 
 }
 
 announcements:Announcement[] = [];
@@ -63,6 +89,8 @@ editannouncementmodel: Announcement = {
 
   constructor(private announcementservice:AnnouncementService) { }
   ngOnInit(): void {
+    const now = new Date();
+    this.minDate = this.formatDateForInput(now);
  this.announcementservice.getAnnouncements().subscribe((data:any)=>{
 
   this.announcements = data;  
@@ -75,7 +103,12 @@ editannouncementmodel: Announcement = {
 
 
   }
-
+  // Helper method to format the date for the datetime-local input
+  formatDateForInput(date: Date): string {
+    const pad = (n: number) => n < 10 ? '0' + n : n;
+    return date.getFullYear() + '-' + pad(date.getMonth() + 1) + '-' + pad(date.getDate()) +
+           'T' + pad(date.getHours()) + ':' + pad(date.getMinutes());
+  }
 
     
 
