@@ -33,7 +33,7 @@ import { EditCourseComponent } from './Components/edit-course/edit-course.compon
 import { PaymentapproveComponent } from './pages/paymentapprove/paymentapprove.component';
 import { AdminLayoutComponent } from './pages/admin-layout/admin-layout.component';
 import { AdminHomeComponent } from './pages/admin-home/admin-home.component';
-import { authGuard, authGuardLogin } from './guards/auth.guard';
+import { authGuard, authGuardadmin, authGuardLogin } from './guards/auth.guard';
 import { CreateannouncementComponent } from './Components/createannouncement/createannouncement.component';
 import { AdminTableComponent } from './Components/admin-table/admin-table.component';
 
@@ -127,7 +127,7 @@ export const routes: Routes = [
   {
     path: 'admin',
     component: AdminLayoutComponent,
-    canActivate: [authGuard],
+    canActivate: [authGuardadmin],
 
     children: [
       { path: '', component: AdminHomeComponent },
