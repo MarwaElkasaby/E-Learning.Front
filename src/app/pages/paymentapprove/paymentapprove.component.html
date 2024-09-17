@@ -1,4 +1,4 @@
-<div class="container mt-5 text-center">
+<div class="container mx-auto my-5 text-center">
     @if (message == 'true') {
         <!-- Success Message -->
         <div class="alert alert-success py-5">
@@ -21,7 +21,7 @@
 
     <!-- Action Buttons -->
     <div class="mt-5">
-        <a [routerLink]="['/userCourses/', userId]" routerLinkActive="router-link-active"  class="btn btn-success btn-lg me-3">Go to My Learnings</a>
+        <a [routerLink]="['/userCourses/', userId]" routerLinkActive="router-link-active"  class="btn btn-lg me-3" style="background-color: #6772ff;color: aliceblue;">Go to My Learnings</a>
         <a routerLink="/home" class="btn btn-outline-primary btn-lg">Browse More Courses</a>
     </div>
 </div>
