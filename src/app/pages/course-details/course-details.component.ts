@@ -35,7 +35,8 @@ export class CourseDetailsComponent implements OnInit {
     private ratingService: RatingService,
     private cartService: CartService,
     private toastr: ToastrService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -49,6 +50,8 @@ export class CourseDetailsComponent implements OnInit {
         this.course = course;
       },
       error: () => {
+        this.router.navigate(['not-found']);
+
         this.toastr.error('Failed to load course details.');
       },
     });

@@ -33,6 +33,7 @@ import { PaymentComponent } from './Components/payment/payment.component';
 import { PaymentapproveComponent } from './pages/paymentapprove/paymentapprove.component';
 import { AdminLayoutComponent } from './pages/admin-layout/admin-layout.component';
 import { AdminHomeComponent } from './pages/admin-home/admin-home.component';
+import { CourseAdminComponent } from './pages/course-admin/course-admin.component';
 
 
 
@@ -151,7 +152,7 @@ export const routes: Routes = [
     children: [
       { path: '', component: AdminHomeComponent },
 
-      { path: 'courses', component: AdminComponent },
+      { path: 'courses', component: CourseAdminComponent },
       { path: 'users', component: AdminComponent },
       { path: 'announcements', component: AdminComponent },
     ],
