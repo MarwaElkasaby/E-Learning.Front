@@ -9,6 +9,7 @@ import { UserService } from '../../shared/services/user.service';
 import { Observable } from 'rxjs';
 import { OfferService } from '../../shared/services/offer.service';
 import { AnnouncementService } from '../../shared/services/announcement.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-nav-auth',
@@ -33,6 +34,7 @@ export class NavAuthComponent  {
     private _OfferService: OfferService,
     private userservice:UserService,
     private announcementservice:AnnouncementService,
+    private cookieservice:CookieService,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
     this.isBrowser = isPlatformBrowser(this.platformId); // Set the value
@@ -118,5 +120,23 @@ export class NavAuthComponent  {
       this.searchTerm = '';
     }
   }
+
+  logout() {
+    this.userservice.logout().subscribe({
+   
+       next:(response)=>{
+   if (typeof window !== 'undefined') {
+         localStorage.removeItem('token');
+         this.cookieservice.delete('taalam');
+         this.isauth=false;
+         this._Router.navigate(['/login']);
+       }
+   
+     
+   }
+     })
+       }
+
+
 }
 

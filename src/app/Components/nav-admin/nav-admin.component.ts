@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Route, Router, RouterLink } from '@angular/router';
+import { UserService } from '../../shared/services/user.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-nav-admin',
@@ -9,4 +11,23 @@ import { RouterLink } from '@angular/router';
   templateUrl: './nav-admin.component.html',
   styleUrl: './nav-admin.component.css',
 })
-export class NavAdminComponent {}
+export class NavAdminComponent {
+constructor(private userservice :UserService , private cookieservice:CookieService , private router :Router) {}
+
+  logout() {
+    this.userservice.logout().subscribe({
+   
+       next:(response)=>{
+   if (typeof window !== 'undefined') {
+         localStorage.removeItem('token');
+         this.cookieservice.delete('taalam');
+         this.router.navigate(['/login']);
+       }
+   
+     
+   }
+     })
+       }
+
+
+}
