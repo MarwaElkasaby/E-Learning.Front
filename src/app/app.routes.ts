@@ -54,7 +54,7 @@ export const routes: Routes = [
       { path: 'category/:id', component: CategoryComponent, title:"Taalam - Categories" },
       { path: 'wishlist/:id', component: WishlistComponent, title:"Taalam - Wishlist", canActivate: [authGuard], },
       { path: 'userProfile/:id', component: EditUserProfileComponent, title:"Taalam - UserProfile" , canActivate: [authGuard],},
-      { path: 'userCourses/:id', component: UserCoursesComponent , title:"Taalam - My Learning", canActivate: [authGuard], },
+      { path: 'userCourses', component: UserCoursesComponent , title:"Taalam - My Learning", canActivate: [authGuard], },
       { path: 'instructor/:id', component: InstructorComponent, title: "Taalam - Instructor", canActivate: [authGuard],},
       { path: 'createcourse', component: CreateCourseComponent, title: "Taalam - Create Course", canActivate: [authGuard], },
       { path: 'editcourse/:id', component: EditCourseComponent, title: "Taalam - Edit Course", canActivate: [authGuard], },
