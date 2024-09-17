@@ -1,5 +1,9 @@
 import { inject } from "@angular/core";
 import { CanActivateFn, Router } from "@angular/router";
+import { CookieService } from "ngx-cookie-service";
+
+
+
 
 export const authGuard: CanActivateFn = (route, state) => {
     const _Router = inject(Router);
@@ -12,7 +16,7 @@ export const authGuard: CanActivateFn = (route, state) => {
     // }
 
     if (typeof window !== 'undefined') {
-      if (localStorage.getItem('token')) {
+      if (localStorage.getItem('token') ) {
         return true;
       } else {
         _Router.navigate(['/login']);
@@ -28,6 +32,7 @@ export const authGuard: CanActivateFn = (route, state) => {
 
   export const authGuardLogin: CanActivateFn = (route, state) => {
     const _Router = inject(Router);
+    const cookiesservice = inject(CookieService);
   
     // if (localStorage.getItem('_token')) {
     //   _Router.navigate(['/home']);
@@ -37,7 +42,7 @@ export const authGuard: CanActivateFn = (route, state) => {
     // }
 
     if (typeof window !== 'undefined') {
-      if (localStorage.getItem('token')) {
+      if (localStorage.getItem('token') && cookiesservice.get('taalam')) {
         _Router.navigate(['/home']);
         return false;
       } else {
