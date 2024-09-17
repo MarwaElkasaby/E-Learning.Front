@@ -23,7 +23,7 @@
    <div class="d-flex flex-wrap justify-content-start my-2">
     <div *ngFor="let course of filteredCourses">
       <a [routerLink]="['/course/content', course.id]" class="course-link">
-        <app-course-card [course]="course" [showHeartIcon]="false"></app-course-card>
+        <app-course-card [course]="course" [showHeartIcon]="false"[showProgress]="true"></app-course-card>
       </a>
     </div>
   </div>

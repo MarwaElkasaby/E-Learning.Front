@@ -10,10 +10,12 @@ import { CarouselService } from '../../shared/services/carousel.service';
 import { FormsModule } from '@angular/forms';
 
 import $ from 'jquery'
+import { CourseCardComponent } from "../course-card/course-card.component";
+import { IEnrolledCourse } from '../../shared/interfaces/course-data';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule,RouterLink, CarouselModule,FormsModule],
+  imports: [CommonModule, RouterLink, CarouselModule, FormsModule, CourseCardComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
@@ -24,7 +26,7 @@ export class HomeComponent implements OnInit {
   tokendata: any;
   username : string='';
 
-
+// EnrolledCourses: IEnrolledCourse[] = [];
 courses:any[]=[]
 categories:any[]=[]
 userId:any='';
@@ -80,184 +82,9 @@ ngOnInit(): void {          console.log(this.username);
       this.categories=response;
     }
   })
+console.log(this.courses);
 
   
 }
-
-
-// private initCarousel(): void {
-//   if (typeof window !== 'undefined' && typeof $ !== 'undefined') {
-//     // Initialize owlCarousel
-//     ($('.testimonial-carousel') as any).owlCarousel({
-//       autoplay: true,
-//       smartSpeed: 1000,
-//       margin: 25,
-//       loop: true,
-//       center: true,
-//       dots: false,
-//       nav: true,
-//       navText: [
-//         '<i class="bi bi-chevron-left"></i>',
-//         '<i class="bi bi-chevron-right"></i>'
-//       ],
-//       responsive: {
-//         0: { items: 1 },
-//         576: { items: 1 },
-//         768: { items: 2 },
-//         992: { items: 3 }
-//       }
-//     });
-//   } else {
-//     console.error('jQuery or OwlCarousel is not available');
-//   }
-// }
-
-// ngAfterViewInit(): void {
-//   this.initCarousel();
-// }
-
-
-
-
-
-
-// ngAfterViewInit(): void {
-//   // Ensure jQuery is run after the view has fully initialized
-//   setTimeout(() => {
-//     this.initCarousels();
-//   }, 0); // 0 ensures it's executed after the current execution stack
-// }
-
-// private initCarousels() {
-//   if (typeof window !== 'undefined') { // Check if we are in a browser environment
-//     ($('.project-carousel') as any).owlCarousel({
-//       autoplay: true,
-//       smartSpeed: 1000,
-//       margin: 25,
-//       loop: true,
-//       center: true,
-//       dots: false,
-//       nav: true,
-//       navText: [
-//         '<i class="bi bi-chevron-left"></i>',
-//         '<i class="bi bi-chevron-right"></i>'
-//       ],
-//       responsive: {
-//         0: { items: 1 },
-//         576: { items: 1 },
-//         768: { items: 2 },
-//         992: { items: 3 }
-//       }
-//     });
-
-//     ($('.testimonial-carousel') as any).owlCarousel({
-//       autoplay: true,
-//       smartSpeed: 1000,
-//       center: true,
-//       margin: 24,
-//       dots: true,
-//       loop: true,
-//       nav: false,
-//       responsive: {
-//         0: { items: 1 },
-//         576: { items: 1 },
-//         768: { items: 2 },
-//         992: { items: 3 }
-//       }
-//     });
-//   }
-// }
-
-
-// ngAfterViewInit(): void {
-//   this.renderer.listen('window', 'load', () => {
-//     this.initCarousels();
-//   });
-// }
-
-// private initCarousels() {
-//   if (typeof window !== 'undefined') {
-//     ($('.project-carousel') as any).owlCarousel({
-//       autoplay: true,
-//       smartSpeed: 1000,
-//       margin: 25,
-//       loop: true,
-//       center: true,
-//       dots: false,
-//       nav: true,
-//       navText: [
-//         '<i class="bi bi-chevron-left"></i>',
-//         '<i class="bi bi-chevron-right"></i>'
-//       ],
-//       responsive: {
-//         0: { items: 1 },
-//         576: { items: 1 },
-//         768: { items: 2 },
-//         992: { items: 3 }
-//       }
-//     });
-
-//     ($('.testimonial-carousel') as any).owlCarousel({
-//       autoplay: true,
-//       smartSpeed: 1000,
-//       center: true,
-//       margin: 24,
-//       dots: true,
-//       loop: true,
-//       nav: false,
-//       responsive: {
-//         0: { items: 1 },
-//         576: { items: 1 },
-//         768: { items: 2 },
-//         992: { items: 3 }
-//       }
-//     });
-//   }
-// }
-
-
-// ngAfterViewInit(): void {
-//   this.cdr.detectChanges(); // Trigger change detection
-//   this.initCarousels();
-// }
-
-// private initCarousels() {
-//   if (typeof window !== 'undefined') { // Check if we are in a browser environment
-//     ($('.project-carousel') as any).owlCarousel({
-//       autoplay: true,
-//       smartSpeed: 1000,
-//       margin: 25,
-//       loop: true,
-//       center: true,
-//       dots: false,
-//       nav: true,
-//       navText: [
-//         '<i class="bi bi-chevron-left"></i>',
-//         '<i class="bi bi-chevron-right"></i>'
-//       ],
-//       responsive: {
-//         0: { items: 1 },
-//         576: { items: 1 },
-//         768: { items: 2 },
-//         992: { items: 3 }
-//       }
-//     });
-
-//     ($('.testimonial-carousel') as any).owlCarousel({
-//       autoplay: true,
-//       smartSpeed: 1000,
-//       center: true,
-//       margin: 24,
-//       dots: true,
-//       loop: true,
-//       nav: false,
-//       responsive: {
-//         0: { items: 1 },
-//         576: { items: 1 },
-//         768: { items: 2 },
-//         992: { items: 3 }
-//       }
-//     });
-//   }}
 
 }
