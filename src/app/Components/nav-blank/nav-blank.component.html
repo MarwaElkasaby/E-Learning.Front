@@ -90,7 +90,7 @@
         <li class="nav-item">
           <a
             class="nav-link text-capitalize"
-            routerLink="createCourse"
+            [routerLink]="['/instructor', userId]"
             routerLinkActive="active"
             >Instructor</a
           >
@@ -198,5 +198,6 @@
       </ul>
     </div>
   </nav>
+ 
 
 </div>

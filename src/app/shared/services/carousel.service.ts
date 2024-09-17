@@ -1,15 +1,14 @@
 // carousel.service.ts
 import { Injectable } from '@angular/core';
-import $ from 'jquery';
+declare var $: any; // Import jQuery
 
 @Injectable({
   providedIn: 'root'
 })
 export class CarouselService {
-  initCarousel() {
+  initializeCarousels() {
     setTimeout(() => {
-      // Reinitialize the carousel
-      ($('.project-carousel') as any).owlCarousel({
+      $(".project-carousel").owlCarousel({
         autoplay: true,
         smartSpeed: 1000,
         margin: 25,
@@ -17,7 +16,7 @@ export class CarouselService {
         center: true,
         dots: false,
         nav: true,
-        navText: [
+        navText : [
           '<i class="bi bi-chevron-left"></i>',
           '<i class="bi bi-chevron-right"></i>'
         ],
@@ -29,7 +28,7 @@ export class CarouselService {
         }
       });
 
-      ($('.project-carousel') as any).owlCarousel({
+      $(".testimonial-carousel").owlCarousel({
         autoplay: true,
         smartSpeed: 1000,
         center: true,
@@ -44,6 +43,6 @@ export class CarouselService {
           992: { items: 3 }
         }
       });
-    }, 200); // Delay can be adjusted as needed
+    }, 2000); // Adjust delay as needed
   }
 }
