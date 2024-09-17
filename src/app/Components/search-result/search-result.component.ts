@@ -1,18 +1,18 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SearchService } from '../../shared/services/search.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CategoryService } from '../../shared/services/category.service';
 import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-search-result',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterLink],
   templateUrl: './search-result.component.html',
   styleUrl: './search-result.component.css'
 })
 export class SearchResultComponent {
-constructor(private _SearchService:SearchService, private _ActivatedRoute:ActivatedRoute, private _CategoryService:CategoryService){}
+constructor(private _SearchService:SearchService, private _ActivatedRoute:ActivatedRoute, private _CategoryService:CategoryService, ){}
 
 searchTerm: string = '';
 courses: any[] = [];
