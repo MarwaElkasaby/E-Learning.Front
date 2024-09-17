@@ -8,6 +8,7 @@ import { ToastrService } from 'ngx-toastr';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { catchError, forkJoin, Observable, of, tap, throwError } from 'rxjs';
 import { Router } from '@angular/router';
+import { CategoryService } from '../../shared/services/category.service';
 
 @Component({
   selector: 'app-create-course',
@@ -28,13 +29,15 @@ export class CreateCourseComponent {
 
   // Drag and Drop and Cloudinary Config and Functions
   files: File[] = [];
-  lessonsFiles: { [sectionIndex: number]: { [lessonIndex: number]: File[] } } = {};
+  lessonsFiles: { [sectionIndex: number]: { [lessonIndex: number]: File[] } } =
+    {};
 
   constructor(
     private fb: FormBuilder,
     private courseService: CoursesService,
     private _ToastrService: ToastrService,
     private _UploadService: UploadService,
+    private _CategoryService: CategoryService,
     private _Router: Router
   ) {
     this.token = localStorage.getItem('token');
@@ -57,13 +60,38 @@ export class CreateCourseComponent {
         ],
       ],
       description: ['', [Validators.required, Validators.minLength(50)]],
-      category: ['', [Validators.required, Validators.minLength(5)]],
+      category: ['', [Validators.required]],
       duration: ['', [Validators.required, Validators.pattern(/^[0-9]+$/)]],
       coverPicture: ['', Validators.required],
       price: ['', [Validators.required, Validators.pattern(/^[0-9]+$/)]],
       sections: this.fb.array([]),
     });
+
+    // this._CategoryService.getCategories().subscribe({
+    //   next: (response) => {
+    //     console.log(response);
+    //   },
+    // });
   }
+  ///////////////////////
+  categories: any[] = [];
+
+  ngOnInit() {
+    // Simulate fetching categories from a service or API
+    this.loadCategories();
+  }
+
+  loadCategories() {
+    // Simulated response from an API
+    const response = [
+      { id: 1, name: 'Programming' },
+      { id: 2, name: 'Sporting' },
+    ];
+
+    // Assign the response to the categories array
+    this.categories = response;
+  }
+  ///////////////////
 
   get sections(): FormArray {
     return this.CourseForm.get('sections') as FormArray;
@@ -127,17 +155,40 @@ export class CreateCourseComponent {
       ?.setValue(lessonsCount);
   }
 
+  // onSelect(event: any) {
+  //   // Check if a file is already selected and clear it if necessary
+  //   if (this.files.length > 0) {
+  //     alert('You can only select one file at a time.');
+  //     return;
+  //   }
+
+  //   // Get the selected file and validate it
+  //   const file = event.addedFiles[0];
+  //   if (!file.type.startsWith('image/')) {
+  //     alert('Please select an image file (jpg, png, etc.).');
+  //     return;
+  //   }
+
+  //   // Add the file to the array
+  //   this.files.push(file);
+
+  //   // Update the form control value for coverPicture with the selected file
+  //   this.CourseForm.patchValue({
+  //     coverPicture: file,
+  //   });
+  //   this.CourseForm.get('coverPicture')?.updateValueAndValidity(); // Recalculate validity
+  // }
+
   onSelect(event: any) {
-    // Check if a file is already selected and clear it if necessary
+    // Clear the existing file if any
     if (this.files.length > 0) {
-      alert('You can only select one file at a time.');
-      return;
+      this.files = []; // Clear the files array to allow only one file
     }
 
     // Get the selected file and validate it
     const file = event.addedFiles[0];
     if (!file.type.startsWith('image/')) {
-      alert('Please select an image file (jpg, png, etc.).');
+      alert('Please select a valid image file (jpg, png, etc.).');
       return;
     }
 
@@ -148,7 +199,9 @@ export class CreateCourseComponent {
     this.CourseForm.patchValue({
       coverPicture: file,
     });
-    this.CourseForm.get('coverPicture')?.updateValueAndValidity(); // Recalculate validity
+
+    // Recalculate the validity of the control
+    this.CourseForm.get('coverPicture')?.updateValueAndValidity();
   }
 
   // Handle file removal
@@ -197,38 +250,75 @@ export class CreateCourseComponent {
     );
   }
 
+  // onSelectLessonFile(event: any, sectionIndex: number, lessonIndex: number) {
+  //   const files = event.addedFiles;
+  //   // Check if more than one file is added
+  //   // if (files.length > 1) {
+  //   //   // Show an error message or alert to the user (optional)
+  //   //   alert('You can upload only one video at a time.');
+  //   //   return; // Prevent further execution
+  //   // }
+
+  //   if (!this.lessonsFiles[sectionIndex]) {
+  //     this.lessonsFiles[sectionIndex] = {};
+  //   }
+  //   if (!this.lessonsFiles[sectionIndex][lessonIndex]) {
+  //     this.lessonsFiles[sectionIndex][lessonIndex] = [];
+  //   }
+  //   this.lessonsFiles[sectionIndex][lessonIndex].push(...files);
+
+  //   // Update form control value for lessonUrl with the file name or path
+  //   this.getLessons(sectionIndex)
+  //     .at(lessonIndex)
+  //     .get('lessonUrl')
+  //     ?.setValue(files[0].name); // You can use URL.createObjectURL(files[0]) for a local URL
+
+  //   // Mark as touched and recalculate the validity to trigger validation messages
+  //   this.getLessons(sectionIndex)
+  //     .at(lessonIndex)
+  //     .get('lessonUrl')
+  //     ?.markAsTouched();
+  //   this.getLessons(sectionIndex)
+  //     .at(lessonIndex)
+  //     .get('lessonUrl')
+  //     ?.updateValueAndValidity();
+  // }
+
   onSelectLessonFile(event: any, sectionIndex: number, lessonIndex: number) {
     const files = event.addedFiles;
-    // Check if more than one file is added
-    // if (files.length > 1) {
-    //   // Show an error message or alert to the user (optional)
-    //   alert('You can upload only one video at a time.');
-    //   return; // Prevent further execution
-    // }
 
-    if (!this.lessonsFiles[sectionIndex]) {
-      this.lessonsFiles[sectionIndex] = {};
-    }
-    if (!this.lessonsFiles[sectionIndex][lessonIndex]) {
+    // Ensure only video files are being added
+    if (files.length > 0 && files[0].type.startsWith('video/')) {
+      // Initialize the lessonsFiles object if necessary
+      if (!this.lessonsFiles[sectionIndex]) {
+        this.lessonsFiles[sectionIndex] = {};
+      }
+
+      // Clear any existing file to ensure only one video is allowed
       this.lessonsFiles[sectionIndex][lessonIndex] = [];
+
+      // Add the new video file
+      this.lessonsFiles[sectionIndex][lessonIndex].push(files[0]);
+
+      // Update form control value for lessonUrl with the file name or path
+      this.getLessons(sectionIndex)
+        .at(lessonIndex)
+        .get('lessonUrl')
+        ?.setValue(files[0].name); // You can use URL.createObjectURL(files[0]) for a local URL
+
+      // Mark as touched and recalculate the validity to trigger validation messages
+      this.getLessons(sectionIndex)
+        .at(lessonIndex)
+        .get('lessonUrl')
+        ?.markAsTouched();
+      this.getLessons(sectionIndex)
+        .at(lessonIndex)
+        .get('lessonUrl')
+        ?.updateValueAndValidity();
+    } else {
+      // If the file is not a video, show an error (optional)
+      alert('Please upload a valid video file.');
     }
-    this.lessonsFiles[sectionIndex][lessonIndex].push(...files);
-
-    // Update form control value for lessonUrl with the file name or path
-    this.getLessons(sectionIndex)
-      .at(lessonIndex)
-      .get('lessonUrl')
-      ?.setValue(files[0].name); // You can use URL.createObjectURL(files[0]) for a local URL
-
-    // Mark as touched and recalculate the validity to trigger validation messages
-    this.getLessons(sectionIndex)
-      .at(lessonIndex)
-      .get('lessonUrl')
-      ?.markAsTouched();
-    this.getLessons(sectionIndex)
-      .at(lessonIndex)
-      .get('lessonUrl')
-      ?.updateValueAndValidity();
   }
 
   onRemoveLessonFile(file: File, sectionIndex: number, lessonIndex: number) {
@@ -340,7 +430,9 @@ export class CreateCourseComponent {
             next: (response) => {
               this.isLoading = false;
               console.log('Success Response:', response);
-              this._ToastrService.success(response.message || 'Course Uploaded Successfully');
+              this._ToastrService.success(
+                response.message || 'Course Uploaded Successfully'
+              );
               this._Router.navigate(['/home']);
             },
             error: (err) => {
