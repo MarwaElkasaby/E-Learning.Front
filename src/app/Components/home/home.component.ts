@@ -1,14 +1,11 @@
-import { ChangeDetectorRef, Component, Inject, inject, OnInit, Renderer2 } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CoursesService } from '../../shared/services/courses.service';
 import { CommonModule } from '@angular/common';
-import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
+import { CarouselModule } from 'ngx-owl-carousel-o';
 import { CategoryService } from '../../shared/services/category.service';
-import { response } from 'express';
 import { ActivatedRoute, RouterLink ,NavigationEnd, Router} from '@angular/router';
-import { UserService } from '../../shared/services/user.service';
 import { CarouselService } from '../../shared/services/carousel.service';
 import { FormsModule } from '@angular/forms';
-import $ from 'jquery';
 import { BackToTopService } from '../../shared/services/backtotop.service';
 
 @Component({
@@ -23,15 +20,18 @@ export class HomeComponent implements OnInit {
   tokendata: any;
   username : string='';
   role!: string;
+  private subscription: any;
+  courses:any[]=[]
+  categories:any[]=[]
+  userId:any='';
+  userData:any;
 
-
-courses:any[]=[]
-categories:any[]=[]
-userId:any='';
-userData:any;
-
-constructor (private _CoursesService:CoursesService, private _CategoryService:CategoryService,
-   private _ActivatedRoute:ActivatedRoute, private carouselService:CarouselService, private renderer: Renderer2,private cdr: ChangeDetectorRef){
+constructor (private _CoursesService: CoursesService,
+  private _CategoryService: CategoryService,
+  private _ActivatedRoute: ActivatedRoute,
+  private carouselService: CarouselService,
+  private router: Router,
+  private backToTopService:BackToTopService){
 
     
 
