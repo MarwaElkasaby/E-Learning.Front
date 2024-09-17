@@ -36,6 +36,7 @@ import { AdminHomeComponent } from './pages/admin-home/admin-home.component';
 import { authGuard, authGuardadmin, authGuardLogin } from './guards/auth.guard';
 import { CreateannouncementComponent } from './Components/createannouncement/createannouncement.component';
 import { AdminTableComponent } from './Components/admin-table/admin-table.component';
+import { CourseAdminComponent } from './pages/course-admin/course-admin.component';
 
 
 
@@ -44,8 +45,8 @@ export const routes: Routes = [
   {
     path: '',
     component: BlankLayoutComponent,
-    
-   
+
+
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: HomeComponent, title:"Taalam" },
@@ -132,7 +133,7 @@ export const routes: Routes = [
     children: [
       { path: '', component: AdminHomeComponent },
 
-      { path: 'courses', component: AdminComponent },
+      { path: 'courses', component: CourseAdminComponent },
       { path: 'users', component: AdminTableComponent },
       { path: 'announcements', component: CreateannouncementComponent },
     ],
