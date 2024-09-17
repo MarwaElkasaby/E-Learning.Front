@@ -1,4 +1,3 @@
-<!-- Ensure this component is placed within a container with Bootstrap's grid system -->
 <div *ngIf="course" class="add-to-cart-card">
   <div class="card">
     <img [src]="course.coverPicture" class="card-img-top" alt="Course Image" />
@@ -16,13 +15,15 @@
       <!-- Price -->
       <h3 class="price">${{ course.price }}</h3>
 
-      <!-- Add to Cart Button -->
-      <button
-        class="btn btn-primary btn-lg mt-3"
-        (click)="addToCart(course.id)"
-      >
-        Add to Cart
-      </button>
+      <!-- Add to Cart Button and Wishlist Heart Icon -->
+      <div class="add-to-cart-btns mt-3">
+        <button class="btn btn-primary btn-lg cartBtn " (click)="addToCart(course.id)">
+          Add to Cart
+        </button>
+        <button class="btn btn-outline-secondary btn-lg wishlist-btn" (click)="addToWishList(course.id)" >
+          <i class="fa fa-heart"></i>
+        </button>
+      </div>
     </div>
   </div>
 </div>

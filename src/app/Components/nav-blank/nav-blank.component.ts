@@ -14,6 +14,7 @@ import { AnnouncementService } from '../../shared/services/announcement.service'
 import { log } from 'console';
 import { CartService } from '../../shared/services/cart.service';
 import { response } from 'express';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-nav-blank',
@@ -24,21 +25,7 @@ import { response } from 'express';
 })
 export class NavBlankComponent implements OnInit {
 
-  signout() {
-    if (typeof window != 'undefined') {
-      localStorage.removeItem('token');
-      this.userservice.logout().subscribe({
-        next: (response)=>{
-          console.log(response);
-          this.isauth=false;
-        } , 
-        error: (err)=>{
-          console.log(err);
-        }
-      })
-    }
-    }
-  
+
   getCartNumer:any
   
   isauth:boolean=false;
@@ -49,12 +36,14 @@ export class NavBlankComponent implements OnInit {
   role!: string;
   isBrowser: boolean;
  endofsale!: Date;
+ amountofsale!: number;
   constructor(
     private _CategoryService: CategoryService,
     private _Router: Router,
     private _OfferService: OfferService,
     private userservice:UserService,
     private announcementservice:AnnouncementService,
+    private cookieservice:CookieService,
     private cart:CartService,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
@@ -78,6 +67,7 @@ export class NavBlankComponent implements OnInit {
           'http://schemas.microsoft.com/ws/2008/06/identity/claims/role'
         ]; // Role claim
       console.log(this.userId);
+      console.log(this.role)
     }
 
   }
@@ -152,6 +142,7 @@ export class NavBlankComponent implements OnInit {
       next: (response:any) => {
         console.log(response);
         this.endofsale = response[0].endOfSale;
+        this.amountofsale = response[0].discount;
         console.log(this.endofsale);
         
       },
@@ -194,6 +185,7 @@ export class NavBlankComponent implements OnInit {
     next:(response)=>{
 if (typeof window !== 'undefined') {
       localStorage.removeItem('token');
+      this.cookieservice.delete('taalam');
       this.isauth=false;
       this._Router.navigate(['/login']);
     }

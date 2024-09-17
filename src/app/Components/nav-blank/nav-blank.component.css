@@ -1,8 +1,9 @@
 
 
 /* butttonnsssss */
-.logout{
+.logoutbtn{
   cursor: pointer;
+  color: red;
 }
 .button-header.margin-left {
   margin-left: 43px !important;
