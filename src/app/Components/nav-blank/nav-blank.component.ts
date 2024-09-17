@@ -14,6 +14,7 @@ import { AnnouncementService } from '../../shared/services/announcement.service'
 import { log } from 'console';
 import { CartService } from '../../shared/services/cart.service';
 import { response } from 'express';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-nav-blank',
@@ -24,21 +25,7 @@ import { response } from 'express';
 })
 export class NavBlankComponent implements OnInit {
 
-  signout() {
-    if (typeof window != 'undefined') {
-      localStorage.removeItem('token');
-      this.userservice.logout().subscribe({
-        next: (response)=>{
-          console.log(response);
-          this.isauth=false;
-        } , 
-        error: (err)=>{
-          console.log(err);
-        }
-      })
-    }
-    }
-  
+
   getCartNumer:any
   
   isauth:boolean=false;
@@ -55,6 +42,7 @@ export class NavBlankComponent implements OnInit {
     private _OfferService: OfferService,
     private userservice:UserService,
     private announcementservice:AnnouncementService,
+    private cookieservice:CookieService,
     private cart:CartService,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
@@ -194,6 +182,7 @@ export class NavBlankComponent implements OnInit {
     next:(response)=>{
 if (typeof window !== 'undefined') {
       localStorage.removeItem('token');
+      this.cookieservice.delete('taalam');
       this.isauth=false;
       this._Router.navigate(['/login']);
     }
