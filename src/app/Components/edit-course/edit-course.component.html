@@ -1,5 +1,3 @@
-
-
 <div class="container mt-5">
   <h1 class="mb-4 text-center">Edit Course</h1>
   <form [formGroup]="CourseForm" (ngSubmit)="onsubmit()" class="needs-validation" novalidate>
@@ -55,14 +53,26 @@
 
 
     <!-- Category Input -->
-    <div class="form-floating mb-3">
+    <!-- <div class="form-floating mb-3">
       <input #inputCategory formControlName="category" type="text" id="category" class="form-control" placeholder="Course Category"/>
       <label for="category">Category</label>
       <div class="alert alert-danger" *ngIf=" CourseForm.get('category')?.errors && (CourseForm.get('category')?.touched || inputCategory.value.length > 0) ">
         <p *ngIf="CourseForm.get('category')?.getError('required')"> Category is Required</p>
         <p *ngIf="CourseForm.get('category')?.getError('minlength')"> Category Min Length 50</p>
       </div>
+    </div> -->
+    <div class="form-floating mb-3">
+      <select #inputCategory formControlName="category" id="category" class="form-select" aria-label="Course Category">
+        <option *ngFor="let category of categories" [value]="category.name">{{ category.name }}</option>
+      </select>
+      <label for="category">Category</label>
+      <div class="alert alert-danger" *ngIf=" CourseForm.get('category')?.errors && (CourseForm.get('category')?.touched || inputCategory.value.length > 0) ">
+        <p *ngIf="CourseForm.get('category')?.getError('required')">Category is Required</p>
+        <!-- <p *ngIf="CourseForm.get('category')?.getError('minlength')">Category Min Length 5</p> -->
+      </div>
     </div>
+
+
 
     <!-- Duration Input -->
     <div class="form-floating mb-3">
