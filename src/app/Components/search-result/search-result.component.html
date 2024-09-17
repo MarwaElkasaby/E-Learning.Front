@@ -47,7 +47,7 @@
 
       
       <div class="col-md-9 courses-section">
-        <div *ngFor="let course of courses" class="course-item mb-4">
+        <div *ngFor="let course of courses" class="course-item mb-4" [routerLink]="['/course', course.id]" style="cursor: pointer;" >
           <img [src]="course.coverPicture" alt="{{ course.title }}" class="img-fluid course-image">
           <div class="course-details">
             <h4 class="course-title">{{ course.title }}</h4>

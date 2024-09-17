@@ -53,6 +53,7 @@ constructor (private _CoursesService: CoursesService,
           'http://schemas.microsoft.com/ws/2008/06/identity/claims/role'
         ]; // Role claim
       console.log(this.userId);
+      console.log(this.role)
     }
    }
 

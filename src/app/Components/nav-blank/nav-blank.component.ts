@@ -67,6 +67,7 @@ export class NavBlankComponent implements OnInit {
           'http://schemas.microsoft.com/ws/2008/06/identity/claims/role'
         ]; // Role claim
       console.log(this.userId);
+      console.log(this.role)
     }
 
   }
