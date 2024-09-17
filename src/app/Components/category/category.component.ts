@@ -18,7 +18,7 @@ export class CategoryComponent implements OnInit {
   courses: any[] = [];
   pagedCourses: any[] = [];
   currentPage: number = 1;
-  pageSize: number = 6;
+  pageSize: number = 8;
   totalPages: number = 0;
   totalPagesArray: number[] = [];
 

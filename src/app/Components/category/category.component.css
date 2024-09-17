@@ -53,4 +53,12 @@
        top:-34px;
     }
   }
+  .course-link {
+    text-decoration: none; 
+    color: inherit;
+  }
+  
+  .course-link:hover {
+    text-decoration: none;
+  }
  
