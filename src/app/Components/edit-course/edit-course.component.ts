@@ -4,14 +4,7 @@ import {
 } from './../../shared/interfaces/course-data';
 import { UploadService } from './../../shared/services/upload.service';
 import { Component, OnInit } from '@angular/core';
-import {
-  FormArray,
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-  ReactiveFormsModule,
-} from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators, ReactiveFormsModule} from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { CourseData } from '../../shared/interfaces/course-data';
 import { CoursesService } from '../../shared/services/courses.service';
@@ -298,21 +291,46 @@ export class EditCourseComponent implements OnInit {
 
   updateLessonCount(sectionIndex: number) {
     const lessonsCount = this.getLessons(sectionIndex).length;
-    this.sections.at(sectionIndex).get('numberOfLessons')?.patchValue(lessonsCount);
+    this.sections
+      .at(sectionIndex)
+      .get('numberOfLessons')
+      ?.patchValue(lessonsCount);
   }
 
+  // onSelect(event: any) {
+  //   // Check if a file is already selected and clear it if necessary
+  //   if (this.files.length > 0) {
+  //     alert('You can only select one file at a time.');
+  //     return;
+  //   }
+
+  //   // Get the selected file and validate it
+  //   const file = event.addedFiles[0];
+  //   if (!file.type.startsWith('image/')) {
+  //     alert('Please select an image file (jpg, png, etc.).');
+  //     return;
+  //   }
+
+  //   // Add the file to the array
+  //   this.files.push(file);
+
+  //   // Update the form control value for coverPicture with the selected file
+  //   this.CourseForm.patchValue({
+  //     coverPicture: file,
+  //   });
+  //   this.CourseForm.get('coverPicture')?.updateValueAndValidity(); // Recalculate validity
+  // }
 
   onSelect(event: any) {
-    // Check if a file is already selected and clear it if necessary
+    // Clear the existing file if any
     if (this.files.length > 0) {
-      alert('You can only select one file at a time.');
-      return;
+      this.files = []; // Clear the files array to allow only one file
     }
 
     // Get the selected file and validate it
     const file = event.addedFiles[0];
     if (!file.type.startsWith('image/')) {
-      alert('Please select an image file (jpg, png, etc.).');
+      alert('Please select a valid image file (jpg, png, etc.).');
       return;
     }
 
@@ -323,7 +341,9 @@ export class EditCourseComponent implements OnInit {
     this.CourseForm.patchValue({
       coverPicture: file,
     });
-    this.CourseForm.get('coverPicture')?.updateValueAndValidity(); // Recalculate validity
+
+    // Recalculate the validity of the control
+    this.CourseForm.get('coverPicture')?.updateValueAndValidity();
   }
 
   onRemove(event: any) {
@@ -371,39 +391,76 @@ export class EditCourseComponent implements OnInit {
     );
   }
 
+  // onSelectLessonFile(event: any, sectionIndex: number, lessonIndex: number) {
+  //   const files = event.addedFiles;
+
+  //   // Check if more than one file is added
+  //   if (files.length > 1) {
+  //     // Show an error message or alert to the user (optional)
+  //     alert('You can upload only one video at a time.');
+  //     return; // Prevent further execution
+  //   }
+
+  //   if (!this.lessonsFiles[sectionIndex]) {
+  //     this.lessonsFiles[sectionIndex] = {};
+  //   }
+  //   if (!this.lessonsFiles[sectionIndex][lessonIndex]) {
+  //     this.lessonsFiles[sectionIndex][lessonIndex] = [];
+  //   }
+  //   this.lessonsFiles[sectionIndex][lessonIndex].push(...files);
+
+  //   // Update form control value for lessonUrl with the file name or path
+  //   this.getLessons(sectionIndex)
+  //     .at(lessonIndex)
+  //     .get('lessonUrl')
+  //     ?.setValue(files[0].name); // You can use URL.createObjectURL(files[0]) for a local URL
+
+  //   // Mark as touched and recalculate the validity to trigger validation messages
+  //   this.getLessons(sectionIndex)
+  //     .at(lessonIndex)
+  //     .get('lessonUrl')
+  //     ?.markAsTouched();
+  //   this.getLessons(sectionIndex)
+  //     .at(lessonIndex)
+  //     .get('lessonUrl')
+  //     ?.updateValueAndValidity();
+  // }
+
   onSelectLessonFile(event: any, sectionIndex: number, lessonIndex: number) {
     const files = event.addedFiles;
 
-    // Check if more than one file is added
-    if (files.length > 1) {
-      // Show an error message or alert to the user (optional)
-      alert('You can upload only one video at a time.');
-      return; // Prevent further execution
-    }
+    // Ensure only video files are being added
+    if (files.length > 0 && files[0].type.startsWith('video/')) {
+      // Initialize the lessonsFiles object if necessary
+      if (!this.lessonsFiles[sectionIndex]) {
+        this.lessonsFiles[sectionIndex] = {};
+      }
 
-    if (!this.lessonsFiles[sectionIndex]) {
-      this.lessonsFiles[sectionIndex] = {};
-    }
-    if (!this.lessonsFiles[sectionIndex][lessonIndex]) {
+      // Clear any existing file to ensure only one video is allowed
       this.lessonsFiles[sectionIndex][lessonIndex] = [];
+
+      // Add the new video file
+      this.lessonsFiles[sectionIndex][lessonIndex].push(files[0]);
+
+      // Update form control value for lessonUrl with the file name or path
+      this.getLessons(sectionIndex)
+        .at(lessonIndex)
+        .get('lessonUrl')
+        ?.setValue(files[0].name); // You can use URL.createObjectURL(files[0]) for a local URL
+
+      // Mark as touched and recalculate the validity to trigger validation messages
+      this.getLessons(sectionIndex)
+        .at(lessonIndex)
+        .get('lessonUrl')
+        ?.markAsTouched();
+      this.getLessons(sectionIndex)
+        .at(lessonIndex)
+        .get('lessonUrl')
+        ?.updateValueAndValidity();
+    } else {
+      // If the file is not a video, show an error (optional)
+      alert('Please upload a valid video file.');
     }
-    this.lessonsFiles[sectionIndex][lessonIndex].push(...files);
-
-    // Update form control value for lessonUrl with the file name or path
-    this.getLessons(sectionIndex)
-      .at(lessonIndex)
-      .get('lessonUrl')
-      ?.setValue(files[0].name); // You can use URL.createObjectURL(files[0]) for a local URL
-
-    // Mark as touched and recalculate the validity to trigger validation messages
-    this.getLessons(sectionIndex)
-      .at(lessonIndex)
-      .get('lessonUrl')
-      ?.markAsTouched();
-    this.getLessons(sectionIndex)
-      .at(lessonIndex)
-      .get('lessonUrl')
-      ?.updateValueAndValidity();
   }
 
   onRemoveLessonFile(file: File, sectionIndex: number, lessonIndex: number) {
