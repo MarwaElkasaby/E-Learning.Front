@@ -16,6 +16,13 @@ import { RouterLink } from '@angular/router';
 
 export class CartComponent {
 
+
+  token: any;
+  tokendata: any;
+  cartno:any
+
+
+
   constructor(
     private _CartService:CartService, 
     private _ActivatedRoute:ActivatedRoute,
@@ -53,6 +60,19 @@ next:(response)=>{
   console.log(response);
   this.courses=response
   this.getCartTotal();
+
+
+  this._CartService.getCartItemsById(this.userId).subscribe({
+    next:(response)=>
+    {
+      this.cartno=response.length
+      console.log("da el responssss"+ this.cartno)
+
+      this._CartService.cartNumber.next(this.cartno)
+
+    }
+
+  })
 },
 error: (err) => {
   console.log(err);

@@ -12,6 +12,8 @@ import { isPlatformBrowser } from '@angular/common';
 import { UserService } from '../../shared/services/user.service';
 import { AnnouncementService } from '../../shared/services/announcement.service';
 import { log } from 'console';
+import { CartService } from '../../shared/services/cart.service';
+import { response } from 'express';
 
 @Component({
   selector: 'app-nav-blank',
@@ -36,6 +38,8 @@ export class NavBlankComponent implements OnInit {
     }
     }
   
+  getCartNumer:any
+  
   isauth:boolean=false;
   token: any;
   tokendata: any;
@@ -50,6 +54,7 @@ export class NavBlankComponent implements OnInit {
     private _OfferService: OfferService,
     private userservice:UserService,
     private announcementservice:AnnouncementService,
+    private cart:CartService,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
     this.isBrowser = isPlatformBrowser(this.platformId); // Set the value
@@ -116,8 +121,25 @@ export class NavBlankComponent implements OnInit {
   }
   
 
-
+  
   ngOnInit(): void {
+
+
+    this.cart.getCartItemsById(this.userId).subscribe({
+      next:(response) =>{
+        this.cart.cartNumber.next(response.length)
+        this.cart.cartNumber.subscribe(
+          {
+            next:(data)=>{
+             
+              this.getCartNumer=data
+              console.log("da el acrt numberr  "+ this.getCartNumer)
+            }
+          }
+        )
+      }
+
+    })
     this._CategoryService.getCategories().subscribe({
       next: (response) => {
         this.categories = response;
@@ -133,6 +155,18 @@ export class NavBlankComponent implements OnInit {
         
       },
     });
+
+   
+    
+    // this.cart.cartNumber.subscribe(
+    //   {
+    //     next:(data)=>{
+         
+    //       this.getCartNumer=data
+    //       console.log("da el acrt numberr  "+ this.getCartNumer)
+    //     }
+    //   }
+    // )
 
   }
 
