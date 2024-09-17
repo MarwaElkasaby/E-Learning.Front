@@ -31,7 +31,7 @@
     </table>
   
     <!-- Edit Modal -->
-    <div class="modal fade" id="editform" tabindex="-1" aria-labelledby="editformLabel" aria-hidden="true">
+    <div class="modal fade" id="editform" tabindex="-1" aria-labelledby="editformLabel" aria-hidden="true" >
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -46,7 +46,7 @@
               </div>
               <div class="mb-3">
                 <label for="endofsale" class="form-label">End of Sale Date</label>
-                <input type="datetime-local" class="form-control" id="endofsale" name="endofsale" [(ngModel)]="editannouncementmodel.endOfSale" />
+                <input type="datetime-local" class="form-control" id="endofsale" [min]="minDate" name="endofsale" [(ngModel)]="editannouncementmodel.endOfSale" />
               </div>
               <div class="mb-3">
                 <label for="discount" class="form-label">Discount</label>
@@ -56,7 +56,7 @@
             </form>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" #closeButtonedit id="closeButtonedit">Close</button>
             <button type="button" class="btn btn-primary" (click)="onEditSubmit()">Save changes</button>
           </div>
         </div>
@@ -79,22 +79,22 @@
             <form >
               <div class="mb-3">
                 <label for="body" class="form-label">Body</label>
-                <input type="text" class="form-control" id="body" placeholder="Enter announcement body" name="body" [(ngModel)]="announcement.body" />
+                <input type="text" class="form-control" id="body" placeholder="Enter announcement body" name="body" [(ngModel)]="announcement.body" required/>
               </div>
               <div class="mb-3">
                 <label for="endofsale" class="form-label">End of Sale Date</label>
-                <input type="datetime-local" class="form-control" id="endofsale" name="endofsale" [(ngModel)]="announcement.endOfSale" />
+                <input type="datetime-local" class="form-control" id="endofsale" [min]="minDate" name="endofsale" [(ngModel)]="announcement.endOfSale" required/>
               </div>
               <div class="mb-3">
                 <label for="discount" class="form-label">Discount</label>
-                <input type="number" class="form-control" id="discount" placeholder="Enter discount" name="discount" [(ngModel)]="announcement.discount" />
+                <input type="number" class="form-control" id="discount" placeholder="Enter discount" name="discount" [(ngModel)]="announcement.discount" max="100" min="0" required/>
               </div>
          
             </form>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" (click)="onSubmitcreate()">Understood</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" #closeButtoncreate id="closeButtoncreate">Close</button>
+            <button type="button" class="btn btn-primary" (click)="onSubmitcreate()">create announcement</button>
           </div>
         </div>
       </div>

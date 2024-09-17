@@ -7,9 +7,9 @@ import { UserService } from '../shared/services/user.service';
 })
 export class AuthguardService implements CanActivate {
 
-  constructor(private authservice:UserService,private router:Router) {
-
-  }
+  constructor(private authService: UserService, private router: Router) {
+ 
+   }
 
   getToken(): string | null {
     if (typeof window !== 'undefined') {
@@ -18,27 +18,20 @@ export class AuthguardService implements CanActivate {
     return null;
   }
 
-  
- canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): MaybeAsync<GuardResult> {
-  const token = this.getToken();
-  if(!token){
-  if(typeof window !== 'undefined'){
-    alert('You are not authorized to view this page');
-  }
-    this.router.navigate(['/login']);
-    return false;
-  }
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): MaybeAsync<GuardResult>{
+    const token = this.getToken();
+    if (!token) {
+      if (typeof window !== 'undefined') {
+        alert('You are not authorized to view this page');
+      }
+      // Navigate to login, and pass the returnUrl as a query parameter
+      this.router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
+      return false;
+    }
     return true;
- }
-
- canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): MaybeAsync<GuardResult> {
-  const token = this.getToken();
-  if(!token){
-    alert('You are not authorized to view this page');
-    this.router.navigate(['/login']);
-    return false;
   }
-    return true;
 
- }
+  canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): MaybeAsync<GuardResult>{
+    return this.canActivate(route, state);
+  }
 }

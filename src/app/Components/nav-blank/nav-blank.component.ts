@@ -23,6 +23,7 @@ import { response } from 'express';
   styleUrl: './nav-blank.component.css',
 })
 export class NavBlankComponent implements OnInit {
+
   signout() {
     if (typeof window != 'undefined') {
       localStorage.removeItem('token');
@@ -179,6 +180,28 @@ export class NavBlankComponent implements OnInit {
       this.searchTerm = '';
     }
   }
+
+  isDropdownOpenUser=false
+  toggleDropdownUser() {
+    if (window.innerWidth < 992) {
+      this.isDropdownOpenUser = !this.isDropdownOpenUser;
+    }
+  }
+
+  logout() {
+ this.userservice.logout().subscribe({
+
+    next:(response)=>{
+if (typeof window !== 'undefined') {
+      localStorage.removeItem('token');
+      this.isauth=false;
+      this._Router.navigate(['/login']);
+    }
+
+  
+}
+  })
+    }
 
 
 }

@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { UserService } from '../../shared/services/user.service';
 import { Observable } from 'rxjs';
 import { OfferService } from '../../shared/services/offer.service';
+import { AnnouncementService } from '../../shared/services/announcement.service';
 
 @Component({
   selector: 'app-nav-auth',
@@ -17,7 +18,7 @@ import { OfferService } from '../../shared/services/offer.service';
   styleUrl: './nav-auth.component.css'
 })
 export class NavAuthComponent  {
- 
+  endofsale!: Date;
   isauth:boolean=false;
   token: any;
   tokendata: any;
@@ -31,6 +32,7 @@ export class NavAuthComponent  {
     private _Router: Router,
     private _OfferService: OfferService,
     private userservice:UserService,
+    private announcementservice:AnnouncementService,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
     this.isBrowser = isPlatformBrowser(this.platformId); // Set the value
@@ -66,12 +68,14 @@ export class NavAuthComponent  {
     setTimeout(() => {
       if (this.isBrowser) {
         // Ensure countdown only runs in the browser
-        const offerEndTime = new Date();
-        offerEndTime.setHours(offerEndTime.getHours() + 24); // Set offer end time 24 hours from now
-        this.countdown$ = this._OfferService.getCountdown(offerEndTime);
+
+        const endofsaledate = new Date(this.endofsale);
+
+        this.countdown$ = this._OfferService.getCountdown(endofsaledate);
       }
     }, 2000);
   }
+
 
   isNavbarOpen = false;
   isDropdownOpen:any = {
@@ -91,6 +95,15 @@ export class NavAuthComponent  {
       next: (response) => {
         this.categories = response;
         console.log(response);
+      },
+    });
+
+    this.announcementservice.getAnnouncements().subscribe({
+      next: (response:any) => {
+        console.log(response);
+        this.endofsale = response[0].endOfSale;
+        console.log(this.endofsale);
+        
       },
     });
 
