@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import {  BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -28,4 +29,9 @@ return this._HttpClient.get(`${this.baseURL}/api/Cart/GetCartItems?userId=${id}`
       `${this.baseURL}/api/Cart/AddItemToUserCart`,{courseId:courseId}
     );
   }
+
+
+
+  // badge
+  cartNumber:BehaviorSubject<number> = new BehaviorSubject(0);
 }

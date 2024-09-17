@@ -13,6 +13,7 @@ import { IEnrolledCourse } from '../../shared/interfaces/course-data';
 export class CourseCardComponent {
   isHeartFilled = true;
   @Input() course!: IEnrolledCourse;
+  @Input() showHeartIcon: boolean = true; // New property to control visibility
 
   Math = Math;
   Number = Number;

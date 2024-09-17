@@ -1,6 +1,6 @@
 <div class="card border-0 mx-2 my-2" style="width: 18rem;">
     <img [src]="course.coverPicture" class="card-img-top" alt="{{course.title}}" style="height: 12rem">
-    <div class="heart-icon p-2 bg-light" (click)="toggleHeart()">
+    <div *ngIf="showHeartIcon" class="heart-icon p-2 bg-light" (click)="toggleHeart()">
         <i class="fa-heart" [ngClass]="isHeartFilled ? 'fa-solid' : 'fa-regular'"></i>
     </div>
     <div class="card-body">
@@ -9,10 +9,10 @@
         </p>
         <div class="progress mb-2" style="max-height: 7px;" role="progressbar" aria-label="Success example"
             aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-            <div class="progress-bar bg-info" style="width: 25%"></div>
+            <div class="progress-bar"style="background-color: #6772ff" [style.width.%]="course.progress ?? 0"></div>
         </div>
         <div class="row">
-            <p class="col">25% Complete</p>
+            <p class="col">{{course.progress ?? 0}}% Complete</p>
             <div class="row mb-3 text-center col">
                 <div class="col-12 stars">
                     <i *ngFor="let filled of [].constructor(course.rate)" class="fa fa-star fa-solid"></i>

@@ -4,15 +4,24 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { PaymentService } from '../../shared/services/payment.service';
 import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
+
 @Component({
   selector: 'app-cart',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterLink],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.css'
 })
 
 export class CartComponent {
+
+
+  token: any;
+  tokendata: any;
+  cartno:any
+
+
 
   constructor(
     private _CartService:CartService, 
@@ -51,6 +60,19 @@ next:(response)=>{
   console.log(response);
   this.courses=response
   this.getCartTotal();
+
+
+  this._CartService.getCartItemsById(this.userId).subscribe({
+    next:(response)=>
+    {
+      this.cartno=response.length
+      console.log("da el responssss"+ this.cartno)
+
+      this._CartService.cartNumber.next(this.cartno)
+
+    }
+
+  })
 },
 error: (err) => {
   console.log(err);

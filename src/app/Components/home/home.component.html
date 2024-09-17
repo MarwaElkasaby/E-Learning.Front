@@ -15,20 +15,41 @@
                 <div class="col-lg-8 text-start">
                   <!-- Added text-start to align text to the left -->
                   <h1
-                  style="color: #fff;"
-                    class="d-inline-block  fw-semi-bold py-1 animated slideInDown"
+                    style="color: #fff"
+                    class="d-inline-block fw-semi-bold py-1 animated slideInDown"
                   >
                     Welcome {{ username }}
                   </h1>
+
+                  @if(!'token'){
+
                   <h2
                     class="display-1 mb-4 animated slideInDown"
                     style="color: #fff; text-align: left; padding-left: 0"
                   >
                     Jump into learning for less
                   </h2>
-                  
-                  <a href="#" class="btn1 button-header">Get Started</a>
-                  
+
+                  <a routerLink="../login" class="btn1 button-header"
+                    >Get Started</a
+                  >
+
+                  } 
+                  @else{
+                  <h2
+                    class="display-1 mb-4 animated slideInDown"
+                    style="color: #fff; text-align: left; padding-left: 0"
+                  >
+                    Keep learning with passion and dedication!
+                  </h2>
+
+                  <a
+                    [routerLink]="['/userCourses', userId]"
+                    routerLinkActive="active"
+                    class="btn1 button-header"
+                    >My Learning</a
+                  >
+                  }
                 </div>
               </div>
             </div>
@@ -42,18 +63,39 @@
                 <div class="col-lg-8 text-start">
                   <!-- Added text-start to align text to the left -->
                   <h1
-                  style="color: #fff;"
-                    class="d-inline-block  fw-semi-bold py-1 animated slideInDown"
+                    style="color: #fff"
+                    class="d-inline-block fw-semi-bold py-1 animated slideInDown"
                   >
                     Welcome {{ username }}
                   </h1>
+
+                  @if(!'token '){
+
                   <h2
                     class="display-1 mb-4 animated slideInDown"
                     style="color: #fff; text-align: left; padding-left: 0"
                   >
                     Subscribe to the best courses
                   </h2>
-                  <a href="#" class="btn1 button-header">Get Started</a>
+
+                  <a routerLink="../login" class="btn1 button-header"
+                    >Get Started</a
+                  >
+                  } @else{
+                  <h2
+                    class="display-1 mb-4 animated slideInDown"
+                    style="color: #fff; text-align: left; padding-left: 0"
+                  >
+                    Stay committed to your learning journey!
+                  </h2>
+
+                  <a
+                    [routerLink]="['/userCourses', userId]"
+                    routerLinkActive="active"
+                    class="btn1 button-header"
+                    >My Learning</a
+                  >
+                  }
                 </div>
               </div>
             </div>
@@ -283,7 +325,7 @@
     <!-- courses End -->
 
     <!-- join us start-->
-    <div *ngIf="username == ''">
+    <div *ngIf="!'token'">
       <section class="promo-section py-5">
         <div class="promo-container">
           <div class="row align-items-center">
@@ -304,15 +346,13 @@
                 techniques to engage effectively with vulnerable children and
                 young people.
               </p>
-              <a href="#" class="btn1 button-header">Join Us</a>
+              <a routerLink="../login" class="btn1 button-header">Join Us</a>
             </div>
           </div>
         </div>
       </section>
     </div>
-        <!-- join us end-->
-
-
+    <!-- join us end-->
 
     <!-- category start -->
     <!--? top subjects Area Start -->
@@ -435,7 +475,6 @@
     <!-- top subjects End -->
     <!-- category end -->
 
-
     <!--? About Area-3 Start -->
     <section class="about-area3 fix">
       <div class="support-wrapper align-items-center">
@@ -512,7 +551,9 @@
               Instructors from around the world teach millions of learners on
               Taalam. We provide the tools and skills to teach what you love.
             </p>
-            <a href="#" class="btn1 button-header">Start teaching today</a>
+            <a routerLink="createcourse" class="btn1 button-header"
+              >Start teaching today</a
+            >
           </div>
         </div>
       </div>

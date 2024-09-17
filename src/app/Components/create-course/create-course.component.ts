@@ -1,13 +1,6 @@
 import { UploadService } from './../../shared/services/upload.service';
 import { Component } from '@angular/core';
-import {
-  FormArray,
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-  ReactiveFormsModule,
-} from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators, ReactiveFormsModule,} from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { CourseData } from '../../shared/interfaces/course-data';
 import { CoursesService } from '../../shared/services/courses.service';
@@ -35,8 +28,7 @@ export class CreateCourseComponent {
 
   // Drag and Drop and Cloudinary Config and Functions
   files: File[] = [];
-  lessonsFiles: { [sectionIndex: number]: { [lessonIndex: number]: File[] } } =
-    {};
+  lessonsFiles: { [sectionIndex: number]: { [lessonIndex: number]: File[] } } = {};
 
   constructor(
     private fb: FormBuilder,
@@ -207,6 +199,13 @@ export class CreateCourseComponent {
 
   onSelectLessonFile(event: any, sectionIndex: number, lessonIndex: number) {
     const files = event.addedFiles;
+    // Check if more than one file is added
+    // if (files.length > 1) {
+    //   // Show an error message or alert to the user (optional)
+    //   alert('You can upload only one video at a time.');
+    //   return; // Prevent further execution
+    // }
+
     if (!this.lessonsFiles[sectionIndex]) {
       this.lessonsFiles[sectionIndex] = {};
     }
@@ -230,9 +229,6 @@ export class CreateCourseComponent {
       .at(lessonIndex)
       .get('lessonUrl')
       ?.updateValueAndValidity();
-
-    // Automatically upload the selected video
-    // this.uploadVideoFile(sectionIndex, lessonIndex);
   }
 
   onRemoveLessonFile(file: File, sectionIndex: number, lessonIndex: number) {
@@ -282,7 +278,7 @@ export class CreateCourseComponent {
           lessonUrl: secureUrl,
           lessonPublicId: publicId, // Add this field to store public_id
         });
-        this._ToastrService.success('Video uploaded successfully.');
+        // this._ToastrService.success('Video uploaded successfully.');
       }),
       catchError((err) => {
         console.error('Upload error:', err);
