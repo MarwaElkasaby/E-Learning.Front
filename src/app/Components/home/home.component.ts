@@ -8,10 +8,14 @@ import { CarouselService } from '../../shared/services/carousel.service';
 import { FormsModule } from '@angular/forms';
 import { BackToTopService } from '../../shared/services/backtotop.service';
 
+import $ from 'jquery'
+import { CourseCardComponent } from "../course-card/course-card.component";
+import { IEnrolledCourse } from '../../shared/interfaces/course-data';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, RouterLink, CarouselModule, FormsModule],
+  imports: [CommonModule, RouterLink, CarouselModule, FormsModule, CourseCardComponent],
+
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
@@ -55,6 +59,14 @@ constructor (private _CoursesService: CoursesService,
       console.log(this.userId);
       console.log(this.role)
     }
+
+  })
+
+
+  
+}
+
+}
    }
 
   ngOnInit(): void {

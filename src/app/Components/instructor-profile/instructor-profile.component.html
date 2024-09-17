@@ -16,12 +16,12 @@
       <h5 class="card-title mb-1">{{ instructorInfo.fName }} {{ instructorInfo.lName }}</h5>
       <div class="d-flex justify-content-around my-3">
         <div>
-          <span class="text-secondary">Total Students</span><br />
+          <span class="text-secondary">Total Enrollments</span><br />
           <strong>{{ instructorInfo.totalStudents }}</strong>
         </div>
         <div>
-          <span class="text-secondary">Reviews</span><br />
-          <strong>{{ instructorInfo.totalReviews }}</strong>
+          <span class="text-secondary">Total Courses</span><br />
+          <strong>{{ instructorInfo?.ownedCourses?.length }}</strong>
         </div>
       </div>
       <button class="btn btn-primary btn-sm w-75 mx-auto shadow-sm">Send Message</button>
@@ -50,20 +50,54 @@
     <!-- Instructor Bio and Courses Section -->
     <div class="col-md-9">
       <!-- Instructor Bio Section -->
-      <h2 class="mb-4">{{ instructorInfo.fName }}'s Profile</h2>
-      <p>{{ instructorInfo.description }}</p>
+      <div class="about-me-section">
+        <h3 class="mb-4 about-title">About Me</h3>
+        <p class="about-description">{{ instructorInfo.description }}</p>
+      </div>
+      
 
       <!-- Courses Section -->
-      <h4 class="my-4">Courses by {{ instructorInfo.fName }} ({{ instructorInfo?.ownedCourses?.length }})</h4>
-
       <div class="row">
         <div
           class="col-md-4 mb-3"
           *ngFor="let course of paginatedCourses"
         >
           <!-- Clickable card for each course -->
-          <a [routerLink]="['/coursecontent', course.id]" class="text-decoration-none hover">
-            <div class="card h-100">
+          <a [routerLink]="['/course', course.id]" class="text-decoration-none hover">
+
+
+            <div class="card border-0 mx-2 my-2" style="width: 18rem;">
+              <img [src]="course.coverPicture" class="card-img-top" alt="{{course.title}}" style="height: 12rem">
+              <div class="card-body">
+                  <h5 class="card-title fw-bold fs-5 truncate-multiline">{{course.title}}</h5>
+                  <p class="card-text text-muted opacity-75 truncate fs-6 mb-2">
+                       {{course.description??course.title}}
+                    </p>
+                    <p class="card-text category-badge">{{ course.category }}</p>
+                   
+                      <div class="progress my-1" style="max-height: 2px;" role="progressbar" aria-label="Success example"
+                          aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                             </div>
+          
+                  <div class="row">
+                     
+                      <p class="col" style="font-weight: bold;">
+                          {{ course.price === 0 || course.price == null ? 'Free' : (course.price) + ' EGP' }}
+                        </p>
+                        
+                      <div class="row mb-3 text-center col">
+                          <div class="col-12 stars">
+                              <i *ngFor="let filled of [].constructor(course.rate)" class="fa fa-star fa-solid"></i>
+                              <i *ngFor="let empty of [].constructor(5 - course.rate)" class="fa fa-star fa-regular"></i>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+
+
+            <!-- <div class="card h-100">
               <img
                 src="{{ course.coverPicture }}"
                 class="card-img-top"
@@ -73,12 +107,11 @@
               <div class="card-body">
                 <h5 class="card-title">{{ course.title }}</h5>
               </div>
-            </div>
+            </div> -->
           </a>
         </div>
       </div>
 
-      <!-- Pagination Section -->
       <!-- Pagination Section -->
 <nav aria-label="Page navigation" class="d-flex justify-content-center my-4">
   <ul class="pagination pagination-sm">
