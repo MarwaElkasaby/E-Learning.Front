@@ -4,6 +4,7 @@ import { UserService } from '../../shared/services/user.service';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NgFor } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-admin-table',
@@ -14,12 +15,13 @@ import { FormsModule } from '@angular/forms';
 })
 export class AdminTableComponent implements OnInit {
 
+
   users: User[] = [];
   filteredUsers: User[] = [];
   searchTerm: string = '';
   page: number = 1;
 
-  constructor(private userservice:UserService) {}
+  constructor(private userservice:UserService,private toaster:ToastrService) {}
     ngOnInit(): void {
   this.userservice.getusers().subscribe(users => {
     this.users = users;
@@ -32,10 +34,11 @@ export class AdminTableComponent implements OnInit {
  
 
     filterUsers(): void {
+      const term = this.searchTerm.trim().toLowerCase();
+    
       this.filteredUsers = this.users.filter(user => {
-        const term = this.searchTerm.toLowerCase();
         return (
-          user.fName.toLowerCase().includes(term) ||
+          user.fName.toLowerCase().includes(term) || 
           user.email.toLowerCase().includes(term)
         );
       });
@@ -51,4 +54,20 @@ export class AdminTableComponent implements OnInit {
         }
       });
       }
+
+      deleteuser(id: any) {
+        this.userservice.deleteuser(id).subscribe({
+          next: (response) => {
+          this.toaster.success('User Deleted Successfully');
+          this.userservice.getusers().subscribe(users => {
+            this.users = users;
+            this.filteredUsers = users;
+          }
+          );
+          },
+          error: (err) => {
+            this.toaster.error('Error in deleting user');
+          }
+        });
+    }
 }

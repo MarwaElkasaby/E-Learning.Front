@@ -135,4 +135,15 @@ export class UserService {
         })
       );
   }
+
+  deleteuser(id: number) {
+
+    return this.http
+      .delete(`http://localhost:5062/Api/Account/delete/${id}`)
+      .pipe(
+        catchError((error) => {
+          return throwError(() => error);
+        })
+      );
+  }
 }
