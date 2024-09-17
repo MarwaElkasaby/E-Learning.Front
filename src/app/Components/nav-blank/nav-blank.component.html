@@ -85,70 +85,12 @@
         </div>
       </form>
 
-<<<<<<< HEAD
-    <!-- Right Side Icons -->
-<ul class="navbar-nav ms-auto mb-2 mb-lg-0 d-flex align-items-center">
-  <li class="nav-item">
-    <a
-      class="nav-link text-capitalize"
-      routerLink="createcourse"
-      routerLinkActive="active"
-      >Instructor</a
-    >
-  </li>
-  <li class="nav-item">
-    <a
-      class="nav-link text-capitalize"
-      [routerLink]="['/userCourses', userId]"
-      routerLinkActive="active"
-      >My Learning</a
-    >
-  </li>
-  <li class="nav-item">
-    <a
-      class="nav-link"
-      [routerLink]="['/wishlist', userId]"
-      routerLinkActive="active"
-    >
-      <i class="fas fa-heart fa-lg"></i>
-    </a>
-  </li>
-  <li class="nav-item">
-    <a
-      class="nav-link"
-      [routerLink]="['/cart', userId]"
-      routerLinkActive="active"
-    >
-      <i class="fas fa-shopping-cart fa-lg"></i>
-    </a>
-  </li>
-
-  <!-- User Icon with Dropdown -->
- <!-- User Icon with Dropdown (Updated for responsiveness) -->
- <li class="nav-item dropdown" id="userDropdown" [class.show]="isDropdownOpenUser">
-  <a
-    class="nav-link d-flex align-items-center justify-content-center text-white rounded-circle dropdown-toggle"
-    id="userDropdownMenu"
-    role="button"
-    (click)="toggleDropdownUser()"
-    aria-expanded="false"
-  >
-    <i class="fas fa-user fa-lg"></i>
-  </a>
-  <ul class="dropdown-menu" aria-labelledby="userDropdownMenu">
-    <li><a class="dropdown-item" [routerLink]="['/userProfile', userId]">Profile</a></li>
-    <li><a class="dropdown-item" [routerLink]="['/userCourses', userId]">My Learning</a></li>
-    <li><a class="dropdown-item logout" (click)="logout()">Log Out</a></li>
-  </ul>
-</li>
-</ul>
-=======
       <!-- Right Side Icons -->
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0 d-flex align-items-center">
         <li class="nav-item">
           <a
             class="nav-link text-capitalize"
-            routerLink="createCourse"
+            [routerLink]="['/instructor', userId]"
             routerLinkActive="active"
             >Instructor</a
           >
@@ -184,7 +126,6 @@
             </span>
           </a>
         </li>
->>>>>>> 02eb97492d6aee65a212d6847b434e2da0047b65
 
 
         <!-- User Icon with Dropdown -->
@@ -253,26 +194,9 @@
           </ul>
         </li>
 
-        <!-- <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle"
-              (click)="toggleDropdown('categoryDropdown')"
-              >Category</a >
-            <ul
-              class="dropdown-menu"
-              [ngClass]="{ show: isDropdownOpen['categoryDropdown'] }" >
-              <li *ngFor="let category of categories">
-                <a
-                  class="dropdown-item"
-                  [routerLink]="['/category', category.id]"
-                  >{{ category.name }}</a>
-              </li>
-            </ul>
-          </li>
-        </ul> -->
+
       </ul>
     </div>
-  </nav>
+  </nav>
 
 </div>
