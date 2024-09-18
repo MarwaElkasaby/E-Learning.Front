@@ -36,6 +36,9 @@ import { AdminHomeComponent } from './pages/admin-home/admin-home.component';
 import { authGuard, authGuardadmin, authGuardLogin } from './guards/auth.guard';
 import { CreateannouncementComponent } from './Components/createannouncement/createannouncement.component';
 import { AdminTableComponent } from './Components/admin-table/admin-table.component';
+
+import { CreatecategoryComponent } from './Components/createcategory/createcategory.component';
+
 import { CourseAdminComponent } from './pages/course-admin/course-admin.component';
 
 
@@ -45,7 +48,6 @@ export const routes: Routes = [
   {
     path: '',
     component: BlankLayoutComponent,
-
 
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -59,20 +61,21 @@ export const routes: Routes = [
       { path: 'createcourse', component: CreateCourseComponent, title: "Taalam - Create Course", canActivate: [authGuard], },
       { path: 'editcourse/:id', component: EditCourseComponent, title: "Taalam - Edit Course", canActivate: [authGuard], },
 
-
       {
         path: 'instructorProfile/:id',
         component: InstructorProfileComponent,
-        title: 'Taalam - InstructorProfile', canActivate: [authGuard],
+        title: 'Taalam - InstructorProfile',
+        canActivate: [authGuard],
       },
       {
         path: 'searchResult/:SearchTerm',
         component: SearchResultComponent,
         title: 'Taalam - SearchResult',
       },
-      { path: 'course/:id',
-         component: CourseDetailsComponent,
-         title: 'Taalam - CourseDetails',
+      {
+        path: 'course/:id',
+        component: CourseDetailsComponent,
+        title: 'Taalam - CourseDetails',
       },
       {
         path: 'paymentapprove',
@@ -98,7 +101,12 @@ export const routes: Routes = [
     component: AuthLayoutComponent,
     children: [
       { path: 'home', component: HomeComponent, title: 'Taalam - Home' },
-      { path: 'login', component: LoginComponent, title: 'Taalam - Login',canActivate:[authGuardLogin] },
+      {
+        path: 'login',
+        component: LoginComponent,
+        title: 'Taalam - Login',
+        canActivate: [authGuardLogin],
+      },
       {
         path: 'register',
         component: RegisterComponent,
@@ -119,10 +127,15 @@ export const routes: Routes = [
       { path: 'auth-callback', component: AuthCallbackComponentComponent },
     ],
   },
-  { path: 'course/content/:courseId', component: CourseContentComponent, canActivate: [authGuard] },
+  {
+    path: 'course/content/:courseId',
+    component: CourseContentComponent,
+    canActivate: [authGuard],
+  },
   {
     path: 'course/content/:courseId/:lessonId',
-    component: CourseContentComponent, canActivate: [authGuard]
+    component: CourseContentComponent,
+    canActivate: [authGuard],
   },
 
   {
@@ -132,10 +145,10 @@ export const routes: Routes = [
 
     children: [
       { path: '', component: AdminHomeComponent },
-
       { path: 'courses', component: CourseAdminComponent },
       { path: 'users', component: AdminTableComponent },
       { path: 'announcements', component: CreateannouncementComponent },
+      { path: 'categories', component: CreatecategoryComponent },
     ],
   },
 
