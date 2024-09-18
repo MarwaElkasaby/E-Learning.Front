@@ -35,11 +35,11 @@
               </div>
               <div class="row g-0">
                 <div class="col-12">
-                  <img src="{{ course.coverPicture }}" class="img-fluid rounded-start" alt="{{ course.title }}">
+                  <img src="{{ course.coverPicture }}" class="img-fluid rounded-start" alt="{{ course.title }}" [routerLink]="['/course', course.id]" style="cursor: pointer;">
                 </div>
                 <div class="col-12">
                   <div class="card-body">
-                    <h5 class="card-title">{{ course.title }}</h5>
+                    <h5 class="card-title" [routerLink]="['/course', course.id]" style="cursor: pointer;">{{ course.title }} </h5>
                     <p class="card-text">{{ course.instructorName }}</p>
                     <div class="d-flex align-items-center">
                       <span class="text-warning me-2">{{ course.rating }}</span>
