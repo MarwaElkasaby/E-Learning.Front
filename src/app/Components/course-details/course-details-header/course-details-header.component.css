@@ -48,3 +48,11 @@
 .text-muted {
   color: #6c757d !important;
 }
+.course-link {
+  text-decoration: none; 
+  color: inherit;
+}
+
+.course-link:hover {
+  text-decoration: none;
+}
