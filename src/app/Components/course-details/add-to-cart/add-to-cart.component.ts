@@ -5,7 +5,7 @@ import { CartService } from '../../../shared/services/cart.service';
 import { CommonModule } from '@angular/common';
 import { WishlistService } from '../../../shared/services/wishlist.service';
 import { HttpClient } from '@angular/common/http';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-add-to-cart',
@@ -14,26 +14,28 @@ import { RouterModule } from '@angular/router';
   templateUrl: './add-to-cart.component.html',
   styleUrl: './add-to-cart.component.css',
 })
-export class AddToCartComponent implements OnInit{
+export class AddToCartComponent {
   @Input() course!: Course;
 
   token: any;
   tokendata: any;
   userId!: number;
   cartno: any;
-  isenrolled: boolean = false;
-
+  @Input()isenrolled: boolean = false;
+  @Input() isauth: boolean = false;
   constructor(
     private httpclient:HttpClient,
     private cartService: CartService,
     private toastr: ToastrService,
-    private wishListService: WishlistService
+    private wishListService: WishlistService,
+    private route:Router
   ) {
     if (typeof window !== 'undefined') {
       this.token = localStorage.getItem('token');
     }
 
     if (this.token) {
+      this.isauth = true;
       this.tokendata = JSON.parse(atob(this.token.split('.')[1]));
 
       // Extracting user ID, username, and role
@@ -45,21 +47,14 @@ export class AddToCartComponent implements OnInit{
       console.log(this.userId);
     }
   }
-  ngOnInit(): void {
-   this.httpclient.get(`http://localhost:5062/api/Course/IsEnrolled/${this.course.id}`).subscribe((data: any) => {
-if (data.isEnrolled) {
-  this.isenrolled = true;
-  console.log(this.isenrolled);
   
-}else{
-  this.isenrolled = false;
-  console.log(this.isenrolled);
-}
-   });
-
-  }
+ 
+  
 
   addToCart(courseId: number): void {
+    if (!this.isauth) {
+      
+    }
     this.cartService.addtoCart(courseId).subscribe({
       next: (response: any) => {
         this.toastr.success('Course added to cart successfully!');
