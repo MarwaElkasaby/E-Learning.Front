@@ -36,7 +36,12 @@ import { AdminHomeComponent } from './pages/admin-home/admin-home.component';
 import { authGuard, authGuardadmin, authGuardLogin } from './guards/auth.guard';
 import { CreateannouncementComponent } from './Components/createannouncement/createannouncement.component';
 import { AdminTableComponent } from './Components/admin-table/admin-table.component';
+
 import { CreatecategoryComponent } from './Components/createcategory/createcategory.component';
+
+import { CourseAdminComponent } from './pages/course-admin/course-admin.component';
+
+
 
 export const routes: Routes = [
   // { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -46,54 +51,15 @@ export const routes: Routes = [
 
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
-      { path: 'home', component: HomeComponent, title: 'Taalam' },
-      {
-        path: 'cart/:id',
-        component: CartComponent,
-        title: 'Taalam - Cart',
-        canActivate: [authGuard],
-      },
-      {
-        path: 'category/:id',
-        component: CategoryComponent,
-        title: 'Taalam - Categories',
-      },
-      {
-        path: 'wishlist/:id',
-        component: WishlistComponent,
-        title: 'Taalam - Wishlist',
-        canActivate: [authGuard],
-      },
-      {
-        path: 'userProfile/:id',
-        component: EditUserProfileComponent,
-        title: 'Taalam - UserProfile',
-        canActivate: [authGuard],
-      },
-      {
-        path: 'userCourses/:id',
-        component: UserCoursesComponent,
-        title: 'Taalam - My Learning',
-        canActivate: [authGuard],
-      },
-      {
-        path: 'instructor/:id',
-        component: InstructorComponent,
-        title: 'Taalam - Instructor',
-        canActivate: [authGuard],
-      },
-      {
-        path: 'createcourse',
-        component: CreateCourseComponent,
-        title: 'Taalam - Create Course',
-        canActivate: [authGuard],
-      },
-      {
-        path: 'editcourse/:id',
-        component: EditCourseComponent,
-        title: 'Taalam - Edit Course',
-        canActivate: [authGuard],
-      },
+      { path: 'home', component: HomeComponent, title:"Taalam" },
+      { path: 'cart/:id', component: CartComponent, title:"Taalam - Cart", canActivate: [authGuard], },
+      { path: 'category/:id', component: CategoryComponent, title:"Taalam - Categories" },
+      { path: 'wishlist/:id', component: WishlistComponent, title:"Taalam - Wishlist", canActivate: [authGuard], },
+      { path: 'userProfile/:id', component: EditUserProfileComponent, title:"Taalam - UserProfile" , canActivate: [authGuard],},
+      { path: 'userCourses', component: UserCoursesComponent , title:"Taalam - My Learning", canActivate: [authGuard], },
+      { path: 'instructor/:id', component: InstructorComponent, title: "Taalam - Instructor", canActivate: [authGuard],},
+      { path: 'createcourse', component: CreateCourseComponent, title: "Taalam - Create Course", canActivate: [authGuard], },
+      { path: 'editcourse/:id', component: EditCourseComponent, title: "Taalam - Edit Course", canActivate: [authGuard], },
 
       {
         path: 'instructorProfile/:id',
@@ -179,7 +145,7 @@ export const routes: Routes = [
 
     children: [
       { path: '', component: AdminHomeComponent },
-      { path: 'courses', component: AdminComponent },
+      { path: 'courses', component: CourseAdminComponent },
       { path: 'users', component: AdminTableComponent },
       { path: 'announcements', component: CreateannouncementComponent },
       { path: 'categories', component: CreatecategoryComponent },

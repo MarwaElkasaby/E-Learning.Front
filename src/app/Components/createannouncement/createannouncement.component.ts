@@ -3,6 +3,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Announcement } from '../../models/Announcement';
 import { AnnouncementService } from '../../shared/services/announcement.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-createannouncement',
@@ -21,10 +22,13 @@ minDate: string = '';
 deleteannouncement(id: any) {
 this.announcementservice.deleteAnnouncement(id).subscribe((data:any)=>{
   this.announcements = this.announcements.filter((x)=>x.id !== id);
+  this.toaster.success('Announcement deleted successfully');
+
   console.log(data);
 }, (error)=>{
   console.error('Error deleting announcement',error);
-  alert('Error deleting announcement');
+  this.toaster.error('Error deleting announcement');
+ // alert('Error deleting announcement');
 
 
 }
@@ -34,12 +38,17 @@ onSubmitcreate() {
 
   if (this.announcement.body !== '' && this.announcement.discount >= 0 && this.announcement.discount <= 100) {
     this.announcementservice.createAnnouncement(this.announcement).subscribe((data:any)=>{
-      this.announcements.push(data);
+      this.announcementservice.getAnnouncements().subscribe((data:any)=>{
+        this.announcements = data;
+      }
+    );
+
       console.log(data);
+      this.toaster.success('Announcement created successfully');
     },
     (error)=>{
       console.error('Error creating announcement',error);
-      alert('Error creating announcement');
+     this.toaster.error('Error creating announcement');
     }
     );
   this.closeButtoncreate.nativeElement.click();
@@ -58,13 +67,14 @@ if (this.editannouncementmodel.body !== '' && this.editannouncementmodel.discoun
     if(index !== -1){
       this.announcements[index] = data;
     }
+    this.toaster.success('Announcement updated successfully');
     console.log(data);
 
  
   },
   (error)=>{
     console.error('Error updating announcement',error);
-    alert('Error updating announcement');
+   this.toaster.error('Error updating announcement');
   }
   );
 
@@ -87,7 +97,7 @@ editannouncementmodel: Announcement = {
   };
 
 
-  constructor(private announcementservice:AnnouncementService) { }
+  constructor(private announcementservice:AnnouncementService,private toaster:ToastrService) { }
   ngOnInit(): void {
     const now = new Date();
     this.minDate = this.formatDateForInput(now);

@@ -12,3 +12,16 @@
 .card-title {
   color: #343a40;
 }
+
+.course{
+  background-image: url(../../../assets/img/gallery/coursecategory2.jpeg);
+  background-size: cover;
+}
+.user{
+  background-image: url(../../../assets/img/gallery/usercategory.jpeg);
+  background-size: cover;
+}
+.announcement{
+  background-image: url(../../../assets/img/gallery/announcement.jpg);
+  background-size: cover;
+}

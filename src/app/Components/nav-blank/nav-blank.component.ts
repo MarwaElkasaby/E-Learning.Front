@@ -37,6 +37,7 @@ export class NavBlankComponent implements OnInit {
   isBrowser: boolean;
  endofsale!: Date;
  amountofsale!: number;
+ showsale:boolean=false;  
   constructor(
     private _CategoryService: CategoryService,
     private _Router: Router,
@@ -54,6 +55,7 @@ export class NavBlankComponent implements OnInit {
     }
 
     if (this.token) {
+      this.isauth=true;
       this.tokendata = JSON.parse(atob(this.token.split('.')[1]));
 
       // Extracting user ID, username, and role
@@ -86,7 +88,7 @@ export class NavBlankComponent implements OnInit {
 
         this.countdown$ = this._OfferService.getCountdown(endofsaledate);
       }
-    }, 2000);
+    }, 500);
   }
 
   isNavbarOpen = false;
@@ -141,6 +143,12 @@ export class NavBlankComponent implements OnInit {
     this.announcementservice.getAnnouncements().subscribe({
       next: (response:any) => {
         console.log(response);
+        if (response.length === 0) {
+          this.showsale=false;
+          return;
+          
+        }
+        this.showsale=true;
         this.endofsale = response[0].endOfSale;
         this.amountofsale = response[0].discount;
         console.log(this.endofsale);

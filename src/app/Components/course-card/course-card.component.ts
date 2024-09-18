@@ -12,8 +12,11 @@ import { IEnrolledCourse } from '../../shared/interfaces/course-data';
 })
 export class CourseCardComponent {
   isHeartFilled = true;
+
+  // Inputs to control heart icon and progress bar
   @Input() course!: IEnrolledCourse;
-  @Input() showHeartIcon: boolean = true; // New property to control visibility
+  @Input() showHeartIcon: boolean = true; // Control visibility of heart icon
+  @Input() showProgress: boolean = true; // Control visibility of progress bar
 
   Math = Math;
   Number = Number;
