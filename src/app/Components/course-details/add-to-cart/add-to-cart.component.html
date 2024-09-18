@@ -17,9 +17,17 @@
 
       <!-- Add to Cart Button and Wishlist Heart Icon -->
       <div class="add-to-cart-btns mt-3">
-        <button class="btn btn-primary btn-lg cartBtn " (click)="addToCart(course.id)">
-          Add to Cart
-        </button>
+        @if(isenrolled){
+          <button class="btn btn-primary btn-lg cartBtn " [routerLink]="['/course/content/' , course.id]">
+            go to course
+          </button>
+        }@else{
+          <button class="btn btn-primary btn-lg cartBtn " (click)="addToCart(course.id)">
+            Add to Cart
+          </button>
+        }
+
+    
         <button class="btn btn-outline-secondary btn-lg wishlist-btn" (click)="addToWishList(course.id)" >
           <i class="fa fa-heart"></i>
         </button>

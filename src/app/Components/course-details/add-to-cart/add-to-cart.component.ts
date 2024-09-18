@@ -1,26 +1,30 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Course } from '../../../models/CourseDetails';
 import { CartService } from '../../../shared/services/cart.service';
 import { CommonModule } from '@angular/common';
 import { WishlistService } from '../../../shared/services/wishlist.service';
+import { HttpClient } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-add-to-cart',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,RouterModule],
   templateUrl: './add-to-cart.component.html',
   styleUrl: './add-to-cart.component.css',
 })
-export class AddToCartComponent {
+export class AddToCartComponent implements OnInit{
   @Input() course!: Course;
 
   token: any;
   tokendata: any;
   userId!: number;
   cartno: any;
+  isenrolled: boolean = false;
 
   constructor(
+    private httpclient:HttpClient,
     private cartService: CartService,
     private toastr: ToastrService,
     private wishListService: WishlistService
@@ -41,6 +45,19 @@ export class AddToCartComponent {
       console.log(this.userId);
     }
   }
+  ngOnInit(): void {
+   this.httpclient.get(`http://localhost:5062/api/Course/IsEnrolled/${this.course.id}`).subscribe((data: any) => {
+if (data.isEnrolled) {
+  this.isenrolled = true;
+  console.log(this.isenrolled);
+  
+}else{
+  this.isenrolled = false;
+  console.log(this.isenrolled);
+}
+   });
+
+  }
 
   addToCart(courseId: number): void {
     this.cartService.addtoCart(courseId).subscribe({
@@ -55,7 +72,7 @@ export class AddToCartComponent {
         });
       },
       error: () => {
-        this.toastr.error('Failed to add course to cart.');
+        this.toastr.error('FCourse Already Exists');
       },
     });
   }
