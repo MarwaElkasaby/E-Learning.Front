@@ -117,8 +117,9 @@
   <ul class="pagination pagination-sm">
     <li class="page-item" [class.disabled]="currentPage === 1">
       <a
-        class="page-link bg-dark text-white rounded-pill mx-1 shadow-sm cursor-pointer"
+        class="page-link text-white rounded-pill mx-1 shadow-sm cursor-pointer"
         (click)="changePage(currentPage - 1)"
+        style="background-color: #6772ff;"
       >
         <i class="bi bi-chevron-left"></i> Previous
       </a>
@@ -127,9 +128,10 @@
     <!-- Create dynamic pagination numbers -->
     <li class="page-item" *ngFor="let page of pages" [class.active]="page === currentPage">
       <a
-        class="page-link bg-light text-dark border-0 rounded-pill mx-1 shadow-sm cursor-pointer"
+        class="page-link text-dark border-0 rounded-pill mx-1 shadow-sm cursor-pointer"
         [class.active-page]="page === currentPage"
         (click)="changePage(page)"
+        style="background-color: #6772ff;"
       >
         {{ page }}
       </a>
@@ -137,8 +139,9 @@
 
     <li class="page-item" [class.disabled]="currentPage === totalPages">
       <a
-        class="page-link bg-light text-dark border-0 rounded-pill mx-1 shadow-sm cursor-pointer"
+        class="page-link text-dark border-0 rounded-pill mx-1 shadow-sm cursor-pointer"
         (click)="changePage(currentPage + 1)"
+        style="background-color: #6772ff;"
       >
         Next <i class="bi bi-chevron-right"></i>
       </a>
