@@ -1,3 +1,4 @@
+import { response } from 'express';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { CategoryService } from '../../shared/services/category.service';
 import { CommonModule } from '@angular/common';
@@ -30,12 +31,8 @@ export class CreatecategoryComponent implements OnInit {
     });
   }
 
-  onFileSelected(event: any, isUpdate: boolean = false): void {
-    if (isUpdate) {
-      this.updateCategory.file = event.target.files[0];
-    } else {
-      this.selectedFile = event.target.files[0];
-    }
+  onFileSelected(event: any): void {
+    this.selectedFile = event.target.files[0];
   }
 
   onSubmitCreateCategory(): void {
@@ -52,6 +49,15 @@ export class CreatecategoryComponent implements OnInit {
       this.closecreate.nativeElement.click();
     });
   }
+
+  // getCategoryById(id: number) {
+  //   this._CategoryService.getCategoryById(id).subscribe({
+  //     next: (response) => {
+  //       this.updateCategory = response;
+  //       console.log(response);
+  //     },
+  //   });
+  // }
 
   // openUpdateCategoryModal(category: any): void {
   //   this.updateCategory = { ...category }; // Copy category data to update
