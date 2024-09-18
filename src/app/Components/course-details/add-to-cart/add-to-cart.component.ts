@@ -14,15 +14,17 @@ import { Router, RouterModule } from '@angular/router';
   templateUrl: './add-to-cart.component.html',
   styleUrl: './add-to-cart.component.css',
 })
-export class AddToCartComponent {
+export class AddToCartComponent implements OnInit {
   @Input() course!: Course;
 
   token: any;
   tokendata: any;
   userId!: number;
   cartno: any;
-  @Input()isenrolled: boolean = false;
-  @Input() isauth: boolean = false;
+  // @Input()isenrolled: boolean = false;
+  // @Input() isauth: boolean = false;
+  isauthh: boolean = false;
+  isenrolledd: boolean = false;
   constructor(
     private httpclient:HttpClient,
     private cartService: CartService,
@@ -34,8 +36,11 @@ export class AddToCartComponent {
       this.token = localStorage.getItem('token');
     }
 
+
     if (this.token) {
-      this.isauth = true;
+      this.isauthh = true;
+      console.log('user is authenticated', this.isauthh);
+      
       this.tokendata = JSON.parse(atob(this.token.split('.')[1]));
 
       // Extracting user ID, username, and role
@@ -47,14 +52,21 @@ export class AddToCartComponent {
       console.log(this.userId);
     }
   }
+  ngOnInit(): void {
+  this.httpclient.get(`http://localhost:5062/api/Course/IsEnrolled/${this.course.id}`).subscribe((data: any) => {
+      this.isenrolledd = data.isEnrolled;
+      console.log('you are enrolled',this.isenrolledd);
+    });
+  }
   
  
   
 
   addToCart(courseId: number): void {
-    if (!this.isauth) {
-      
-    }
+if (this.isauthh === false) {
+  this.route.navigate(['/login']);
+  
+}
     this.cartService.addtoCart(courseId).subscribe({
       next: (response: any) => {
         this.toastr.success('Course added to cart successfully!');
