@@ -16,8 +16,8 @@ import { HttpClient } from '@angular/common/http';
 })
 export class CourseDetailsHeaderComponent implements OnInit {
   @Input() course!: Course;
-  @Input()isenrolled: boolean = false;
-  @Input() isauth: boolean = false;
+  isenrolled: boolean = false;
+  isauth: boolean = false;
 
 
 
@@ -47,6 +47,11 @@ this.httpclient.get(`http://localhost:5062/api/Course/IsEnrolled/${this.course.i
 
   // Add to Cart Function
   addToCart(courseId: number): void {
+
+    if (this.isauth === false) {
+      this.route.navigate(['/login']);
+      
+    }
     if (!this.isauth) {
       
       this.route.navigate(['/login']);
