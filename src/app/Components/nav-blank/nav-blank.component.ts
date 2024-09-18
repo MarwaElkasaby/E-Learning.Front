@@ -55,6 +55,7 @@ export class NavBlankComponent implements OnInit {
     }
 
     if (this.token) {
+      this.isauth=true;
       this.tokendata = JSON.parse(atob(this.token.split('.')[1]));
 
       // Extracting user ID, username, and role
