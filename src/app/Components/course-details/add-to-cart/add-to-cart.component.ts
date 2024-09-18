@@ -67,7 +67,7 @@ export class AddToCartComponent {
         });
       },
       error: () => {
-        this.toastr.error('FCourse Already Exists');
+        this.toastr.error('Course Already Exists');
       },
     });
   }
@@ -78,7 +78,7 @@ export class AddToCartComponent {
         this.toastr.success('Course added to wishlist successfully!');
       },
       error: () => {
-        this.toastr.error('FCourse Already Exists');
+        this.toastr.error('Course Already Exists');
       },
     });
   }

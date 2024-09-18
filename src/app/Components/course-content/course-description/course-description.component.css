@@ -28,9 +28,9 @@
 }
 
 .card-footer.bg-success {
-  background-color: #28a745;
+  background-color: #7b7d8c !important;
 }
 
 .card-footer.bg-light {
-  background-color: #f8f9fa;
+  background-color: #7b7d8c;
 }
