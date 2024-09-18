@@ -54,7 +54,8 @@
             <p class="course-price">{{ course.price || 'Free' }}</p>
 
             <p class="course-instructor">{{ course.instructorName }}</p>
-            <p class="course-rating">{{ course.rate }} </p>
+            <p class="course-rating"> <i *ngFor="let filled of [].constructor(course.rate)" class="fa fa-star fa-solid"></i>
+              <i *ngFor="let empty of [].constructor(5 - course.rate)" class="fa fa-star fa-regular"></i> </p>
           </div>
         </div>
       </div>
