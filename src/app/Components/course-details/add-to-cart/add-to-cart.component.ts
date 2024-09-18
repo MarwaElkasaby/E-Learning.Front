@@ -72,7 +72,7 @@ if (data.isEnrolled) {
         });
       },
       error: () => {
-        this.toastr.error('FCourse Already Exists');
+        this.toastr.error('Course Already Exists');
       },
     });
   }
@@ -83,7 +83,7 @@ if (data.isEnrolled) {
         this.toastr.success('Course added to wishlist successfully!');
       },
       error: () => {
-        this.toastr.error('FCourse Already Exists');
+        this.toastr.error('Course Already Exists');
       },
     });
   }

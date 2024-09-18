@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NavCourseComponent } from '../../Components/nav-course/nav-course.component';
 import { ShareModalComponent } from '../../Components/share-modal/share-modal.component';
+import { FooterComponent } from "../../Components/footer/footer.component";
 
 @Component({
   selector: 'app-course-content',
@@ -21,7 +22,8 @@ import { ShareModalComponent } from '../../Components/share-modal/share-modal.co
     CommonModule,
     NavCourseComponent,
     ShareModalComponent,
-  ],
+    FooterComponent
+],
 
   templateUrl: './course-content.component.html',
   styleUrl: './course-content.component.css',
@@ -39,7 +41,9 @@ export class CourseContentComponent {
   cdr = inject(ChangeDetectorRef);
   completedLessons?: number = 0;
 
-  isLastLesson: boolean = false; // To track if it's the last lesson
+  isLastLesson: boolean = false;
+  isFirstLesson: boolean = false
+  // To track if it's the last lesson
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params) => {
@@ -49,6 +53,8 @@ export class CourseContentComponent {
       }
       this.lessonId = +params['lessonId'];
       this.getCourseDetails(this.courseId);
+      this.checkIfLastLesson();
+    this.checkFirstLesson();
     });
   }
 
@@ -133,6 +139,34 @@ this.router.navigate([`/course/content/${this.courseId}/${lesson.id}`], {
     this.checkIfLastLesson();
   }
 
+  goToPrevLesson() {
+    if (!this.course || !this.selectedLesson) return;
+
+    // Find current section and lesson indexes
+    let sectionIndex = this.course.sections.findIndex((section) =>
+      section.lessons.includes(this.selectedLesson!)
+    );
+    let lessonIndex = this.course.sections[sectionIndex].lessons.findIndex(
+      (lesson) => lesson.id === this.selectedLesson!.id
+    );
+
+    // Move to the previous lesson in the same section
+    if (lessonIndex > 0) {
+      this.onLessonSelected(
+        this.course.sections[sectionIndex].lessons[lessonIndex - 1]
+      );
+    }
+    // Move to the last lesson in the previous section if current section starts
+    else if (sectionIndex > 0) {
+      const prevSection = this.course.sections[sectionIndex - 1];
+      this.onLessonSelected(prevSection.lessons[prevSection.lessons.length - 1]);
+    }
+
+    // Check if this is the first lesson in the entire course
+    this.checkFirstLesson();
+}
+
+
   checkIfLastLesson() {
     if (!this.course || !this.selectedLesson) return;
 
@@ -143,4 +177,16 @@ this.router.navigate([`/course/content/${this.courseId}/${lesson.id}`], {
     this.isLastLesson =
       this.selectedLesson?.id === allLessons[allLessons.length - 1].id;
   }
+
+  checkFirstLesson() {
+    if (!this.course || !this.selectedLesson) return;
+
+    // Check if current lesson is the first in the course
+    const allLessons = this.course.sections.flatMap(
+      (section) => section.lessons
+    );
+    this.isFirstLesson =
+      this.selectedLesson?.id === allLessons[0].id;
+}
+
 }
