@@ -1,156 +1,120 @@
-<div class="container mt-5">
-  <h1 class="mb-4 text-center">Edit Course</h1>
+<section class="slider-area slider-area2" style="height: 70px; display: flex; align-items: center; justify-content: center;">
+  <div class="slider-active" style="width: 100%;">
+      <div class="single-slider slider-height2 d-flex align-items-center" style="width: 100%;">
+          <div class="container">
+              <h1 style=" color: white; font-weight: bold; font-size: 34px; align-self: center;">Update Course</h1>
+          </div>
+      </div>
+  </div>
+</section>
+
+<div class="container mt-5 mb-5">
+  <!-- <h1 class="mb-4 text-center">Edit Course</h1> -->
   <form [formGroup]="CourseForm" (ngSubmit)="onsubmit()" class="needs-validation" novalidate>
-    <!-- Course Inputs (Title, Description, Cover Picture, Price) -->
-    <!-- Title Input -->
-    <div class="form-floating mb-3">
-      <input
-        #inputTitle
-        formControlName="title"
-        type="text"
-        id="title"
-        class="form-control"
-        placeholder="Course Title"
-      />
-      <label for="title">Title</label>
-      <div
-        class="alert alert-danger"
-        *ngIf="
-          CourseForm.get('title')?.errors &&
-          (CourseForm.get('title')?.touched || inputTitle.value.length > 0)
-        "
-      >
-        <p *ngIf="CourseForm.get('title')?.getError('required')">
-          Title is Required
-        </p>
-        <p *ngIf="CourseForm.get('title')?.getError('minlength')">
-          Title Min Length 5
-        </p>
-        <p *ngIf="CourseForm.get('title')?.getError('maxlength')">
-          Title Max Length 30
-        </p>
+    <!-- First Row: Title and Category -->
+<div class="row mb-3">
+  <div class="col-md-6">
+      <div class="form-floating mb-3">
+          <input #inputTitle formControlName="title" type="text" id="title" class="form-control"
+              placeholder="Course Title" />
+          <label for="title">Title</label>
+          <div *ngIf="CourseForm.get('title')?.errors && (CourseForm.get('title')?.touched || inputTitle.value.length > 0)"
+              class="alert alert-danger">
+              <p *ngIf="CourseForm.get('title')?.getError('required')" class="m-0">Title is Required</p>
+              <p *ngIf="CourseForm.get('title')?.getError('minlength')" class="m-0">Title Min Length 5</p>
+              <p *ngIf="CourseForm.get('title')?.getError('maxlength')" class="m-0">Title Max Length 30</p>
+          </div>
       </div>
-    </div>
-
-    <!-- Description Input -->
-    <div class="form-floating mb-3">
-      <textarea
-        #inputDescription
-        formControlName="description"
-        id="description"
-        class="form-control"
-        placeholder="Course Description"
-        style="height: 100px;"
-      ></textarea>
-      <label for="description">Description</label>
-
-      <!-- Invalid Feedback -->
-      <div class="alert alert-danger" *ngIf="CourseForm.get('description')?.errors &&(CourseForm.get('description')?.touched ||  inputDescription.value.length > 0)">
-        <p *ngIf="CourseForm.get('description')?.getError('required')"> Description is Required</p>
-        <p *ngIf="CourseForm.get('description')?.getError('minlength')">  Description Min Length 50</p>
+  </div>
+  <div class="col-md-6">
+      <div class="form-floating mb-3">
+          <select #inputCategory formControlName="category" id="category" class="form-select"
+              aria-label="Course Category">
+              <option *ngFor="let category of categories" [value]="category.name">{{ category.name }}</option>
+          </select>
+          <label for="category">Category</label>
+          <div *ngIf="CourseForm.get('category')?.errors && (CourseForm.get('category')?.touched || inputCategory.value.length > 0)"
+              class="alert alert-danger">
+              <p *ngIf="CourseForm.get('category')?.getError('required')" class="m-0">Category is Required</p>
+          </div>
       </div>
-    </div>
+  </div>
+</div>
 
-
-    <!-- Category Input -->
-    <!-- <div class="form-floating mb-3">
-      <input #inputCategory formControlName="category" type="text" id="category" class="form-control" placeholder="Course Category"/>
-      <label for="category">Category</label>
-      <div class="alert alert-danger" *ngIf=" CourseForm.get('category')?.errors && (CourseForm.get('category')?.touched || inputCategory.value.length > 0) ">
-        <p *ngIf="CourseForm.get('category')?.getError('required')"> Category is Required</p>
-        <p *ngIf="CourseForm.get('category')?.getError('minlength')"> Category Min Length 50</p>
+<!-- Second Row: Description -->
+<div class="row mb-3">
+  <div class="col-12">
+      <div class="form-floating mb-3">
+          <textarea #inputDescription formControlName="description" id="description" class="form-control"
+              placeholder="Course Description" style="height: 100px;"></textarea>
+          <label for="description">Description</label>
+          <div *ngIf="CourseForm.get('description')?.errors && (CourseForm.get('description')?.touched || inputDescription.value.length > 0)"
+              class="alert alert-danger">
+              <p *ngIf="CourseForm.get('description')?.getError('required')" class="m-0">Description is Required</p>
+              <p *ngIf="CourseForm.get('description')?.getError('minlength')" class="m-0">Description Min Length 50</p>
+          </div>
       </div>
-    </div> -->
-    <div class="form-floating mb-3">
-      <select #inputCategory formControlName="category" id="category" class="form-select" aria-label="Course Category">
-        <option *ngFor="let category of categories" [value]="category.name">{{ category.name }}</option>
-      </select>
-      <label for="category">Category</label>
-      <div class="alert alert-danger" *ngIf=" CourseForm.get('category')?.errors && (CourseForm.get('category')?.touched || inputCategory.value.length > 0) ">
-        <p *ngIf="CourseForm.get('category')?.getError('required')">Category is Required</p>
-        <!-- <p *ngIf="CourseForm.get('category')?.getError('minlength')">Category Min Length 5</p> -->
+  </div>
+</div>
+
+<!-- Third Row: Cover Picture, Duration, Price -->
+<div class="row mb-3">
+  <!-- Cover Picture on Left -->
+  <div class="col-md-6">
+      <div class="mb-3">
+          <!-- <label for="coverPicture" class="form-label fw-bold">Cover Picture</label> -->
+          <ngx-dropzone (change)="onSelect($event)" [accept]="'image/*'">
+              <ngx-dropzone-label>Drag and Drop an Image File for Cover Picture</ngx-dropzone-label>
+              <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
+                  <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+              </ngx-dropzone-preview>
+          </ngx-dropzone>
+          <div *ngIf="CourseForm.get('coverPicture')?.invalid && CourseForm.get('coverPicture')?.touched"
+              class="alert alert-danger">
+              Cover picture is required.
+          </div>
       </div>
-    </div>
-
-
-
-    <!-- Duration Input -->
-    <div class="form-floating mb-3">
-      <input
-        #inputDuration
-        formControlName="duration"
-        type="text"
-        id="duration"
-        class="form-control"
-        placeholder="Course Duration"
-      />
-      <label for="duration">Duration</label>
-      <div
-        class="alert alert-danger"
-        *ngIf="
-          CourseForm.get('duration')?.errors &&
-          (CourseForm.get('duration')?.touched || inputDuration.value.length > 0)
-        "
-      >
-        <p *ngIf="CourseForm.get('duration')?.getError('required')">
-          Duration is Required
-        </p>
-        <p *ngIf="CourseForm.get('duration')?.getError('pattern')">
-          Duration Must be a Number
-        </p>
+  </div>
+  <!-- Duration and Price on Right -->
+  <div class="col-md-6">
+      <div class="row">
+          <div class="col-12 mb-3">
+              <div class="form-floating">
+                  <input #inputDuration formControlName="duration" type="text" id="duration" class="form-control"
+                      placeholder="Course Duration" />
+                  <label for="duration">Duration</label>
+                  <div *ngIf="CourseForm.get('duration')?.errors && (CourseForm.get('duration')?.touched || inputDuration.value.length > 0)"
+                      class="alert alert-danger">
+                      <p *ngIf="CourseForm.get('duration')?.getError('required')" class="m-0">Duration is Required</p>
+                      <p *ngIf="CourseForm.get('duration')?.getError('pattern')" class="m-0">Duration Must be a Number</p>
+                  </div>
+              </div>
+          </div>
+          <div class="col-12 mb-3">
+              <div class="form-floating">
+                  <input #inputprice formControlName="price" type="text" id="price" class="form-control"
+                      placeholder="Course Price" />
+                  <label for="price">Price</label>
+                  <div *ngIf="CourseForm.get('price')?.errors && (CourseForm.get('price')?.touched || inputprice.value.length > 0)"
+                      class="alert alert-danger">
+                      <p *ngIf="CourseForm.get('price')?.getError('required')" class="m-0">Price is Required</p>
+                      <p *ngIf="CourseForm.get('price')?.getError('pattern')" class="m-0">Price Must be a Number</p>
+                  </div>
+              </div>
+          </div>
       </div>
-    </div>
+  </div>
+</div>
 
-    <!-- CoverPicture -->
-    <div class="mb-4">
-      <label for="coverPicture" class="form-label fw-bold">Cover Picture</label>
-      <ngx-dropzone (change)="onSelect($event)" [accept]="'image/*'">
-        <ngx-dropzone-label>Drag and Drop an Image File for Cover Picture</ngx-dropzone-label>
-        <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
-          <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
-        </ngx-dropzone-preview>
-      </ngx-dropzone>
-
-      <!-- Error message for cover picture -->
-      <div class="alert alert-danger" *ngIf="CourseForm.get('coverPicture')?.invalid && CourseForm.get('coverPicture')?.touched">
-        Cover picture is required.
-      </div>
-    </div>
-
-    <!-- Price Input -->
-    <div class="form-floating mb-3">
-      <input
-        #inputprice
-        formControlName="price"
-        type="text"
-        id="price"
-        class="form-control"
-        placeholder="Course Price"
-      />
-      <label for="price">Price</label>
-      <div
-        class="alert alert-danger"
-        *ngIf="
-          CourseForm.get('price')?.errors &&
-          (CourseForm.get('price')?.touched || inputprice.value.length > 0)
-        "
-      >
-        <p *ngIf="CourseForm.get('price')?.getError('required')">
-          Price is Required
-        </p>
-        <p *ngIf="CourseForm.get('price')?.getError('pattern')">
-          Price Must be a Number
-        </p>
-      </div>
-    </div>
 
     <!-- Section Management -->
-    <h4 class="mt-4 mb-3">Sections</h4>
-    <div class="mb-3">
+    <h4 class="mt-4 mb-3" style="text-align: center;">Sections Area</h4>
+    <div class="mb-3" style="text-align: center;">
       <button type="button" class="btn btn-outline-primary btn-sm mb-3" (click)="addSection()">
         <i class="bx bx-plus-circle"></i> Add Section
       </button>
     </div>
+    
     <div class="accordion mb-4" id="sectionsAccordion" formArrayName="sections">
       <div class="accordion-item" *ngFor="let section of sections.controls; let sectionIndex = index" [formGroupName]="sectionIndex">
         <h2 class="accordion-header" id="sectionHeading{{ sectionIndex }}">
@@ -267,9 +231,9 @@
     </div>
 
     <!-- Submit Button -->
-    <div class="text-center">
-      <button class="btn btn-primary btn-lg" type="submit" [disabled]="CourseForm.invalid">
-        <i *ngIf="isLoading" class="fas fa-spinner fa-spin"></i> Submit</button>
+    <div class="text-center mt-3">
+      <button class="btn btn-primary btn-lg saveBtn" type="submit" [disabled]="CourseForm.invalid">
+        <i *ngIf="isLoading" class="fas fa-spinner fa-spin"></i> Update Course</button>
     </div>
   </form>
 </div>

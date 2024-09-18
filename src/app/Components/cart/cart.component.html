@@ -71,7 +71,7 @@
             </div>
             <!-- Price Column -->
             <span class="fw-bold text-success fs-5">{{
-              item.price | currency
+              item.price + 'EGP'
             }}</span>
           </div>
         </div>
@@ -86,7 +86,7 @@
 
     <!-- Total Price -->
     <div class="d-flex justify-content-between mb-3">
-      <span class="h2">{{ total | currency }}</span>
+      <span class="h2">{{ total + ' EGP' }}</span>
     </div>
 
     <!-- Payment Method Selection: Only displayed when total > 0 -->

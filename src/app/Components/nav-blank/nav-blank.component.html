@@ -86,8 +86,31 @@
         </div>
       </form>
 
+
+@if(!'isauth'){
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0 d-flex align-items-center">
+        <li class="nav-item">
+          <a
+            class="nav-link text-capitalize"
+            routerLink="login"
+            routerLinkActive="active"
+            >Login</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link text-capitalize"
+            routerLink="register"
+            routerLinkActive="active"
+            >Register</a
+          >
+        </li>
+      </ul>
+    }
+    @else{
       <!-- Right Side Icons -->
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0 d-flex align-items-center">
+
 
         <!-- Show when the user is not authenticated -->
         <ng-container *ngIf="!isauth; else authLinks">
@@ -190,7 +213,6 @@
         </ng-template>
       
       </ul>
-      
     </div>
   </nav>
 </div>
