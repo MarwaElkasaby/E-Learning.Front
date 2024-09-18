@@ -101,7 +101,7 @@ export class HomeComponent implements OnInit {
     console.log(this.userId);
     this._CoursesService.getAllCourses().subscribe({
       next: (response) => {
-        console.log(response);
+         
         this.courses = response;
       },
     });

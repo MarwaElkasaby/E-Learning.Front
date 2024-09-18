@@ -111,6 +111,7 @@ export const routes: Routes = [
         path: 'register',
         component: RegisterComponent,
         title: 'Taalam - Register',
+        canActivate: [authGuardLogin],
       },
       { path: 'serachResult', component: SearchResultComponent },
       // { path: 'admin', component: AdminComponent },

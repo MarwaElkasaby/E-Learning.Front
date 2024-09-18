@@ -22,11 +22,11 @@ export class WishlistComponent {
     console.log(itemId);
     this._WishlistService.removeWishListItemById(this.userId, itemId).subscribe({
       next: (response) => {
-        console.log(response);
+         
         this.courses = response
       },
       error: (err) => {
-        console.log(err);
+         
       }
     })
     console.log(this.courses);
@@ -48,11 +48,11 @@ export class WishlistComponent {
     this._WishlistService.getWishListItemsById(this.userId).subscribe(
       {
         next: (response) => {
-          console.log(response);
+           
           this.courses = response;
         },
         error: (err) => {
-          console.log(err);
+           
         }
       }
     )

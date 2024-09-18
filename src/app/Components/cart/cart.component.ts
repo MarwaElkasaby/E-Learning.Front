@@ -47,12 +47,12 @@ getCartTotal(){
       
 
       next:(response)=>{
-        console.log(response);
+         
         this.total=response.totalPrice;
         console.log(this.total)
       },
       error: (err) => {
-        console.log(err);
+         
       }
     }
   )
@@ -62,7 +62,7 @@ removeItemFromCart(itemId:any){
   console.log(itemId);
 this._CartService.removeCartItemById(this.userId, itemId).subscribe({
 next:(response)=>{
-  console.log(response);
+   
   this.courses=response
   this.getCartTotal();
 
@@ -80,7 +80,7 @@ next:(response)=>{
   })
 },
 error: (err) => {
-  console.log(err);
+   
 }
 })
 console.log(this.courses);
@@ -106,7 +106,7 @@ addToWishList(CourseId: number): void {
       console.log("deleted from cart")
     },
     error: (err) => {
-      console.log(err);
+       
     },
   })
   this.wishListService.addToWishList(CourseId).subscribe({
@@ -114,7 +114,7 @@ addToWishList(CourseId: number): void {
       console.log("moved to wishlist")
     },
     error: (err) => {
-      console.log(err);
+       
     },
   });
 }
@@ -136,11 +136,11 @@ ngOnInit(): void {
   this._CartService.getCartItemsById(this.userId).subscribe(
     {
       next:(response)=>{
-        console.log(response);
+         
         this.courses=response;
       },
       error: (err) => {
-        console.log(err);
+         
       }
     }
   )
@@ -158,22 +158,22 @@ checkOut(method : string) {
   if(method == 'card'){
     this.paymentservice.PayWithOnlineCard().subscribe({
       next: (response) => {
-        console.log(response);
+         
         window.location.href = response.data;
       },
       error: (err) => {
-        console.log(err);
+         
       }
     });
   }
   if(method == 'wallet'){
     this.paymentservice.PayWithMobileWallet(this.mobileNumber).subscribe({
       next: (response) => {
-        console.log(response);
+         
         window.location.href = response.data;
       },
       error: (err) => {
-        console.log(err);
+         
       }
     });
   }
@@ -183,11 +183,11 @@ EnrollFreeCourses(){
     this.courseService.enrollFreeCourse().subscribe({
       next: (response) =>{
         window.location.href = response.url;
-        console.log(response);
+         
         
       },
       error: (err) =>{
-        console.log(err);
+         
       }
     })
   }

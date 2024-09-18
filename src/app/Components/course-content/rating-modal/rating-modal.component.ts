@@ -59,7 +59,7 @@ export class RatingModalComponent {
           this.activeModal.close();
         },
         error: (err) => {
-          console.log(err);
+           
           this.toastr.error('Failed to update the rating.');
         },
       });
@@ -72,7 +72,7 @@ export class RatingModalComponent {
           this.activeModal.close();
         },
         error: (err) => {
-          console.log(err);
+           
           this.toastr.error('Failed to submit the rating.');
         },
       });

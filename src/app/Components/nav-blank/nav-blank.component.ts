@@ -136,13 +136,13 @@ export class NavBlankComponent implements OnInit {
     this._CategoryService.getCategories().subscribe({
       next: (response) => {
         this.categories = response;
-        console.log(response);
+         
       },
     });
 
     this.announcementservice.getAnnouncements().subscribe({
       next: (response:any) => {
-        console.log(response);
+         
         if (response.length === 0) {
           this.showsale=false;
           return;

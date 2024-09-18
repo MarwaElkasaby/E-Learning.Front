@@ -58,7 +58,7 @@ export class AddToCartComponent {
     this.cartService.addtoCart(courseId).subscribe({
       next: (response: any) => {
         this.toastr.success('Course added to cart successfully!');
-        console.log(response);
+         
         this.cartService.getCartItemsById(this.userId).subscribe({
           next: (response) => {
             this.cartno = response.length;
