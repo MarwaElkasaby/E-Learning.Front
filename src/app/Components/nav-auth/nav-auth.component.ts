@@ -75,7 +75,7 @@ export class NavAuthComponent  {
 
         this.countdown$ = this._OfferService.getCountdown(endofsaledate);
       }
-    }, 2000);
+    }, 1000);
   }
 
 
