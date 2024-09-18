@@ -35,4 +35,5 @@ export interface OwnedCourses {
   coverPicture: string;
   price: number;
   rate: number;
+  category:string;
 }

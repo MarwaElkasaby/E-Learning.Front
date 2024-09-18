@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { CategoryService } from '../../shared/services/category.service';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { CurrencyPipe } from '@angular/common';
+import { CurrencyPipe, NgFor, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-category',
   standalone: true,
-  imports: [FormsModule, RouterLink, CurrencyPipe],
+  imports: [FormsModule, RouterLink, CurrencyPipe,NgIf,NgFor],
   templateUrl: './category.component.html',
   styleUrl: './category.component.css'
 })
@@ -18,7 +18,7 @@ export class CategoryComponent implements OnInit {
   courses: any[] = [];
   pagedCourses: any[] = [];
   currentPage: number = 1;
-  pageSize: number = 6;
+  pageSize: number = 8;
   totalPages: number = 0;
   totalPagesArray: number[] = [];
 
@@ -31,7 +31,7 @@ export class CategoryComponent implements OnInit {
         this.categoryService.getCoursesByCategory(id).subscribe({
           next: (response) => {
             this.selectedCategoryId = response.id;
-            this.fetchCategories();
+            this.fetchCategories();            
           },
           error: (error) => {
             console.error('Error fetching category courses:', error);

@@ -5,6 +5,8 @@ import { ActivatedRoute } from '@angular/router';
 import { PaymentService } from '../../shared/services/payment.service';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { CourseDetailsService } from '../../shared/services/course/course-details-service/course-details.service';
+import { WishlistService } from '../../shared/services/wishlist.service';
 
 @Component({
   selector: 'app-cart',
@@ -24,9 +26,12 @@ export class CartComponent {
 
 
   constructor(
-    private _CartService:CartService, 
     private _ActivatedRoute:ActivatedRoute,
+    private _CartService:CartService, 
     private paymentservice:PaymentService,
+    private courseService:CourseDetailsService,
+    private wishListService: WishlistService
+
   )
 {
 }
@@ -80,6 +85,40 @@ error: (err) => {
 })
 console.log(this.courses);
 }
+
+
+
+addToWishList(CourseId: number): void {
+  this._CartService.removeCartItemById(this.userId,CourseId).subscribe({
+    next: (response: any) => {
+      this.courses = response;
+      this.getCartTotal();
+      
+      this._CartService.getCartItemsById(this.userId).subscribe({
+        next: (response) => {
+          this.cartno = response.length;
+       
+
+          this._CartService.cartNumber.next(this.cartno);
+        },
+      });
+
+      console.log("deleted from cart")
+    },
+    error: (err) => {
+      console.log(err);
+    },
+  })
+  this.wishListService.addToWishList(CourseId).subscribe({
+    next: (response: any) => {
+      console.log("moved to wishlist")
+    },
+    error: (err) => {
+      console.log(err);
+    },
+  });
+}
+
 
 
 ngOnInit(): void {
@@ -139,9 +178,17 @@ checkOut(method : string) {
     });
   }
 }
+
+EnrollFreeCourses(){
+    this.courseService.enrollFreeCourse().subscribe({
+      next: (response) =>{
+        window.location.href = response.url;
+        console.log(response);
+        
+      },
+      error: (err) =>{
+        console.log(err);
+      }
+    })
+  }
 }
-
-
-
-
-

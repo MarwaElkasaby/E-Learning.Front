@@ -3,38 +3,49 @@ import { CoursesService } from '../../shared/services/courses.service';
 import { CommonModule } from '@angular/common';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { CategoryService } from '../../shared/services/category.service';
-import { ActivatedRoute, RouterLink ,NavigationEnd, Router} from '@angular/router';
+import {
+  ActivatedRoute,
+  RouterLink,
+  NavigationEnd,
+  Router,
+} from '@angular/router';
 import { CarouselService } from '../../shared/services/carousel.service';
 import { FormsModule } from '@angular/forms';
 import { BackToTopService } from '../../shared/services/backtotop.service';
-
+import { CourseCardComponent } from '../course-card/course-card.component';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, RouterLink, CarouselModule, FormsModule],
+  imports: [
+    CommonModule,
+    RouterLink,
+    CarouselModule,
+    FormsModule,
+    CourseCardComponent,
+  ],
+
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
 export class HomeComponent implements OnInit {
   token!: any;
   tokendata: any;
-  username : string='';
+  username: string = '';
   role!: string;
   private subscription: any;
-  courses:any[]=[]
-  categories:any[]=[]
-  userId:any='';
-  userData:any;
+  courses: any[] = [];
+  categories: any[] = [];
+  userId: any = '';
+  userData: any;
 
-constructor (private _CoursesService: CoursesService,
-  private _CategoryService: CategoryService,
-  private _ActivatedRoute: ActivatedRoute,
-  private carouselService: CarouselService,
-  private router: Router,
-  private backToTopService:BackToTopService){
-
-    
-
+  constructor(
+    private _CoursesService: CoursesService,
+    private _CategoryService: CategoryService,
+    private _ActivatedRoute: ActivatedRoute,
+    private carouselService: CarouselService,
+    private router: Router,
+    private backToTopService: BackToTopService
+  ) {
     if (typeof window !== 'undefined') {
       this.token = localStorage.getItem('token');
     }
@@ -53,28 +64,24 @@ constructor (private _CoursesService: CoursesService,
           'http://schemas.microsoft.com/ws/2008/06/identity/claims/role'
         ]; // Role claim
       console.log(this.userId);
-      console.log(this.role)
+      console.log(this.role);
     }
-   }
+  }
 
   ngOnInit(): void {
-
-   
-
     this.carouselService.initializeCarousels();
 
     // Reinitialize carousel on route change
-    this.subscription = this.router.events.subscribe(event => {
+    this.subscription = this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.carouselService.initializeCarousels();
       }
     });
 
-
     this.backToTopService.initializeBackToTop();
 
     // Reinitialize on route change
-    this.subscription = this.router.events.subscribe(event => {
+    this.subscription = this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.backToTopService.initializeBackToTop();
       }
@@ -114,171 +121,4 @@ constructor (private _CoursesService: CoursesService,
       this.subscription.unsubscribe();
     }
   }
-  // private initCarousel(): void {
-  //   if (typeof window !== 'undefined' && typeof $ !== 'undefined') {
-  //     // Initialize owlCarousel
-  //     ($('.testimonial-carousel') as any).owlCarousel({
-  //       autoplay: true,
-  //       smartSpeed: 1000,
-  //       margin: 25,
-  //       loop: true,
-  //       center: true,
-  //       dots: false,
-  //       nav: true,
-  //       navText: [
-  //         '<i class="bi bi-chevron-left"></i>',
-  //         '<i class="bi bi-chevron-right"></i>'
-  //       ],
-  //       responsive: {
-  //         0: { items: 1 },
-  //         576: { items: 1 },
-  //         768: { items: 2 },
-  //         992: { items: 3 }
-  //       }
-  //     });
-  //   } else {
-  //     console.error('jQuery or OwlCarousel is not available');
-  //   }
-  // }
-
-  // ngAfterViewInit(): void {
-  //   this.initCarousel();
-  // }
-
-  // ngAfterViewInit(): void {
-  //   // Ensure jQuery is run after the view has fully initialized
-  //   setTimeout(() => {
-  //     this.initCarousels();
-  //   }, 0); // 0 ensures it's executed after the current execution stack
-  // }
-
-  // private initCarousels() {
-  //   if (typeof window !== 'undefined') { // Check if we are in a browser environment
-  //     ($('.project-carousel') as any).owlCarousel({
-  //       autoplay: true,
-  //       smartSpeed: 1000,
-  //       margin: 25,
-  //       loop: true,
-  //       center: true,
-  //       dots: false,
-  //       nav: true,
-  //       navText: [
-  //         '<i class="bi bi-chevron-left"></i>',
-  //         '<i class="bi bi-chevron-right"></i>'
-  //       ],
-  //       responsive: {
-  //         0: { items: 1 },
-  //         576: { items: 1 },
-  //         768: { items: 2 },
-  //         992: { items: 3 }
-  //       }
-  //     });
-
-  //     ($('.testimonial-carousel') as any).owlCarousel({
-  //       autoplay: true,
-  //       smartSpeed: 1000,
-  //       center: true,
-  //       margin: 24,
-  //       dots: true,
-  //       loop: true,
-  //       nav: false,
-  //       responsive: {
-  //         0: { items: 1 },
-  //         576: { items: 1 },
-  //         768: { items: 2 },
-  //         992: { items: 3 }
-  //       }
-  //     });
-  //   }
-  // }
-
-  // ngAfterViewInit(): void {
-  //   this.renderer.listen('window', 'load', () => {
-  //     this.initCarousels();
-  //   });
-  // }
-
-  // private initCarousels() {
-  //   if (typeof window !== 'undefined') {
-  //     ($('.project-carousel') as any).owlCarousel({
-  //       autoplay: true,
-  //       smartSpeed: 1000,
-  //       margin: 25,
-  //       loop: true,
-  //       center: true,
-  //       dots: false,
-  //       nav: true,
-  //       navText: [
-  //         '<i class="bi bi-chevron-left"></i>',
-  //         '<i class="bi bi-chevron-right"></i>'
-  //       ],
-  //       responsive: {
-  //         0: { items: 1 },
-  //         576: { items: 1 },
-  //         768: { items: 2 },
-  //         992: { items: 3 }
-  //       }
-  //     });
-
-  //     ($('.testimonial-carousel') as any).owlCarousel({
-  //       autoplay: true,
-  //       smartSpeed: 1000,
-  //       center: true,
-  //       margin: 24,
-  //       dots: true,
-  //       loop: true,
-  //       nav: false,
-  //       responsive: {
-  //         0: { items: 1 },
-  //         576: { items: 1 },
-  //         768: { items: 2 },
-  //         992: { items: 3 }
-  //       }
-  //     });
-  //   }
-  // }
-
-  // ngAfterViewInit(): void {
-  //   this.cdr.detectChanges(); // Trigger change detection
-  //   this.initCarousels();
-  // }
-
-  // private initCarousels() {
-  //   if (typeof window !== 'undefined') { // Check if we are in a browser environment
-  //     ($('.project-carousel') as any).owlCarousel({
-  //       autoplay: true,
-  //       smartSpeed: 1000,
-  //       margin: 25,
-  //       loop: true,
-  //       center: true,
-  //       dots: false,
-  //       nav: true,
-  //       navText: [
-  //         '<i class="bi bi-chevron-left"></i>',
-  //         '<i class="bi bi-chevron-right"></i>'
-  //       ],
-  //       responsive: {
-  //         0: { items: 1 },
-  //         576: { items: 1 },
-  //         768: { items: 2 },
-  //         992: { items: 3 }
-  //       }
-  //     });
-
-  //     ($('.testimonial-carousel') as any).owlCarousel({
-  //       autoplay: true,
-  //       smartSpeed: 1000,
-  //       center: true,
-  //       margin: 24,
-  //       dots: true,
-  //       loop: true,
-  //       nav: false,
-  //       responsive: {
-  //         0: { items: 1 },
-  //         576: { items: 1 },
-  //         768: { items: 2 },
-  //         992: { items: 3 }
-  //       }
-  //     });
-  //   }}
 }
