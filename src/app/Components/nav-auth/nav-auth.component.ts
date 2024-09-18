@@ -96,13 +96,13 @@ export class NavAuthComponent  {
     this._CategoryService.getCategories().subscribe({
       next: (response) => {
         this.categories = response;
-        console.log(response);
+         
       },
     });
 
     this.announcementservice.getAnnouncements().subscribe({
       next: (response:any) => {
-        console.log(response);
+         
         this.endofsale = response[0].endOfSale;
         console.log(this.endofsale);
         

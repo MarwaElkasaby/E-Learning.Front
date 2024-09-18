@@ -21,16 +21,24 @@
           <button class="btn btn-primary btn-lg cartBtn " [routerLink]="['/course/content/' , course.id]">
             go to course
           </button>
-        }@else{
+        }@else if(!isauth){
+          <button class="btn btn-primary btn-lg cartBtn " [routerLink]="['/login']">
+           Add to Cart
+          </button>
+
+        }@else {
           <button class="btn btn-primary btn-lg cartBtn " (click)="addToCart(course.id)">
             Add to Cart
           </button>
+
         }
 
-    
+        @if(!isenrolled&&isauth){
         <button class="btn btn-outline-secondary btn-lg wishlist-btn" (click)="addToWishList(course.id)" >
           <i class="fa fa-heart"></i>
         </button>
+      }
+
       </div>
     </div>
   </div>

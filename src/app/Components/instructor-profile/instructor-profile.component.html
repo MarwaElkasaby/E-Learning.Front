@@ -54,7 +54,7 @@
         <h3 class="mb-4 about-title">About Me</h3>
         <p class="about-description">{{ instructorInfo.description }}</p>
       </div>
-      
+
 
       <!-- Courses Section -->
       <div class="row">
@@ -74,17 +74,17 @@
                        {{course.description??course.title}}
                     </p>
                     <p class="card-text category-badge">{{ course.category }}</p>
-                   
+
                       <div class="progress my-1" style="max-height: 2px;" role="progressbar" aria-label="Success example"
                           aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
                              </div>
-          
+
                   <div class="row">
-                     
+
                       <p class="col" style="font-weight: bold;">
                           {{ course.price === 0 || course.price == null ? 'Free' : (course.price) + ' EGP' }}
                         </p>
-                        
+
                       <div class="row mb-3 text-center col">
                           <div class="col-12 stars">
                               <i *ngFor="let filled of [].constructor(course.rate)" class="fa fa-star fa-solid"></i>

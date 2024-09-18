@@ -69,7 +69,7 @@ export class CreateCourseComponent {
 
     // this._CategoryService.getCategories().subscribe({
     //   next: (response) => {
-    //     console.log(response);
+    //      
     //   },
     // });
   }
@@ -359,7 +359,7 @@ export class CreateCourseComponent {
     // Return the observable for video upload
     return this._UploadService.uploadVideo(formData).pipe(
       tap((response) => {
-        console.log(response);
+         
         const secureUrl = response.secure_url;
         const publicId = response.public_id; // Store public_id
 

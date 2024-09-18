@@ -55,9 +55,23 @@
   </div>
 
   <!-- Add to Cart Button for Small Screens -->
+   @if(isenrolled){
+    <div class="d-lg-none mt-4 text-center">
+      <button class="btn btn-primary btn-lg w-100" [routerLink]="['/course/content/' , course.id]">
+        Go to Course
+      </button>
+    </div>
+  }@else if(!isauth){
+  <div class="d-lg-none mt-4 text-center">
+    <button class="btn btn-primary btn-lg w-100" [routerLink]="['/login']">
+      Add to Cart
+    </button>
+  </div>
+} @else {
   <div class="d-lg-none mt-4 text-center">
     <button class="btn btn-primary btn-lg w-100" (click)="addToCart(course.id)">
       Add to Cart
     </button>
   </div>
+}
 </div>

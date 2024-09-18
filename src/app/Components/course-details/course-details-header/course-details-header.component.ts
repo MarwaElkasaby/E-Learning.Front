@@ -4,16 +4,19 @@ import { Course } from '../../../models/CourseDetails';
 import { CommonModule } from '@angular/common';
 import { CartService } from '../../../shared/services/cart.service';
 import { ToastrService } from 'ngx-toastr';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-course-details-header',
   standalone: true,
-  imports: [NgbRatingModule, CommonModule],
+  imports: [NgbRatingModule, CommonModule,RouterModule],
   templateUrl: './course-details-header.component.html',
   styleUrl: './course-details-header.component.css',
 })
 export class CourseDetailsHeaderComponent {
   @Input() course!: Course;
+  @Input()isenrolled: boolean = false;
+  @Input() isauth: boolean = false;
 
   constructor(
     private cartService: CartService,

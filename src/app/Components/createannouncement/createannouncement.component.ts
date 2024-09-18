@@ -24,7 +24,7 @@ this.announcementservice.deleteAnnouncement(id).subscribe((data:any)=>{
   this.announcements = this.announcements.filter((x)=>x.id !== id);
   this.toaster.success('Announcement deleted successfully');
 
-  console.log(data);
+    
 }, (error)=>{
   console.error('Error deleting announcement',error);
   this.toaster.error('Error deleting announcement');
@@ -43,7 +43,7 @@ onSubmitcreate() {
       }
     );
 
-      console.log(data);
+        
       this.toaster.success('Announcement created successfully');
     },
     (error)=>{
@@ -68,7 +68,7 @@ if (this.editannouncementmodel.body !== '' && this.editannouncementmodel.discoun
       this.announcements[index] = data;
     }
     this.toaster.success('Announcement updated successfully');
-    console.log(data);
+      
 
  
   },
@@ -104,7 +104,7 @@ editannouncementmodel: Announcement = {
  this.announcementservice.getAnnouncements().subscribe((data:any)=>{
 
   this.announcements = data;  
-  console.log(data);
+    
  },(error)=>{
     console.error('Error fetching announcements',error);
     alert('Error fetching announcements');

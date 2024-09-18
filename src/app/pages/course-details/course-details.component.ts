@@ -29,6 +29,9 @@ import { AddToCartComponent } from '../../Components/course-details/add-to-cart/
 export class CourseDetailsComponent implements OnInit {
   course: Course | null = null;
   ratings: ReadCourseRatingDTO[] = [];
+  httpclient: any;
+  isenrolled: boolean = false;
+  isauth: boolean = false;
 
 
 
@@ -74,6 +77,26 @@ export class CourseDetailsComponent implements OnInit {
         this.toastr.error('Failed to load course ratings.');
       },
     });
+
+    //fetch is enrolled status
+    
+      this.httpclient.get(`http://localhost:5062/api/Course/IsEnrolled/${this.course?.id}`).subscribe(
+        (data: any) => {
+          if (data.isEnrolled) {
+            this.isenrolled = true;
+            console.log(this.isenrolled);
+          } else {
+            this.isenrolled = false;
+            console.log(this.isenrolled);
+          }
+        },
+        (error:any) => {
+          // Handle error, instead of rerouting
+          console.log('Error fetching enrollment status:', error);
+          this.isauth = false; // Assuming the user is not authenticated if there's an error
+        }
+      );
+    
   }
 
   addToCart(courseId: number) {
