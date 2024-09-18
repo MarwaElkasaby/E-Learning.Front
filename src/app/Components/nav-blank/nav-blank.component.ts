@@ -117,7 +117,7 @@ export class NavBlankComponent implements OnInit {
   
   ngOnInit(): void {
 
-
+    console.log(this.isauth)
     this.cart.getCartItemsById(this.userId).subscribe({
       next:(response) =>{
         this.cart.cartNumber.next(response.length)
