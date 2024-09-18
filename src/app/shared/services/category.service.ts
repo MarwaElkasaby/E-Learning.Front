@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CategoryService {
   private apiUrl = 'http://localhost:5062/api';
@@ -16,5 +16,21 @@ export class CategoryService {
 
   getCoursesByCategory(categoryId: number): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/category/${categoryId}`);
+  }
+
+  createCategory(category: any): Observable<any> {
+    let cat = category;
+    return this.http.post(`${this.apiUrl}/category/`, cat);
+  }
+
+  deleteCategory(id: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/category/${id}`);
+  }
+
+  updateCategory(id: number, formData: FormData): Observable<any> {
+    return this.http.put<any>(
+      `http://localhost:5062/api/category/${id}`,
+      formData
+    );
   }
 }

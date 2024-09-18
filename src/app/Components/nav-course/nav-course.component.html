@@ -29,38 +29,13 @@
       </span>
 
       <!-- Right Side: Circular Progress and Share Button -->
-      <ul *ngIf="progressPercentage" class="navbar-nav ms-auto mb-2 mb-lg-0 d-flex align-items-center">
-        <!-- Circular Progress -->
-        <li class="nav-item me-4">
-          <div class="progress-circle-container">
-            <svg class="progress-circle" viewBox="0 0 36 36">
-              <path
-                class="circle-bg"
-                d="M18 2.0845
-                   a 15.9155 15.9155 0 0 1 0 31.831
-                   a 15.9155 15.9155 0 0 1 0 -31.831"
-              />
-              <path
-                class="circle"
-                [attr.stroke-dasharray]="progressPercentage + ', 100'"
-                d="M18 2.0845
-                   a 15.9155 15.9155 0 0 1 0 31.831
-                   a 15.9155 15.9155 0 0 1 0 -31.831"
-              />
-              <text x="18" y="20.35" class="progress-text">
-                {{ progressPercentage.toFixed(0) }}%
-              </text>
-            </svg>
-          </div>
-        </li>
-
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0 d-flex align-items-center">
         <li class="nav-item">
           <button
             class="btn btn-outline-primary"
             (click)="openShareModal()"
             placement="top"
-            ngbTooltip="Share this course"
-          >
+            ngbTooltip="Share this course">
             <i class="bi-share-fill me-2"></i> Share
           </button>
         </li>
