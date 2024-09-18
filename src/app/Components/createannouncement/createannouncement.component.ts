@@ -22,10 +22,13 @@ minDate: string = '';
 deleteannouncement(id: any) {
 this.announcementservice.deleteAnnouncement(id).subscribe((data:any)=>{
   this.announcements = this.announcements.filter((x)=>x.id !== id);
+  this.toaster.success('Announcement deleted successfully');
+
   console.log(data);
 }, (error)=>{
   console.error('Error deleting announcement',error);
-  alert('Error deleting announcement');
+  this.toaster.error('Error deleting announcement');
+ // alert('Error deleting announcement');
 
 
 }
