@@ -7,111 +7,103 @@
       </div>
   </div>
 </section>
-
 <div class="container mt-5 mb-5">
-
   <form [formGroup]="CourseForm" (ngSubmit)="onsubmit()" class="needs-validation" novalidate>
-    <!-- Course Inputs (Title, Description, Cover Picture, Price) -->
-    <!-- Title Input -->
-    <div class="row mb-3">
-      <div class="col-md-6">
-        <div class="form-floating">
-          <input #inputTitle formControlName="title" type="text" id="title" class="form-control"
-            placeholder="Course Title" />
-          <label for="title">Title</label>
-          <div
-            *ngIf="CourseForm.get('title')?.errors && (CourseForm.get('title')?.touched || inputTitle.value.length > 0)"
-            class="text-danger">
-            <p *ngIf="CourseForm.get('title')?.getError('required')">Title is Required</p>
-            <p *ngIf="CourseForm.get('title')?.getError('minlength')">Title Min Length 5</p>
-            <p *ngIf="CourseForm.get('title')?.getError('maxlength')">Title Max Length 30</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="form-floating">
-          <select #inputCategory formControlName="category" id="category" class="form-select"
-            aria-label="Course Category">
-            <option *ngFor="let category of categories" [value]="category.name">{{ category.name }}</option>
-          </select>
-          <label for="category">Category</label>
-          <div
-            *ngIf="CourseForm.get('category')?.errors && (CourseForm.get('category')?.touched || inputCategory.value.length > 0)"
-            class="text-danger">
-            <p *ngIf="CourseForm.get('category')?.getError('required')">Category is Required</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Second Row: Description -->
-    <div class="row mb-3">
-      <div class="col-12">
-        <div class="form-floating">
-          <textarea #inputDescription formControlName="description" id="description" class="form-control"
-            placeholder="Course Description" style="height: 100px;"></textarea>
-          <label for="description">Description</label>
-          <div
-            *ngIf="CourseForm.get('description')?.errors && (CourseForm.get('description')?.touched || inputDescription.value.length > 0)"
-            class="text-danger">
-            <p *ngIf="CourseForm.get('description')?.getError('required')">Description is Required</p>
-            <p *ngIf="CourseForm.get('description')?.getError('minlength')">Description Min Length 50</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Third Row: Cover Picture, Duration, Price -->
-    <div class="row mb-3">
-      <!-- Cover Picture on Left -->
-      <div class="col-md-6">
-        <div>
-          <!-- <label for="coverPicture" class="form-label fw-bold">Cover Picture</label> -->
-          <ngx-dropzone (change)="onSelect($event)" [accept]="'image/*'">
-            <ngx-dropzone-label>Drag and Drop an Image File for Cover Picture</ngx-dropzone-label>
-            <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
-              <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
-            </ngx-dropzone-preview>
-          </ngx-dropzone>
-          <div *ngIf="CourseForm.get('coverPicture')?.invalid && CourseForm.get('coverPicture')?.touched"
-            class="text-danger">
-            Cover picture is required.
-          </div>
-        </div>
-      </div>
-
-      <!-- Duration and Price on Right -->
-      <div class="col-md-6">
-        <div class="row">
-          <div class="col-12 mb-3">
-            <div class="form-floating">
-              <input #inputDuration formControlName="duration" type="text" id="duration" class="form-control"
-                placeholder="Course Duration" />
-              <label for="duration">Duration</label>
-              <div
-                *ngIf="CourseForm.get('duration')?.errors && (CourseForm.get('duration')?.touched || inputDuration.value.length > 0)"
-                class="text-danger">
-                <p *ngIf="CourseForm.get('duration')?.getError('required')">Duration is Required</p>
-                <p *ngIf="CourseForm.get('duration')?.getError('pattern')">Duration Must be a Number</p>
+      <!-- Course Inputs (Title, Description, Cover Picture, Price) -->
+      <!-- Title Input -->
+      <!-- First Row: Title and Category -->
+      <div class="row mb-2">
+          <div class="col-md-6">
+              <div class="form-floating mb-2">
+                  <input #inputTitle formControlName="title" type="text" id="title" class="form-control"
+                      placeholder="Course Title" />
+                  <label for="title">Title</label>
+                  <div *ngIf="CourseForm.get('title')?.errors && (CourseForm.get('title')?.touched || inputTitle.value.length > 0)"
+                      class="text-danger small">
+                      <p *ngIf="CourseForm.get('title')?.getError('required')" class="m-0">Title is Required</p>
+                      <p *ngIf="CourseForm.get('title')?.getError('minlength')" class="m-0">Title Min Length 5</p>
+                      <p *ngIf="CourseForm.get('title')?.getError('maxlength')" class="m-0">Title Max Length 30</p>
+                  </div>
               </div>
-            </div>
           </div>
-          <div class="col-12 mb-3">
-            <div class="form-floating">
-              <input #inputprice formControlName="price" type="text" id="price" class="form-control"
-                placeholder="Course Price" />
-              <label for="price">Price</label>
-              <div
-                *ngIf="CourseForm.get('price')?.errors && (CourseForm.get('price')?.touched || inputprice.value.length > 0)"
-                class="text-danger">
-                <p *ngIf="CourseForm.get('price')?.getError('required')">Price is Required</p>
-                <p *ngIf="CourseForm.get('price')?.getError('pattern')">Price Must be a Number</p>
+          <div class="col-md-6">
+              <div class="form-floating mb-2">
+                  <select #inputCategory formControlName="category" id="category" class="form-select"
+                      aria-label="Course Category">
+                      <option *ngFor="let category of categories" [value]="category.name">{{ category.name }}</option>
+                  </select>
+                  <label for="category">Category</label>
+                  <div *ngIf="CourseForm.get('category')?.errors && (CourseForm.get('category')?.touched || inputCategory.value.length > 0)"
+                      class="text-danger small">
+                      <p *ngIf="CourseForm.get('category')?.getError('required')" class="m-0">Category is Required</p>
+                  </div>
               </div>
-            </div>
           </div>
-        </div>
       </div>
-    </div>
+      <!-- Second Row: Description -->
+      <div class="row mb-2">
+          <div class="col-12">
+              <div class="form-floating mb-2">
+                  <textarea #inputDescription formControlName="description" id="description" class="form-control"
+                      placeholder="Course Description" style="height: 100px;"></textarea>
+                  <label for="description">Description</label>
+                  <div *ngIf="CourseForm.get('description')?.errors && (CourseForm.get('description')?.touched || inputDescription.value.length > 0)"
+                      class="text-danger small">
+                      <p *ngIf="CourseForm.get('description')?.getError('required')" class="m-0">Description is Required</p>
+                      <p *ngIf="CourseForm.get('description')?.getError('minlength')" class="m-0">Description Min Length 50</p>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <!-- Third Row: Cover Picture, Duration, Price -->
+      <div class="row mb-2">
+          <!-- Cover Picture on Left -->
+          <div class="col-md-6">
+              <div class="mb-2">
+                  <ngx-dropzone (change)="onSelect($event)" [accept]="'image/*'">
+                      <ngx-dropzone-label>Drag and Drop an Image File for Cover Picture</ngx-dropzone-label>
+                      <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
+                          <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                      </ngx-dropzone-preview>
+                  </ngx-dropzone>
+                  <div *ngIf="CourseForm.get('coverPicture')?.invalid && CourseForm.get('coverPicture')?.touched"
+                      class="text-danger small m-0">
+                      Cover picture is required.
+                  </div>
+              </div>
+          </div>
+          <!-- Duration and Price on Right -->
+          <div class="col-md-6">
+              <div class="row">
+                  <div class="col-12 mb-2">
+                      <div class="form-floating">
+                          <input #inputDuration formControlName="duration" type="text" id="duration" class="form-control"
+                              placeholder="Course Duration" />
+                          <label for="duration">Duration</label>
+                          <div *ngIf="CourseForm.get('duration')?.errors && (CourseForm.get('duration')?.touched || inputDuration.value.length > 0)"
+                              class="text-danger small">
+                              <p *ngIf="CourseForm.get('duration')?.getError('required')" class="m-0">Duration is Required</p>
+                              <p *ngIf="CourseForm.get('duration')?.getError('pattern')" class="m-0">Duration Must be a Number</p>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="col-12 mb-2">
+                      <div class="form-floating">
+                          <input #inputprice formControlName="price" type="text" id="price" class="form-control"
+                              placeholder="Course Price" />
+                          <label for="price">Price</label>
+                          <div *ngIf="CourseForm.get('price')?.errors && (CourseForm.get('price')?.touched || inputprice.value.length > 0)"
+                              class="text-danger small">
+                              <p *ngIf="CourseForm.get('price')?.getError('required')" class="m-0">Price is Required</p>
+                              <p *ngIf="CourseForm.get('price')?.getError('pattern')" class="m-0">Price Must be a Number</p>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  
+
 
 
 
