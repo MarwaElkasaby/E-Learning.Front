@@ -23,8 +23,14 @@ export class CategoryService {
     return this.http.post(`${this.apiUrl}/category/`, cat);
   }
 
-  deleteCategory(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/category/${id}`);
+  // deleteCategory(id: number): Observable<any> {
+  //   return this.http.delete(`${this.apiUrl}/category/${id}`);
+  // }
+
+  getCategoryById(categoryId: number): Observable<any> {
+    return this.http.get(
+      `${this.apiUrl}/Category/GetCategoryById/${categoryId}`
+    );
   }
 
   updateCategory(id: number, formData: FormData): Observable<any> {

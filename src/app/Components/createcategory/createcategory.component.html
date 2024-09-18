@@ -13,7 +13,7 @@
         <th>ID</th>
         <th>Name</th>
         <th>Image</th>
-        <th>Actions</th>
+        <!-- <th>Actions</th> -->
       </tr>
     </thead>
     <tbody>
@@ -24,11 +24,12 @@
           <img *ngIf="category.image" [src]="category.image" alt="Category Image" width="100" height="100"/>
           <span *ngIf="!category.image">No image uploaded</span>
         </td>
-        <td>
+        <!-- <td> -->
           <!-- Delete button -->
           <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateModal">Update</button> -->
           <!-- <button class="btn btn-danger" (click)="onDeleteCategory(category.id)">Delete</button> -->
-        </td>
+          <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateModal" (click)="getCategoryById(category.id)">Update</button> -->
+        <!-- </td> -->
       </tr>
     </tbody>
   </table>
@@ -75,7 +76,7 @@
             </div>
             <div class="mb-3">
               <label for="updateCategoryImage" class="form-label">Category Image</label>
-              <input type="file" class="form-control" id="updateCategoryImage" (change)="onFileSelected($event, true)" />
+              <input type="file" class="form-control" id="updateCategoryImage" (change)="onFileSelected($event)" />
               <img *ngIf="updateCategory.image" [src]="updateCategory.image" alt="Category Image" width="100" height="100"/>
             </div>
             <button type="submit" class="btn btn-primary">Update Category</button>
