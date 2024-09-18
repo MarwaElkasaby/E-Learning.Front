@@ -87,7 +87,7 @@ export class NavBlankComponent implements OnInit {
 
         this.countdown$ = this._OfferService.getCountdown(endofsaledate);
       }
-    }, 2000);
+    }, 500);
   }
 
   isNavbarOpen = false;
