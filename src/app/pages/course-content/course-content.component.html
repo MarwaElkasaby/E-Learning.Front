@@ -36,8 +36,11 @@
         (progressUpdated)="onProgressUpdated(1)"
         (nextLesson)="goToNextLesson()"
         [isLastLesson]="isLastLesson"
+        [isFirstLesson]="isFirstLesson"
+        (PrevLesson)="goToPrevLesson()"
       ></app-course-description>
       }
     </div>
   </div>
 </div>
+<app-footer></app-footer>

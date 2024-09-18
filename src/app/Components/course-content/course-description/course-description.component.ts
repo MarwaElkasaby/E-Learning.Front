@@ -9,6 +9,7 @@ import {
   NgbModal,
   NgbModalModule,
   NgbProgressbarModule,
+  NgbTooltipModule,
 } from '@ng-bootstrap/ng-bootstrap';
 import { CourseDetailsService } from '../../../shared/services/course/course-details-service/course-details.service';
 import { BehaviorSubject } from 'rxjs';
@@ -20,7 +21,7 @@ import { RatingModalComponent } from '../rating-modal/rating-modal.component';
 @Component({
   selector: 'app-course-description',
   standalone: true,
-  imports: [NgbModalModule, CommonModule, NgbProgressbarModule],
+  imports: [NgbModalModule, CommonModule, NgbProgressbarModule,NgbTooltipModule],
   templateUrl: './course-description.component.html',
   styleUrl: './course-description.component.css',
 })
@@ -29,13 +30,21 @@ export class CourseDescriptionComponent {
   @Input() progressPercentage!: number;
   @Input({ required: true }) selectedLesson!: Lesson;
   @Input() isLastLesson!: boolean;
+  @Input() isFirstLesson!:boolean;
 
   @Output() progressUpdated = new EventEmitter<void>();
 
   @Output() nextLesson = new EventEmitter<void>();
+  @Output() PrevLesson = new EventEmitter<void>();
+
 
   goToNextLesson() {
     this.nextLesson.emit(); // Notify parent component
+  }
+
+  goToPrevLession(){
+    this.PrevLesson.emit(); // Notify parent component
+
   }
 
   loadingSubject = new BehaviorSubject<boolean>(false);
