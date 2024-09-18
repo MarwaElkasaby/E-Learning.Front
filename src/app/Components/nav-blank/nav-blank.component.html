@@ -88,140 +88,109 @@
 
       <!-- Right Side Icons -->
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0 d-flex align-items-center">
-        <li class="nav-item">
-          <a
-            class="nav-link text-capitalize"
-            [routerLink]="['/instructor', userId]"
-            routerLinkActive="active"
-            >Instructor</a
-          >
-        </li>
-        <li class="nav-item">
-          <a
-            class="nav-link text-capitalize"
-            [routerLink]="['/userCourses']"
-            routerLinkActive="active"
-            >My Learning</a
-          >
-        </li>
 
-        <li class="nav-item">
-          <a
-            class="nav-link"
-            [routerLink]="['/wishlist', userId]"
-            routerLinkActive="active"
-          >
-            <i class="fas fa-heart fa-lg"></i>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a
-            class="nav-link cls-bdg"
-            [routerLink]="['/cart', userId]"
-            routerLinkActive="active"
-          >
-            <i class="fas fa-shopping-cart fa-lg">
-
-            </i>
-            <span class="badge bg-info rounded-circle " style="background-color:#6674FF !important ; position:relative;top:-15px; left:-15px ">
-              {{ getCartNumer}}
-            </span>
-          </a>
-        </li>
-
-
-        <!-- User Icon with Dropdown -->
-        <!-- User Icon with Dropdown (Updated for responsiveness) -->
-        <!-- <li
-          class="nav-item dropdown"
-          id="userDropdown"
-          [class.show]="isDropdownOpen"
-        >
-          <a
-            class="nav-link d-flex align-items-center justify-content-center text-white rounded-circle dropdown-toggle"
-            id="userDropdownMenu"
-            role="button"
-            (click)="toggleDropdown('userDropdown')"
-            aria-expanded="false"
-          >
-            <i class="fas fa-user fa-lg"></i>
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="userDropdownMenu">
-            <li>
-              <a class="dropdown-item" [routerLink]="['/userProfile', userId]"
-                >Profile</a
-              >
-            </li>
-            <li>
-              <a class="dropdown-item" [routerLink]="['/userCourses', userId]"
-                >My Learning</a
-              >
-            </li>
-            <li>
-              <a class="dropdown-item" [routerLink]="['/logout']">Log Out</a>
-            </li>
-          </ul>
-        </li>
-
-         -->
-        <!-- User Icon with Dropdown (Updated for responsiveness) -->
-          <li class="nav-item dropdown" id="userDropdown">
-          <a
-            class="nav-link d-flex align-items-center justify-content-center text-white rounded-circle dropdown-toggle"
-            id="userDropdownMenu"
-            role="button"
-            (click)="toggleDropdown('userDropdown')"
-            aria-expanded="false"
-          >
-            <i class="fas fa-user fa-lg"></i>
-          </a>
-          
-          <!-- admin -->
-          <ul *ngIf="role =='Admin'"
-          class="dropdown-menu"
-          [ngClass]="{ show: isDropdownOpen['userDropdown'] }"
-          aria-labelledby="userDropdownMenu"
-        >
-        <li>
-          <a class="dropdown-item" routerLink="admin">DashBoard</a>
-        </li>
-          <li>
-            <a class="dropdown-item" [routerLink]="['/userProfile', userId]"
-              >Profile</a
+        <!-- Show when the user is not authenticated -->
+        <ng-container *ngIf="!isauth; else authLinks">
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/login']">Sign In</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/register']">Register</a>
+          </li>
+        </ng-container>
+      
+        <!-- Show when the user is authenticated -->
+        <ng-template #authLinks>
+          <li class="nav-item">
+            <a
+              class="nav-link text-capitalize"
+              [routerLink]="['/instructor', userId]"
+              routerLinkActive="active"
+              >Instructor</a
             >
           </li>
-          <li>
-            <a class="dropdown-item" [routerLink]="['/userCourses']"
+          <li class="nav-item">
+            <a
+              class="nav-link text-capitalize"
+              [routerLink]="['/userCourses']"
+              routerLinkActive="active"
               >My Learning</a
             >
           </li>
-          <li>
-            <a class="dropdown-item" (click)="logout()">Log Out</a>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              [routerLink]="['/wishlist', userId]"
+              routerLinkActive="active"
+            >
+              <i class="fas fa-heart fa-lg"></i>
+            </a>
           </li>
-        </ul>
+          <li class="nav-item">
+            <a
+              class="nav-link cls-bdg"
+              [routerLink]="['/cart', userId]"
+              routerLinkActive="active"
+            >
+              <i class="fas fa-shopping-cart fa-lg"></i>
+              <span class="badge bg-info rounded-circle" 
+                    style="background-color: #6674FF !important; position: relative; top: -15px; left: -15px;">
+                {{ getCartNumer }}
+              </span>
+            </a>
+          </li>
       
-          <!-- user -->
-          <ul *ngIf="role =='User'"
-            class="dropdown-menu"
-            [ngClass]="{ show: isDropdownOpen['userDropdown'] }"
-            aria-labelledby="userDropdownMenu"
-          >
-            <li>
-              <a class="dropdown-item" [routerLink]="['/userProfile', userId]"
-                >Profile</a
-              >
-            </li>
-            <li>
-              <a class="dropdown-item" [routerLink]="['/userCourses']"
-                >My Learning</a
-              >
-            </li>
-            <li>
-              <a class="dropdown-item" (click)="logout()">Log Out</a>
-            </li>
-          </ul>
-        </li>
+          <!-- User Icon with Dropdown (Updated for responsiveness) -->
+          <li class="nav-item dropdown" id="userDropdown">
+            <a
+              class="nav-link d-flex align-items-center justify-content-center text-white rounded-circle dropdown-toggle"
+              id="userDropdownMenu"
+              role="button"
+              (click)="toggleDropdown('userDropdown')"
+              aria-expanded="false"
+            >
+              <i class="fas fa-user fa-lg"></i>
+            </a>
+      
+            <!-- Admin Links -->
+            <ul *ngIf="role == 'Admin'" 
+                class="dropdown-menu" 
+                [ngClass]="{ show: isDropdownOpen['userDropdown'] }"
+                aria-labelledby="userDropdownMenu">
+              <li>
+                <a class="dropdown-item" routerLink="admin">DashBoard</a>
+              </li>
+              <li>
+                <a class="dropdown-item" [routerLink]="['/userProfile', userId]">Profile</a>
+              </li>
+              <li>
+                <a class="dropdown-item" [routerLink]="['/userCourses']">My Learning</a>
+              </li>
+              <li>
+                <a class="dropdown-item" (click)="logout()">Log Out</a>
+              </li>
+            </ul>
+      
+            <!-- User Links -->
+            <ul *ngIf="role == 'User'" 
+                class="dropdown-menu" 
+                [ngClass]="{ show: isDropdownOpen['userDropdown'] }"
+                aria-labelledby="userDropdownMenu">
+              <li>
+                <a class="dropdown-item" [routerLink]="['/userProfile', userId]">Profile</a>
+              </li>
+              <li>
+                <a class="dropdown-item" [routerLink]="['/userCourses']">My Learning</a>
+              </li>
+              <li>
+                <a class="dropdown-item" (click)="logout()">Log Out</a>
+              </li>
+            </ul>
+          </li>
+        </ng-template>
+      
       </ul>
+      
     </div>
   </nav>
 </div>
