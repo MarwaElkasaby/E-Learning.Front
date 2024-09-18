@@ -42,7 +42,7 @@ export const authGuard: CanActivateFn = (route, state) => {
     // }
 
     if (typeof window !== 'undefined') {
-      if (localStorage.getItem('token') && cookiesservice.get('taalam')) {
+      if (localStorage.getItem('token') || cookiesservice.get('taalam')) {
         _Router.navigate(['/home']);
         return false;
       } else {

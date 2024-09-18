@@ -48,8 +48,10 @@ export class AdminTableComponent implements OnInit {
      this.userservice.approveuser(id).subscribe({
         next: (response) => {
           console.log(response);
+          this.toaster.success('User Approved Successfully');
         },
         error: (err) => {
+          this.toaster.error('Error in approving user');
           console.log(err);
         }
       });
