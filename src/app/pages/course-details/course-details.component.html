@@ -4,7 +4,7 @@
     <div class="row">
       <!-- Left Column: Course Details -->
       <div class="col-lg-8">
-        <app-course-details-header [isenrolled]="isenrolled" [isauth]="isauth" [course]="course"></app-course-details-header>
+        <app-course-details-header [course]="course"></app-course-details-header>
         <app-sections-list [sections]="course.sections"></app-sections-list>
         @if(ratings){
         <app-rating-card [ratings]="ratings"></app-rating-card>
