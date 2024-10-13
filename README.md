@@ -24,6 +24,19 @@ This project requires a backend API to function properly. You can find the backe
 ```bash
 ng serve
 ```
+# Features
+- **Course Categorization:** Organize courses by topics and categories for easy navigation.
+- **Authentication and Authorization:** Secure login with role-based access using JWT.
+- **Course Search, Sorting, and Pagination:** Efficiently find courses through filters.
+- **Course Creation, Editing, and Deletion:** Full CRUD operations for instructors.
+- **Progress Monitoring:** Track student progress on a per-course basis.
+- **Cart and Wishlist:** Add courses to cart for purchase or save for later in the Wishlist.
+- **Certificate of Completion:** Automatically generate certificates upon course completion.
+- **Rating System:** Students can rate and review courses.
+- **Google Sign-In Integration:** Simple authentication through Google.
+- **Cloudinary Video Integration:** Seamless video storage and delivery via Cloudinary.
+- **Payment Gateway Integration (Paymob):** Secure payment handling for paid courses.
+
 
 # Screenshots
 
